@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply min-h-screen bg-[#cbdcf7] font-medium;
+  }
+
+  h1 {
+    @apply text-4xl font-semibold;
+  }
+  h2 {
+    @apply text-3xl font-semibold;
+  }
+
+  .center {
+    @apply absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
