@@ -28,7 +28,7 @@ function Card({
   size = "small",
 }: Props) {
   const [imgSrc, setImgSrc] = useState(imgUrl);
-  console.log("channelId", channelId);
+  // console.log("channelId", channelId);
   function handleImageError() {
     setImgSrc("/static/jp.jpg");
   }

@@ -54,8 +54,8 @@ function Navbar() {
 
   return (
     <nav
-      className="fixed left-0 top-0 z-50 flex w-full gap-8 rounded-b-lg bg-sky-50/50 px-10
-                 pb-6 pt-4 text-black shadow backdrop-blur-sm"
+      className="fixed left-0 top-0 z-50 flex w-full gap-8 rounded-b-lg bg-sky-50/90 px-10
+                 pb-6 pt-4 text-black shadow backdrop-blur"
     >
       <Logo />
       <ul className="flex  gap-4">

@@ -24,7 +24,7 @@ function SectionCard({
       scrollContainerRef.current.scrollLeft += e.deltaY;
     }
   };
-  console.log({ videos });
+  // console.log({ videos });
 
   return (
     <section

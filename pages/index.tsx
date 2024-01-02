@@ -30,7 +30,7 @@ export default function Home({
     { imgUrl: "/static/Lewishowes.jpg", linkTo: "/lecturers/Lewishowes" },
     { imgUrl: "/static/Lewishowes.jpg", linkTo: "/lecturers/Lewishowes" },
   ];
-  console.log({ magic });
+  // console.log({ magic });
 
   return (
     <div>
