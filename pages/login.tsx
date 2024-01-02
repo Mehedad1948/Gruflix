@@ -1,17 +1,47 @@
+import { magic } from "@/lib/magic-client";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
-  function handleLogin(e: FormEvent<HTMLFormElement>) {
+
+  useEffect(() => {
+    const handleComplete = () => {
+      setIsLoading(false);
+    };
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off("routeChangeError", handleComplete);
+    };
+  }, [router]);
+
+  async function handleLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (email.length === 0) {
       setMsg("Please enter your email address");
     } else {
-      router.push("/");
+      setIsLoading(true);
+      // log in a user by their email
+      try {
+        const didToken = await magic.auth.loginWithMagicLink({
+          email,
+        });
+        if (didToken) {
+          router.push("/");
+        }
+      } catch {
+        // Handle errors if required!
+        setIsLoading(false);
+        console.error("Something went wrong in login");
+      }
     }
   }
   return (
@@ -45,18 +75,20 @@ function Login() {
 
               <p
                 className={`${
-                  msg.length > 0 ? "translate-y-6 rotate-0" : "translate-y-0 -rotate-3"
-                } absolute bottom-0 z-0 font-medium text-rose-600 origin-bottom-left
+                  msg.length > 0
+                    ? "translate-y-6 rotate-0"
+                    : "translate-y-0 -rotate-3"
+                } absolute bottom-0 z-0 origin-bottom-left font-medium text-rose-600
                 transition-transform duration-300`}
               >
                 {msg}
               </p>
             </label>
             <button
-              className="w-full rounded bg-gradient-to-tr from-slate-900 to-slate-700
-                          py-2 font-medium text-white mt-6"
+              className="mt-6 w-full rounded bg-gradient-to-tr from-slate-900
+                          to-slate-700 py-2 font-medium text-white"
             >
-              Login
+              {isLoading ? "Loading..." : "Login"}
             </button>
           </form>
         </main>

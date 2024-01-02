@@ -1,6 +1,7 @@
 import { MutableRefObject, WheelEventHandler, useRef } from "react";
 import Card, { CardSizes } from "./Card";
 import { IoIosArrowForward } from "react-icons/io";
+import Link from "next/link";
 
 interface Props {
   videos: any;
@@ -23,6 +24,8 @@ function SectionCard({
       scrollContainerRef.current.scrollLeft += e.deltaY;
     }
   };
+  console.log({ videos });
+
   return (
     <section
       className={
@@ -47,7 +50,9 @@ function SectionCard({
                    pt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[repeat(10,_300px)]"
       >
         {videos.map((video: any) => (
-          <Card video={video} key={video.id} size={size} />
+          <Link key={video.id} href={`/video/${video.id}`}>
+            <Card video={video} size={size} />
+          </Link>
         ))}
       </div>
     </section>

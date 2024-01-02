@@ -33,8 +33,8 @@ function Card({
     setImgSrc("/static/jp.jpg");
   }
   return (
-    <Link
-      href={`/lecturers/${channelId}`}
+    <div
+      
       className="max-w group relative z-0 flex w-full grow cursor-pointer flex-col  overflow-hidden rounded-md
                  border-2 border-blue-950 bg-gray-900 pb-3 text-white shadow-lg transition-all duration-500
                  hover:z-10 hover:scale-105"
@@ -67,7 +67,7 @@ function Card({
       <div className="px-2 pt-2">
         <h3 className="">{title}</h3>
       </div>
-    </Link>
+    </div>
   );
 }
 

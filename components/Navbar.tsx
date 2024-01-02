@@ -1,13 +1,51 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useOutsideClick } from "@/hooks/useOutsideClick";
-import Logo from "./Logo";
+import Logo from "./atoms/Logo";
 import { useRouter } from "next/router";
 import Link from "next/link";
-function Navbar({ username }: { username: string }) {
+import { magic } from "@/lib/magic-client";
+function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const ref = useOutsideClick<HTMLButtonElement>(
+  const [username, setUsername] = useState("");
+  const [isLoading, setIsloading] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      const logout = await magic.user.logout();
+      setIsloading(true);
+      const isLoggedIn = await magic.user.isLoggedIn(); // => `false`
+      if (!isLoggedIn) {
+        setIsloading(false);
+        setUsername("");
+      }
+    } catch {
+      // Handle errors if required!
+      console.error("Error in getting user data");
+    }
+  };
+
+  useEffect(() => {
+    const getUser = async () => {
+      // Assumes a user is already logged in
+      try {
+        setIsloading(true);
+        const userInfo = await magic.user.getInfo();
+
+        if (userInfo) {
+          setIsloading(false);
+          setUsername(userInfo.email);
+        }
+      } catch (err) {
+        setIsloading(false);
+        console.error("Error in getting user data", err);
+      }
+    };
+    getUser();
+  }, []);
+
+  const ref = useOutsideClick<HTMLDivElement>(
     () => setIsMenuOpen(false),
     false,
   );
@@ -28,20 +66,34 @@ function Navbar({ username }: { username: string }) {
       <span className="grow"></span>
 
       <div className="relative h-fit">
-        <button
+        <div
           ref={ref}
           onClick={() => setIsMenuOpen((state) => !state)}
           className="flex  items-center gap-2"
         >
-          <p>{username}</p>
+          <div>
+            {isLoading ? (
+              "Authenticating..."
+            ) : username.length > 0 ? (
+              username
+            ) : (
+              <button
+                type="button"
+                className="inline"
+                onClick={() => router.push("/login")}
+              >
+                Login
+              </button>
+            )}
+          </div>
           <MdKeyboardArrowDown />
-        </button>
+        </div>
         {isMenuOpen && (
           <div
             className="absolute -bottom-11 right-0 w-32 rounded border-2 border-sky-200 bg-sky-100/70
                        px-2 py-1 text-center backdrop-blur-sm"
           >
-            <a>Sign out</a>
+            <button onClick={handleLogout}>Sign out</button>
           </div>
         )}
       </div>

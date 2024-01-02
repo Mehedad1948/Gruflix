@@ -4,6 +4,7 @@ import Banner from "@/components/Banner";
 import Card from "@/components/Card";
 import SectionCard from "@/components/SectionCard";
 import { getVideos } from "@/lib/video";
+import { magic } from "@/lib/magic-client";
 
 export async function getStaticProps() {
   const reactVideos = await getVideos("reactjs");
@@ -24,12 +25,13 @@ export default function Home({
 }: Props) {
   const [colorMode, setColorMode] = useColorMode();
 
-
   const videosSample = [
     { imgUrl: "/static/Lewishowes.jpg", linkTo: "/lecturers/Lewishowes" },
     { imgUrl: "/static/Lewishowes.jpg", linkTo: "/lecturers/Lewishowes" },
     { imgUrl: "/static/Lewishowes.jpg", linkTo: "/lecturers/Lewishowes" },
   ];
+  console.log({ magic });
+
   return (
     <div>
       <Head>

@@ -1,4 +1,4 @@
-import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 import {
   ReactNode,
   cloneElement,
@@ -8,12 +8,12 @@ import {
   Dispatch,
   ReactElement,
   JSXElementConstructor,
-} from "react";
-import { createPortal } from "react-dom";
-import { IoCloseCircleOutline } from "react-icons/io5";
+} from 'react';
+import { createPortal } from 'react-dom';
+import { IoCloseCircleOutline } from "react-icons/io5"
 const initialValues: Context = {
   open: () => {},
-  openName: "",
+  openName: '',
   close: () => {},
 };
 
@@ -26,9 +26,9 @@ interface Context {
 export const ModalContext = createContext(initialValues);
 
 function Modal({ children }: { children: ReactNode }) {
-  const [openName, setOpenName] = useState("");
+  const [openName, setOpenName] = useState('');
 
-  const close = () => setOpenName("");
+  const close = () => setOpenName('');
   const open = setOpenName;
 
   return (
@@ -52,22 +52,22 @@ function Open({ children, opens: opensWindowName }: OpenProps) {
 interface WindowProps {
   children: ReactElement<any, string | JSXElementConstructor<any>>;
   name: string;
-  size?: "sm" | "md" | "lg" | "xl" | "xxl";
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 }
 
 const sizes = {
-  sm: "sm:max-w-lg",
-  md: "sm:max-w-2xl",
-  lg: "sm:max-w-3xl",
-  xl: "sm:max-w-5xl",
-  xxl: "sm:max-w-[70vw]",
+  sm: 'sm:max-w-lg',
+  md: 'sm:max-w-2xl',
+  lg: 'sm:max-w-3xl',
+  xl: 'sm:max-w-5xl',
+  xxl: 'sm:max-w-[70vw]',
 };
 
 type AdditionalProps = {
   onCloseModal: () => void;
 };
 
-function Window({ children, name, size = "sm" }: WindowProps) {
+function Window({ children, name, size = 'sm' }: WindowProps) {
   const { openName, close } = useContext(ModalContext);
 
   const ref = useOutsideClick(close);
@@ -75,39 +75,39 @@ function Window({ children, name, size = "sm" }: WindowProps) {
 
   return createPortal(
     <div
-      className="fixed left-0 top-0 z-50 flex min-h-screen w-screen items-center
-                 justify-center bg-stone-700/10 backdrop-blur-sm "
+      className='fixed left-0 top-0 z-50 flex min-h-screen w-screen items-center
+                 justify-center bg-stone-700/10 backdrop-blur-sm '
     >
       <div
         onClick={() => close()}
-        className="absolute z-0 h-full w-full bg-stone-700/10 backdrop-blur-sm"
+        className='bg-stone-700/10 backdrop-blur-sm w-full h-full absolute z-0'
       ></div>
       <div
         // ref={ref}
         className={
           sizes[size] +
-          " " +
-          `fixed bottom-0 right-0 z-30 flex  !w-screen flex-col
-            gap-1 rounded bg-white shadow-lg transition-transform
-            duration-300 sm:relative sm:translate-y-0 sm:rounded-md`
+          ' ' +
+          `bg-white !w-screen rounded sm:rounded-md sm:translate-y-0  flex flex-col
+            gap-1 transition-transform duration-300 shadow-lg sm:relative
+            fixed bottom-0 right-0 z-30`
         }
       >
         <button
           onClick={close}
-          className="sticky left-0 top-0 z-20 -mb-6 flex aspect-square w-fit items-center justify-center
-                      self-end rounded-br rounded-tl bg-rose-500 p-2 text-white
-                       transition-colors duration-200 hover:bg-rose-600"
+          className='sticky w-fit top-0 left-0 p-2 rounded-br rounded-tl bg-rose-500 text-white aspect-square
+                      flex items-center justify-center hover:bg-rose-600 transition-colors duration-200
+                       self-end -mb-6 z-20'
         >
-          <span className="flex origin-center scale-125">
+          <span className='scale-125 origin-center flex'>
             <IoCloseCircleOutline />
           </span>
         </button>
-        <div className=" max-h-[75vh]  overflow-y-auto px-4 pb-8 sm:pb-3">
+        <div className=' max-h-[75vh]  pb-8 sm:pb-3 px-4 overflow-y-auto'>
           {cloneElement(children, { onCloseModal: close } as AdditionalProps)}
         </div>
       </div>
     </div>,
-    document.body,
+    document.body
   );
 }
 
