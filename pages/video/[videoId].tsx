@@ -4,7 +4,7 @@ import { videoById } from "@/lib/videoById";
 import { VideoData } from "@/models/videos";
 import { GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const { videoId } = context.params as { videoId: string };
@@ -34,6 +34,56 @@ const Video = ({ video }: { video: VideoData }) => {
 
   const router = useRouter();
   const { videoId } = router.query;
+
+  useEffect(() => {
+    if (!videoId) {
+      return;
+    }
+    const getStats = async () => {
+      const response = await fetch(`/api/stats?videoId=${videoId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const result = await response.json();
+      const video = result.video;
+      if (video) {
+        setFavourited(video.favourited);
+        if (!video.watched) {
+          const response = await fetch("/api/stats", {
+            method: "POST",
+            body: JSON.stringify({
+              videoId,
+              favourited: video.favourited,
+              watched: true,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((resalt) => resalt.json())
+            .then((data) => console.log({ data }));
+        }
+      } else {
+        const response = await fetch("/api/stats", {
+          method: "POST",
+          body: JSON.stringify({
+            videoId,
+            favourited: 0,
+            watched: true,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((resalt) => resalt.json())
+          .then((data) => console.log({ data }));
+      }
+    };
+    getStats();
+  }, [videoId]);
+
   return (
     <div
       className={`${
@@ -69,7 +119,7 @@ const Video = ({ video }: { video: VideoData }) => {
                 .then((resalt) => resalt.json())
                 .then((data) => console.log({ data }));
             }}
-            className="absolute bottom-16 left-1 w-6"
+            className="absolute bottom-16 left-2 w-6"
             checked={favourited === 1}
           />
         </div>

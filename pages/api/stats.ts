@@ -8,38 +8,39 @@ interface DecodedToken {
 }
 
 const stats = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log(req.method);
-
-  if (req.method === "POST") {
+  try {
+    // Finding related video correspand to the user
     const token = req.cookies.token;
-    try {
-      if (!token) {
-        res.status(403).send("Not Allowed");
-      } else {
-        let decodedToken = jwt.verify(
-          token,
-          process.env.JWT_SECRET as string,
-        ) as DecodedToken;
+    if (!token) {
+      res.status(403).send("Not Allowed");
+    } else {
+      let decodedToken = jwt.verify(
+        token,
+        process.env.JWT_SECRET as string,
+      ) as DecodedToken;
 
-        const userId = decodedToken.issuer;
-        const { videoId, favourited, watched = true } = req.body;
+      const userId = decodedToken.issuer;
+      const videoId = req.body.videoId || req.query.videoId;
+      if (!videoId) {
+        res
+          .status(422)
+          .send({ done: false, error: "No videoId is provided", videoId });
+      }
 
-        if (!videoId) {
-          res
-            .status(422)
-            .send({ done: false, error: "No videoId is provided" });
-        }
-        
-        const findVideo = await findVideoIdByUser({
-          userId,
-          videoId,
-          token,
-        });
+      const findVideo = await findVideoIdByUser({
+        userId,
+        videoId,
+        token,
+      });
 
-        const doesStatsExists = findVideo && findVideo?.length > 0;
+      const doesStatsExists = findVideo && findVideo?.length > 0;
+
+      if (req.method === "POST") {
+        // handle post request to tweak stats: facourited & watched
+        const { favourited, watched = true } = req.body;
 
         if (doesStatsExists) {
-          //  Favourited is set to be optional, if its not provided it would
+          //  Favourited is set to be optional, if its not provided it would tweak it
           let favouritedHolder = favourited;
           if (!favouritedHolder) {
             favouritedHolder = findVideo[0].favourited === 0 ? 1 : 0;
@@ -52,7 +53,7 @@ const stats = async (req: NextApiRequest, res: NextApiResponse) => {
             userId,
             videoId,
           });
-          res.send({ done: true, data: response, doesStatsExists, findVideo });
+          res.send({ done: true, data: response, doesStatsExists, video: findVideo[0] });
         } else {
           const response = await createStats({
             token,
@@ -63,56 +64,19 @@ const stats = async (req: NextApiRequest, res: NextApiResponse) => {
           });
           res.send({ done: true, data: response, doesStatsExists });
         }
-
-        // res.send({ done: true, doesStatsExists });
-      }
-    } catch (error: any) {
-      res.status(500).send({ done: false, error });
-    }
-  } else {
-    const token = req.cookies.token;
-    console.log("Getting");
-
-    try {
-      if (!token) {
-        res.status(403).send("Not Allowed");
       } else {
-        let decodedToken = jwt.verify(
-          token,
-          process.env.JWT_SECRET as string,
-        ) as DecodedToken;
-
-        const userId = decodedToken.issuer;
-        const { videoId } = req.query;
-        console.log("my video id", videoId);
-
-        if (!videoId) {
-          res
-            .status(422)
-            .send({ done: false, error: "No videoId is provided" });
-        }
-
-        const findVideo = await findVideoIdByUser({
-          userId,
-          videoId: videoId as string,
-          token,
-        });
-
-        const doesStatsExists = findVideo && findVideo?.length > 0;
-
+        //  Get Request
         if (doesStatsExists) {
-          res.send({ done: true, findVideo });
+          res.send({ done: true, video: findVideo[0] });
         } else {
           res
             .status(404)
             .send({ done: true, msg: "Video not Found", user: null });
         }
-
-        // res.send({ done: true, doesStatsExists });
       }
-    } catch (error: any) {
-      res.status(500).send({ done: false, error });
     }
+  } catch (error: any) {
+    res.status(500).send({ done: false, error });
   }
 };
 
