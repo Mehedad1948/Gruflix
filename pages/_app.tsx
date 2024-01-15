@@ -5,6 +5,9 @@ import Navbar from "@/components/Navbar";
 import { useEffect, useState } from "react";
 import { magic } from "@/lib/magic-client";
 import { useRouter } from "next/router";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -38,8 +41,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <main className={`${montserrat.variable} font-sans`}>
-      <Navbar />
-      <Component {...pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <Navbar />
+        <Component {...pageProps} />
+      </QueryClientProvider>
     </main>
   );
 }

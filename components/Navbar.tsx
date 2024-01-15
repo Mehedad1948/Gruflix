@@ -32,6 +32,8 @@ function Navbar() {
       try {
         setIsloading(true);
         const userInfo = await magic.user.getInfo();
+        const didToken = await magic.user.getIdToken();
+        console.log({ didToken });
 
         if (userInfo) {
           setIsloading(false);

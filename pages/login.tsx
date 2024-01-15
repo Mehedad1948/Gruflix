@@ -2,6 +2,7 @@ import { magic } from "@/lib/magic-client";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -35,12 +36,28 @@ function Login() {
           email,
         });
         if (didToken) {
-          router.push("/");
+          const response = await fetch("/api/login", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${didToken}`,
+              "Content-Type": "application/json",
+            },
+          });
+
+          const loggedInResponse = await response.json();
+          if (loggedInResponse.done) {
+            router.push("/");
+            setIsLoading(false);
+          } else {
+            setIsLoading(false);
+            throw new Error("Something went wrong in login");
+          }
         }
-      } catch {
+      } catch (err) {
         // Handle errors if required!
         setIsLoading(false);
-        console.error("Something went wrong in login");
+        console.error(err);
+        toast.error("Something went wrong in login");
       }
     }
   }

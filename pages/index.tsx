@@ -5,6 +5,8 @@ import Card from "@/components/Card";
 import SectionCard from "@/components/SectionCard";
 import { getVideos } from "@/lib/video";
 import { magic } from "@/lib/magic-client";
+import { queryHasuraGQL } from "@/lib/db/hasura";
+import { useEffect } from "react";
 
 export async function getStaticProps() {
   const reactVideos = await getVideos("reactjs");
@@ -24,13 +26,31 @@ export default function Home({
   threejsVideos,
 }: Props) {
   const [colorMode, setColorMode] = useColorMode();
-
   const videosSample = [
     { imgUrl: "/static/Lewishowes.jpg", linkTo: "/lecturers/Lewishowes" },
     { imgUrl: "/static/Lewishowes.jpg", linkTo: "/lecturers/Lewishowes" },
     { imgUrl: "/static/Lewishowes.jpg", linkTo: "/lecturers/Lewishowes" },
   ];
-  // console.log({ magic });
+
+  useEffect(() => {
+    const get = async () => {
+      const user = await queryHasuraGQL(
+        `query MyQuery {
+    users(where: {issuer: {_eq: "test"}})
+    {
+      id, 
+      email,
+      issuer
+    }
+  }`,
+        "MyQuery",
+        {},
+        "WyIweGY0MWEyOGU3YjZjZjNkMzNhZDFkMjA4MmY2NWNkNTBlMzhhYWU3MGY4ZDVmZDYzN2I4OWY4MmY5YjBjZDYxYTk2MmFjNWM2MGVkYmUxMDQwMzQ3YTMyNjMzNzJiNzgyYmZjZDE0ZGZlNWZjYzQxMzAyOTQwMWRkMWZjZWViY2U4MWIiLCJ7XCJpYXRcIjoxNzA0NzMzODAwLFwiZXh0XCI6MTcwNDczNDcwMCxcImlzc1wiOlwiZGlkOmV0aHI6MHg3RTk4MUZjNzQ4NzljQmRkMDE4ZjFFMjk5NkJlN0JDNTQ4ZDJDNTQ5XCIsXCJzdWJcIjpcIjFrMkg2MzU2eXBmdk5KWUxidnJ3aEJ5V05kYUVOY3VyMnFSbWkyVUVLbUk9XCIsXCJhdWRcIjpcIkRxT3oyampLR3htVXAwaWZ4ZTVDYnUycmFpblZidUs2M1JhUlBUM2lCdjQ9XCIsXCJuYmZcIjoxNzA0NzMzODAwLFwidGlkXCI6XCI0NGZlYmVlZC05MGQ1LTQwNDMtOTA3My05YzBlNzRmYTU4YWRcIixcImFkZFwiOlwiMHhlNWYwNTJmNzQzNTk1YmM4MWRiNTRlY2NiZGNlMjNmMjAzNWNlNzU0MjdkMGE0OGQ2YTNhZWMxZDZjMTg3NTA4MWNhYzcxODQyOTFhMGNlMDc4YjMwM2E2NTJlOGIxMjBlOWQyNzZkZTEwNTE0N2I5M2UxYWM4NjNjNTE1NjE1MDFiXCJ9Il0=",
+      );
+      // console.log({ user });
+    };
+    get();
+  }, []);
 
   return (
     <div>

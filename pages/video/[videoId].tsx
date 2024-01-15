@@ -1,4 +1,5 @@
 import Modal from "@/components/Modal";
+import Bookmark from "@/components/atoms/icons/bookmark";
 import { videoById } from "@/lib/videoById";
 import { VideoData } from "@/models/videos";
 import { GetStaticPropsContext } from "next";
@@ -28,9 +29,11 @@ export async function getStaticPaths() {
 }
 
 const Video = ({ video }: { video: VideoData }) => {
+  const [theaterMode, setTheaterMode] = useState(false);
+  const [favourited, setFavourited] = useState<0 | 1>(0);
+
   const router = useRouter();
   const { videoId } = router.query;
-  const [theaterMode, setTheaterMode] = useState(false);
   return (
     <div
       className={`${
@@ -40,15 +43,36 @@ const Video = ({ video }: { video: VideoData }) => {
     >
       <div></div>
       <div>
-        <iframe
-          id="player"
-          // type="text/html"
-          className={`${
-            theaterMode ? "!h-[80vh]" : ""
-          } mx-auto aspect-[16/9] w-full rounded-md`}
-          src={`http://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com&rel=1`}
-          // frameborder="0"
-        ></iframe>
+        <div className="relative">
+          <iframe
+            id="player"
+            // type="text/html"
+            className={`${
+              theaterMode ? "!h-[80vh]" : ""
+            } mx-auto aspect-[16/9] w-full rounded-md`}
+            src={`http://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com&rel=1`}
+            // frameborder="0"
+          ></iframe>
+          <Bookmark
+            onClick={async () => {
+              setFavourited((s) => (s === 0 ? 1 : 0));
+              const response = await fetch("/api/stats", {
+                method: "POST",
+                body: JSON.stringify({
+                  videoId,
+                  favourited: favourited === 0 ? 1 : 0,
+                }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              })
+                .then((resalt) => resalt.json())
+                .then((data) => console.log({ data }));
+            }}
+            className="absolute bottom-16 left-1 w-6"
+            checked={favourited === 1}
+          />
+        </div>
         <button onClick={() => setTheaterMode((s) => !s)}>theater</button>
         <p>{video.title}</p>
         <p>{video.description}</p>
