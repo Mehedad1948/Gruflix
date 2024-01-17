@@ -5,6 +5,7 @@ import { VideoData } from "@/models/videos";
 import { GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const { videoId } = context.params as { videoId: string };
@@ -34,6 +35,7 @@ const Video = ({ video }: { video: VideoData }) => {
 
   const router = useRouter();
   const { videoId } = router.query;
+  console.log({ video });
 
   useEffect(() => {
     if (!videoId) {
@@ -117,7 +119,14 @@ const Video = ({ video }: { video: VideoData }) => {
                 },
               })
                 .then((resalt) => resalt.json())
-                .then((data) => console.log({ data }));
+                .then((data) => {
+                  if (!data.success) {
+                    toast.error(data.error);
+                    setTimeout(() => {
+                      setFavourited(0);
+                    }, 250);
+                  }
+                });
             }}
             className="absolute bottom-16 left-2 w-6"
             checked={favourited === 1}

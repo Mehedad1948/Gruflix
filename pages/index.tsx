@@ -1,29 +1,51 @@
 import Head from "next/head";
 import useColorMode from "@/hooks/useColorMode";
 import Banner from "@/components/Banner";
-import Card from "@/components/Card";
 import SectionCard from "@/components/SectionCard";
 import { getVideos } from "@/lib/video";
-import { magic } from "@/lib/magic-client";
 import { queryHasuraGQL } from "@/lib/db/hasura";
 import { useEffect } from "react";
+import { watchedVideos } from "@/lib/watchedVideos";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { VideoData } from "@/models/videos";
+import { verifyToken } from "@/lib/utils/verifiyToken";
 
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const { token = null } = context.req.cookies;
+
+  let watchItAgain: VideoData[] = [];
+  
+  if (token) {
+    const userId = await verifyToken(token);
+    if (userId) {
+      watchItAgain = await watchedVideos({
+        token,
+        userId,
+      });
+    }
+  }
   const reactVideos = await getVideos("reactjs");
   const tailwindVideos = await getVideos("tailwind");
   const threejsVideos = await getVideos("three js");
-  return { props: { reactVideos, tailwindVideos, threejsVideos } };
-}
+  return {
+    props: { reactVideos, tailwindVideos, threejsVideos, watchItAgain },
+  };
+};
+
 interface Props {
-  reactVideos: any;
-  tailwindVideos: any;
-  threejsVideos: any;
+  reactVideos: VideoData[];
+  tailwindVideos: VideoData[];
+  threejsVideos: VideoData[];
+  watchItAgain: VideoData[];
 }
 
 export default function Home({
   reactVideos = [],
   tailwindVideos,
   threejsVideos,
+  watchItAgain,
 }: Props) {
   const [colorMode, setColorMode] = useColorMode();
   const videosSample = [
@@ -70,6 +92,14 @@ export default function Home({
         videos={reactVideos}
         size="small"
       />
+      {watchItAgain.length > 0 && (
+        <SectionCard
+          title="ٌWatch it again"
+          colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
+          videos={watchItAgain}
+          size="medium"
+        />
+      )}
       <SectionCard
         title="TailwindCSS"
         colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"

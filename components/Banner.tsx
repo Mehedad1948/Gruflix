@@ -9,7 +9,8 @@ interface Props {
 function Banner({ title, subtitle, imgUrl }: Props) {
   function handleOnPlay() {}
   return (
-    <div className="relative mb-[10vh] flex h-[90vh] w-full items-center overflow-hidden  rounded-br-[70vh]">
+    <div className="relative mb-[10vh] flex h-[85vh] w-full items-center overflow-hidden
+                    mt-16  rounded-br-[70vh]">
       <CoverText>
         <div className="relative z-20 flex flex-col gap-5 text-sky-50">
           <h1>{title}</h1>

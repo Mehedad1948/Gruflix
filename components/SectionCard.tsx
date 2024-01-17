@@ -2,9 +2,10 @@ import { MutableRefObject, WheelEventHandler, useRef } from "react";
 import Card, { CardSizes } from "./Card";
 import { IoIosArrowForward } from "react-icons/io";
 import Link from "next/link";
+import { VideoData } from "@/models/videos";
 
 interface Props {
-  videos: any;
+  videos: VideoData[];
   title: string;
   size?: CardSizes;
   colorClass?: string;
@@ -14,8 +15,10 @@ function SectionCard({
   videos,
   title,
   size = "small",
-  colorClass = "",
+  colorClass = "bg-gradient-to-tr from-blue-950 to-slate-950",
 }: Props) {
+  // console.log({ videos });
+
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const handleScroll: WheelEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();

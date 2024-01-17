@@ -62,7 +62,7 @@ function Navbar() {
       <Logo />
       <ul className="flex  gap-4">
         <Link href="/">Home</Link>
-        <Link href="/my-list">My List</Link>
+        <Link href="/browse/my-list">My List</Link>
       </ul>
 
       <span className="grow"></span>
