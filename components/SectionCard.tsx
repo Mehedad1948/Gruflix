@@ -52,7 +52,7 @@ function SectionCard({
         className="mx-auto grid w-11/12 grid-cols-1 justify-items-center gap-x-4 gap-y-4 overflow-y-hidden overflow-x-scroll
                    pt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[repeat(10,_300px)]"
       >
-        {videos.map((video: any) => (
+        {videos && videos.map((video: any) => (
           <Link key={video.id} href={`/video/${video.id}`}>
             <Card video={video} size={size} />
           </Link>
