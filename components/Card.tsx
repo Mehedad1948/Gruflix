@@ -29,7 +29,7 @@ function Card({
   function handleImageError() {
     setImgSrc("/static/jp.jpg");
   }
-  // console.log({ imgSrc, title });
+  console.log({ imgSrc, title });
 
   return (
     <div
@@ -38,10 +38,9 @@ function Card({
                  shadow-lg transition-all duration-500 hover:z-10 hover:scale-105"
     >
       <div className=" relative aspect-[16/9] overflow-hidden rounded ">
-        <PlayIconOverlay />
         <img
           // onError={handleImageError}
-          className="mx-auto object-cover transition-transform 
+          className="mx-auto -mt-[45px] object-cover  transition-transform 
                     duration-[1000ms] group-hover:brightness-110"
           src={imgSrc}
           // layout="fill"
@@ -49,18 +48,21 @@ function Card({
           // height={imageStyles[size].height}
           alt="image"
         />
-        <div className=" absolute bottom-0 right-0 z-50 h-1/3 w-full overflow-hidden ">
-          <div className="absolute bottom-0 right-0 h-[300%] w-full">
+        <div className=" absolute bottom-0  right-0 z-50 h-1/3 w-full overflow-hidden ">
+          <div className="absolute bottom-0  right-0 h-[300%] w-full">
             <img
               // onError={handleImageError}
-              className="mx-auto w-1/2 object-cover transition-transform 
-          duration-[1000ms] group-hover:brightness-110"
+              className="mx-auto object-cover  -mt-[45px] transition-transform 
+                    duration-[1000ms] group-hover:brightness-110"
               src={imgSrc}
               // layout="fill"
+              // width={imageStyles[size].width}
+              // height={imageStyles[size].height}
               alt="image"
             />
           </div>
         </div>
+        <PlayIconOverlay />
       </div>
       <div className="px-2 pt-2">
         <h3 className="">{title}</h3>

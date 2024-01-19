@@ -102,7 +102,7 @@ const Video = ({ video }: { video: VideoData }) => {
             className={`${
               theaterMode ? "!h-[80vh]" : ""
             } mx-auto aspect-[16/9] w-full rounded-md`}
-            src={`http://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com&rel=1`}
+            src={`https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com&rel=1`}
             // frameborder="0"
           ></iframe>
           <Bookmark
