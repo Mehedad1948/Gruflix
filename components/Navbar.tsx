@@ -56,13 +56,13 @@ function Navbar() {
 
   return (
     <nav
-      className="fixed left-0 top-0 z-50 flex w-full gap-8 rounded-b-lg bg-sky-50/90 px-10
-                 pb-6 pt-4 text-black shadow backdrop-blur"
+      className="fixed left-0 top-0 z-50 flex w-full gap-8 rounded-b-lg bg-sky-50/90 px-4 sm:px-10
+                 pb-4 sm:pb-6 pt-4 text-black shadow backdrop-blur"
     >
       <Logo />
       <ul className="flex  gap-4">
-        <Link href="/">Home</Link>
-        <Link href="/browse/my-list">My List</Link>
+        {/* <Link href="/">Home</Link> */}
+        <Link className='w-max' href="/browse/my-list">My List</Link>
       </ul>
 
       <span className="grow"></span>

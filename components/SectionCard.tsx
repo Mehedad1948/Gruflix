@@ -34,8 +34,8 @@ function SectionCard({
       className={
         colorClass +
         " " +
-        ` relative mx-auto mt-16 flex w-[96%] flex-col items-center justify-center gap-2 rounded-3xl
-          border-2 border-sky-950/10 py-12 first:mt-0 `
+        ` relative mx-auto mt-16 flex sm:w-[96%] flex-col items-center justify-center gap-2 rounded sm:rounded-3xl
+          border-2 border-sky-950/10 py-4 sm:py-12 first:mt-0 `
       }
     >
       {/* <div
@@ -45,12 +45,12 @@ function SectionCard({
       >
         <IoIosArrowForward />
       </div> */}
-      <h2 className="text-sky-100">{title}</h2>
+      <h2 className="text-sky-100 text-left">{title}</h2>
       <div
         ref={scrollContainerRef}
         onWheel={handleScroll}
         className="mx-auto grid w-11/12 grid-cols-1 justify-items-center gap-x-4 gap-y-4 overflow-y-hidden overflow-x-scroll
-                   pt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[repeat(10,_300px)]"
+                  pt-4 sm:pt-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[repeat(10,_300px)]"
       >
         {videos && videos.map((video: any) => (
           <Link key={video.id} href={`/video/${video.id}`}>

@@ -10,7 +10,7 @@ function Banner({ title, subtitle, imgUrl }: Props) {
   function handleOnPlay() {}
   return (
     <div className="relative mb-[10vh] flex h-[85vh] w-full items-center overflow-hidden
-                    mt-16  rounded-br-[70vh]">
+                    mt-16 rounded-br-[200px] sm:rounded-br-[70vh]">
       <CoverText>
         <div className="relative z-20 flex flex-col gap-5 text-sky-50">
           <h1>{title}</h1>
@@ -28,7 +28,7 @@ function Banner({ title, subtitle, imgUrl }: Props) {
         </div>
       </CoverText>
       <div
-        className="absolute left-0 top-0 z-0 h-full w-full bg-cover bg-center"
+        className="absolute left-0 top-0 z-0 h-full w-full bg-cover"
         style={{ backgroundImage: `url(${imgUrl})` }}
       ></div>
     </div>
