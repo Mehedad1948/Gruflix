@@ -11,9 +11,8 @@ const Bookmark = ({ checked, className, onClick }: Props) => {
   }, [checked]);
   return (
     <div
-      className={`${className ? className : ""} aspect-square 
-                  cursor-pointer rounded-full border border-slate-400 
-                  bg-slate-700/20 px-4 backdrop-blur-[1px] `}
+      className={`${className ? className : ""} relative  aspect-square
+                  cursor-pointer `}
       onClick={(e) => {
         setFill((s) => !s);
         onClick && onClick(e);
@@ -34,7 +33,7 @@ const Bookmark = ({ checked, className, onClick }: Props) => {
             d="M4 5a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v16.028c0 1.22-1.38 1.93-2.372 1.221L12 18.229l-5.628 4.02c-.993.71-2.372 0-2.372-1.22z"
           />
           <path
-            fill={fill ? "#092a5c" : "#d7e1f0"}
+            fill={"#3f506b"}
             d="M4 5a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v16.028c0 1.22-1.38 1.93-2.372 1.221L12 18.229l-5.628 4.02c-.993.71-2.372 0-2.372-1.22zm3-1a1 1 0 0 0-1 1v15.057l5.128-3.663a1.5 1.5 0 0 1 1.744 0L18 20.057V5a1 1 0 0 0-1-1z"
           />
         </g>

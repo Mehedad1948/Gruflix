@@ -1,3 +1,4 @@
+import { SessionProvider, useSession } from "next-auth/react";
 import { AppProps } from "next/app";
 import "@/styles/globals.css";
 import { montserrat } from "../styles/fonts";
@@ -9,7 +10,10 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,8 +46,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <main className={`${montserrat.variable} font-sans`}>
       <QueryClientProvider client={queryClient}>
-        <Navbar />
-        <Component {...pageProps} />
+        <SessionProvider session={session}>
+          <Navbar />
+          <Component {...pageProps} />
+        </SessionProvider>
       </QueryClientProvider>
     </main>
   );
