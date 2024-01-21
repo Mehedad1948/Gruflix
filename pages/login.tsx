@@ -47,9 +47,7 @@ function Login() {
           const loggedInResponse = await response.json();
           if (loggedInResponse.done) {
             router.push("/");
-            setIsLoading(false);
           } else {
-            setIsLoading(false);
             throw new Error("Something went wrong in login");
           }
         }
@@ -67,11 +65,12 @@ function Login() {
         <title>Login</title>
       </Head>
       <div
-        className="flex  min-h-screen w-full items-center justify-center
-                        bg-gradient-to-tr from-[#cbdcf7] to-white "
+        className="flex  min-h-screen w-full items-end justify-center bg-gradient-to-tr
+                        from-[#cbdcf7] to-white sm:items-center "
       >
         <main
-          className="w-full max-w-md rounded-lg border bg-white/30 px-4 py-3
+          className="w-full max-w-md rounded-lg border bg-gradient-to-tr to-white from-sky-100
+                     px-4 py-3
                      shadow-md shadow-blue-300 outline-2 outline-blue-950/20 backdrop-blur-sm"
         >
           <h2>Sign in</h2>

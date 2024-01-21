@@ -275,7 +275,7 @@ export const getWatchedVideos = async ({
   token: string;
 }): Promise<{ favourited: 0 | 1; videoId: string }[]> => {
   const getWatchedDoc = `query getWatched(
-    $userId: String!) {
+    $userId: uuid!) {
     stats(where: {
       watched: {_eq: true},
       userId: {_eq: $userId},
@@ -293,11 +293,12 @@ export const getWatchedVideos = async ({
       { userId },
       token,
     );
+    console.log(wathcedVideos.errors);
 
     return wathcedVideos.data.stats;
   } catch (err) {
-    console.log(err);
-    throw Error(JSON.stringify(err));
+    console.log("err", err);
+    throw new Error(err as string);
   }
 };
 

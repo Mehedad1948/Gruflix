@@ -29,7 +29,7 @@ function Card({
   function handleImageError() {
     setImgSrc("/static/jp.jpg");
   }
-  console.log({ imgSrc, title });
+  // console.log({ imgSrc, title });
 
   return (
     <div

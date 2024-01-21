@@ -6,10 +6,13 @@ import Logo from "./atoms/Logo";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { magic } from "@/lib/magic-client";
+import { useSession } from "next-auth/react";
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [isLoading, setIsloading] = useState(false);
+
+  const { data: session, status } = useSession();
 
   const handleLogout = async () => {
     try {
@@ -26,26 +29,26 @@ function Navbar() {
     }
   };
 
-  useEffect(() => {
-    const getUser = async () => {
-      // Assumes a user is already logged in
-      try {
-        setIsloading(true);
-        const userInfo = await magic.user.getInfo();
-        const didToken = await magic.user.getIdToken();
-        console.log({ didToken });
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     // Assumes a user is already logged in
+  //     try {
+  //       setIsloading(true);
+  //       const userInfo = await magic.user.getInfo();
+  //       const didToken = await magic.user.getIdToken();
+  //       console.log({ didToken });
 
-        if (userInfo) {
-          setIsloading(false);
-          setUsername(userInfo.email);
-        }
-      } catch (err) {
-        setIsloading(false);
-        console.error("Error in getting user data", err);
-      }
-    };
-    getUser();
-  }, []);
+  //       if (userInfo) {
+  //         setIsloading(false);
+  //         setUsername(userInfo.email);
+  //       }
+  //     } catch (err) {
+  //       setIsloading(false);
+  //       console.error("Error in getting user data", err);
+  //     }
+  //   };
+  //   getUser();
+  // }, []);
 
   const ref = useOutsideClick<HTMLDivElement>(
     () => setIsMenuOpen(false),
@@ -56,13 +59,15 @@ function Navbar() {
 
   return (
     <nav
-      className="fixed left-0 top-0 z-50 flex w-full gap-8 rounded-b-lg bg-sky-50/90 px-4 sm:px-10
-                 pb-4 sm:pb-6 pt-4 text-black shadow backdrop-blur"
+      className="fixed left-0 top-0 z-50 flex w-full gap-8 rounded-b-lg bg-sky-50/90 px-4 pb-4
+                 pt-4 text-black shadow backdrop-blur sm:px-10 sm:pb-6"
     >
       <Logo />
       <ul className="flex  gap-4">
         {/* <Link href="/">Home</Link> */}
-        <Link className='w-max' href="/browse/my-list">My List</Link>
+        <Link className="w-max" href="/browse/my-list">
+          My List
+        </Link>
       </ul>
 
       <span className="grow"></span>
@@ -74,10 +79,10 @@ function Navbar() {
           className="flex  items-center gap-2"
         >
           <div>
-            {isLoading ? (
+            {status === "loading" ? (
               "Authenticating..."
-            ) : username.length > 0 ? (
-              username
+            ) : session ? (
+              session.user?.name
             ) : (
               <button
                 type="button"

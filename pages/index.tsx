@@ -15,13 +15,14 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const { token = null } = context.req.cookies;
 
+  const sessionToken = context.req.cookies["next-auth.session-token"];
   let watchItAgain: VideoData[] = [];
-  
-  if (token) {
-    const userId = await verifyToken(token);
+
+  if (sessionToken) {
+    const userId = await verifyToken(sessionToken);
     if (userId) {
       watchItAgain = await watchedVideos({
-        token,
+        token: sessionToken,
         userId,
       });
     }

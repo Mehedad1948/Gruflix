@@ -36,7 +36,7 @@ const Video = ({ video }: { video: VideoData }) => {
 
   const router = useRouter();
   const { videoId } = router.query;
-  console.log({ video });
+  // console.log({ video });
 
   const description = video.description.split("\n\n")[0].trim();
 
@@ -169,7 +169,7 @@ const Video = ({ video }: { video: VideoData }) => {
               className="relative left-4 top-0 my-1 inline-block max-w-[95%]
             bg-slate-50 font-semibold  text-white 
             after:absolute after:-inset-1 after:z-0 after:block
-            after:-skew-y-1 after:bg-gradient-to-tr after:from-fuchsia-600 after:to-sky-600 
+            after:-skew-y-0 after:bg-gradient-to-tr after:from-fuchsia-600 after:to-sky-600 
               sm:my-3  sm:px-2 sm:text-lg lg:absolute after:rounded-full lg:-translate-y-full xl:text-xl"
             >
               <span className="relative z-10"> {video.title}</span>

@@ -12,6 +12,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
       const didToken = auth ? auth.substr(7) : "";
 
       const metadata = await magicAdmin.users.getMetadataByToken(didToken);
+      console.log({ metadata });
 
       const token = jwt.sign(
         {
