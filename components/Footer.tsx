@@ -1,6 +1,5 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useEffect, useState } from "react";
-import { signOut, signIn } from "next-auth/react";
 
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import Logo from "./atoms/Logo";
@@ -8,35 +7,27 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { magic } from "@/lib/magic-client";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
-function Navbar() {
+function Footer() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [isLoading, setIsloading] = useState(false);
-  const [isNavigating, setIsNavigating] = useState(false);
 
   const { data: session, status } = useSession();
-  console.log({ session });
 
-  const router = useRouter();
-
-  useEffect(() => {
-    const hacdleStart = () => {
-      setIsNavigating(true);
-    };
-    const handleComplete = () => {
-      setIsNavigating(false);
-    };
-    router.events.on("routeChangeStart", hacdleStart);
-    router.events.on("routeChangeComplete", handleComplete);
-    router.events.on("routeChangeError", handleComplete);
-
-    return () => {
-      router.events.on("routeChangeStart", hacdleStart);
-      router.events.off("routeChangeComplete", handleComplete);
-      router.events.off("routeChangeError", handleComplete);
-    };
-  }, [router]);
+  const handleLogout = async () => {
+    try {
+      const logout = await magic.user.logout();
+      setIsloading(true);
+      const isLoggedIn = await magic.user.isLoggedIn(); // => `false`
+      if (!isLoggedIn) {
+        setIsloading(false);
+        setUsername("");
+      }
+    } catch {
+      // Handle errors if required!
+      console.error("Error in getting user data");
+    }
+  };
 
   // useEffect(() => {
   //   const getUser = async () => {
@@ -64,22 +55,23 @@ function Navbar() {
     false,
   );
 
-  return (
-    <nav
-      className="fixed left-0 top-0 z-50 flex w-full gap-8 rounded-b-lg bg-sky-50/90 px-4 pb-4
-                 pt-4 text-black shadow backdrop-blur sm:px-10 sm:pb-6"
-    >
-      {isNavigating && (
-        <div className="loading-line absolute bottom-0 h-1 w-full bg-orange-400"></div>
-      )}
-      <Logo />
-      <ul className="flex  gap-4">
-        {/* <Link href="/">Home</Link> */}
-        <Link className="w-max" href="/browse/my-list">
-          My List
-        </Link>
-      </ul>
+  const router = useRouter();
 
+  return (
+    <footer
+      className="w-full bg-white px-4 pb-4 grid grid-cols-4 items-start shadow-lg
+                 pt-4 text-black  backdrop-blur sm:px-10 sm:pb-6 rounded-t-lg"
+    >
+      <Logo />
+
+<div className='flex flex-col'>
+<span>Topics</span>
+<ul>
+  <li>React</li>
+  <li>Vue</li>
+  <li>Next</li>
+</ul>
+</div>
       <span className="grow"></span>
 
       <div className="relative h-fit">
@@ -88,41 +80,34 @@ function Navbar() {
           onClick={() => setIsMenuOpen((state) => !state)}
           className="flex  items-center gap-2"
         >
-          <MdKeyboardArrowDown />
           <div>
             {status === "loading" ? (
               "Authenticating..."
-            ) : session?.user ? (
-              <div className="flex items-center gap-2">
-                <span>{session.user?.name}</span>
-                {session.user.image && (
-                  <Image
-                    className="w-7 rounded-full"
-                    src={session.user.image}
-                    width={50}
-                    height={50}
-                    alt="pic"
-                  />
-                )}
-              </div>
+            ) : session ? (
+              session.user?.name
             ) : (
-              <button type="button" className="inline" onClick={() => signIn()}>
+              <button
+                type="button"
+                className="inline"
+                onClick={() => router.push("/login")}
+              >
                 Login
               </button>
             )}
           </div>
+          <MdKeyboardArrowDown />
         </div>
         {isMenuOpen && (
           <div
             className="absolute -bottom-11 right-0 w-32 rounded border-2 border-sky-200 bg-sky-100/70
                        px-2 py-1 text-center backdrop-blur-sm"
           >
-            <button onClick={() => signOut()}>Sign out</button>
+            <button onClick={handleLogout}>Sign out</button>
           </div>
         )}
       </div>
-    </nav>
+    </footer>
   );
 }
 
-export default Navbar;
+export default Footer;

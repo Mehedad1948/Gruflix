@@ -11,7 +11,7 @@ interface DecodedToken {
 const stats = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     // Finding related video correspand to the user
-    const token = req.cookies.token;
+    const token = req.cookies["next-auth.session-token"];
     if (!token) {
       res
         .status(403)
@@ -23,6 +23,8 @@ const stats = async (req: NextApiRequest, res: NextApiResponse) => {
       // ) as DecodedToken;
 
       const userId = await verifyToken(token);
+      console.log({ userId });
+
       const videoId = req.body.videoId || req.query.videoId;
       if (!userId) {
         res.status(403).send({

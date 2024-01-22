@@ -42,7 +42,6 @@ export async function isNewUser(token: string, issuer: string) {
       { issuer },
       token,
     );
-    console.log({ user });
 
     return user?.data.users.length === 0;
   } catch (err) {
@@ -91,7 +90,7 @@ export const findVideoIdByUser = async ({
   userId: string;
   token: string;
 }): Promise<any[]> => {
-  const queryDoc = `query findVideoIdByUser($userId: String!, $videoId: String) {
+  const queryDoc = `query findVideoIdByUser($userId: uuid!, $videoId: String) {
     stats(where: { userId: { _eq: $userId }, videoId: { _eq: $videoId } }) {
       favourited
       id
@@ -108,8 +107,6 @@ export const findVideoIdByUser = async ({
       { videoId, userId },
       token,
     );
-    console.log({ videoId, userId });
-    console.log(stats.errors);
 
     return stats.data.stats || [];
   } catch (err) {
@@ -131,7 +128,7 @@ export const updateStats = async ({
   favourited: 0 | 1;
   watched: boolean;
 }) => {
-  const updateStatsDoc = `mutation updateStats($userId: String!, $videoId: String!,
+  const updateStatsDoc = `mutation updateStats($userId: uuid!, $videoId: String!,
      $favourited: Int!, $watched: Boolean!) {
     update_stats(
       where: {
@@ -181,8 +178,9 @@ export const createStats = async ({
   favourited: 0 | 1;
   watched: boolean;
 }) => {
+
   const insetStatsDoc = `mutation insertStats(
-    $userId: String!, $videoId: String!, 
+    $userId: uuid!, $videoId: String!, 
     $favourited: Int!, $watched: Boolean!) {
     insert_stats_one(object: {
       favourited: $favourited,

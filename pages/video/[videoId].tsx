@@ -1,12 +1,16 @@
 import Modal from "@/components/Modal";
+import GradientBg from "@/components/atoms/gadient-bg";
 import Bookmark from "@/components/atoms/icons/bookmark";
+import Heart from "@/components/atoms/icons/heart";
 import { videoById } from "@/lib/videoById";
 import { VideoData } from "@/models/videos";
 import { GetStaticPropsContext } from "next";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { IoEyeSharp } from "react-icons/io5";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const { videoId } = context.params as { videoId: string };
@@ -33,6 +37,7 @@ export async function getStaticPaths() {
 const Video = ({ video }: { video: VideoData }) => {
   const [theaterMode, setTheaterMode] = useState(false);
   const [favourited, setFavourited] = useState<0 | 1>(0);
+  console.log({ video });
 
   const router = useRouter();
   const { videoId } = router.query;
@@ -110,99 +115,139 @@ const Video = ({ video }: { video: VideoData }) => {
   }, [videoId]);
 
   return (
-    <div
-      className={`${
-        theaterMode ? "!grid-cols-[0fr,_1fr,_0fr]" : ""
-      } mt-16 grid w-full grid-cols-[0fr,_1fr,_0fr] items-center 
-         lg:grid-cols-[0.175fr,_0.65fr,_0.175fr] transition-all duration-500 ease-out`}
-    >
-      <div></div>
-      <div className="bg-slate-50 pb-6">
-        <div className="relative bg-black shadow shadow-blue-400">
-          <iframe
-            id="player"
-            // type="text/html"
+    <>
+      <Head>
+        <title>{video.title}</title>
+      </Head>
+
+      <div
+        className={`${
+          theaterMode ? "my-16 !grid-cols-[0fr,_1fr,_0fr] " : "my-20  "
+        }  grid w-full grid-cols-[0fr,_1fr,_0fr] items-center 
+      transition-[grid] duration-1000 ease-out lg:grid-cols-[0.1fr,_0.6fr,_0.3fr]`}
+      >
+        <div>
+          
+        </div>
+        <div className="overflow-hidden rounded-lg  bg-slate-50 pb-6 shadow-lg">
+          <div className="relative bg-black shadow shadow-blue-400">
+            <iframe
+              id="player"
+              // type="text/html"
+              className={`${
+                theaterMode ? "!h-[85vh]" : "w-full"
+              } mx-auto aspect-[16/9] max-w-full rounded-sm sm:rounded-t-lg  `}
+              src={`https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com&rel=1`}
+              // frameborder="0"
+            ></iframe>
+          </div>
+          <div
             className={`${
-              theaterMode ? "!h-[85vh]" : "w-full"
-            } mx-auto aspect-[16/9] max-w-full rounded-sm sm:rounded-t-lg  `}
-            src={`https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com&rel=1`}
-            // frameborder="0"
-          ></iframe>
-        </div>
-        <div
-          className={`${
-            theaterMode ? "px-2 sm:px-6" : "px-2 sm:px-3"
-          } relative  h-full`}
-        >
-          <div className="my-2 flex items-center gap-3">
-            <Bookmark
-              onClick={async () => {
-                setFavourited((s) => (s === 0 ? 1 : 0));
-                const response = await fetch("/api/stats", {
-                  method: "POST",
-                  body: JSON.stringify({
-                    videoId,
-                    favourited: favourited === 0 ? 1 : 0,
-                  }),
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                })
-                  .then((resalt) => resalt.json())
-                  .then((data) => {
-                    if (!data.success) {
-                      toast.error(data.error);
-                      setTimeout(() => {
-                        setFavourited(0);
-                      }, 250);
-                    }
-                  });
-              }}
-              className=" w-6"
-              checked={favourited === 1}
-            />
-            <button onClick={() => setTheaterMode((s) => !s)}>Theater</button>
-          </div>
-
-          <div className="relative mt-4  rounded-lg p-3  ring-1 ring-slate-950/10 sm:mt-6">
-            <h3
-              className="relative left-4 top-0 my-1 inline-block max-w-[95%]
-            bg-slate-50 font-semibold  text-white 
-            after:absolute after:-inset-1 after:z-0 after:block
-            after:-skew-y-0 after:bg-gradient-to-tr after:from-fuchsia-600 after:to-sky-600 
-              sm:my-3  sm:px-2 sm:text-lg lg:absolute after:rounded-full lg:-translate-y-full xl:text-xl"
-            >
-              <span className="relative z-10"> {video.title}</span>
-            </h3>
-            <p className="mt-4 text-slate-800 sm:ml-3 sm:font-semibold sm:leading-7">
-              {description}
-            </p>
-            <div>
-              <h4 className="mt-3 font-semibold">📋 Links and Resources:</h4>
-              <ul
-                className="my-2 flex w-fit flex-col  gap-3 rounded border border-blue-300
-                       bg-blue-50 py-2 text-blue-800"
-              >
-                {links.map((link) => (
-                  <Link
-                    className="w-fit px-3 text-sm hover:text-blue-700 sm:text-base"
-                    key={link}
-                    href={link}
-                  >
-                    {link}
-                  </Link>
-                ))}
-              </ul>
+              theaterMode ? "px-2 sm:px-6" : "px-2 sm:px-3"
+            } relative  h-full`}
+          >
+            <div className="my-2 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <Bookmark
+                  onClick={async () => {
+                    setFavourited((s) => (s === 0 ? 1 : 0));
+                    const response = await fetch("/api/stats", {
+                      method: "POST",
+                      body: JSON.stringify({
+                        videoId,
+                        favourited: favourited === 0 ? 1 : 0,
+                      }),
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                    })
+                      .then((resalt) => resalt.json())
+                      .then((data) => {
+                        if (!data.success) {
+                          toast.error(data.error);
+                          setTimeout(() => {
+                            setFavourited(0);
+                          }, 250);
+                        }
+                      });
+                  }}
+                  className=" w-6"
+                  checked={favourited === 1}
+                />
+                <button onClick={() => setTheaterMode((s) => !s)}>
+                  Theater
+                </button>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-1.5 text-slate-700">
+                  <Heart className="mb-0.5 text-lg" />
+                  {video.statistics.likeCount}
+                  <span className="text-sm">likes</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-slate-700">
+                  <IoEyeSharp className="text-xl" />
+                  {video.statistics.viewCount}
+                  <span className="text-sm">views</span>
+                </div>
+              </div>
             </div>
+
+            <div className="relative mt-3  rounded-lg   ">
+              <h3
+                className="relative  top-0 my-1 inline-block max-w-[95%]
+               
+            text-center  font-semibold after:absolute after:-inset-1
+            after:z-0 after:block after:-skew-y-0 after:rounded-full  after:px-3 
+             sm:text-left sm:text-lg  xl:text-xl"
+              >
+                <span className="relative z-10 bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
+                  {" "}
+                  {video.title}
+                </span>
+              </h3>
+              <p className="mt-1 text-slate-800  sm:font-semibold sm:leading-7">
+                {description}
+              </p>
+              <div>
+                <h4 className="mt-3 font-semibold">📋 Links and Resources:</h4>
+                <ul
+                  className="my-2 flex w-fit flex-col  gap-3 rounded border border-blue-300
+                       bg-blue-50 py-2 text-blue-800"
+                >
+                  {links.map((link) => (
+                    <Link
+                      className="w-fit px-3 text-sm hover:text-blue-700 sm:text-base"
+                      key={link}
+                      href={link}
+                    >
+                      {link}
+                    </Link>
+                  ))}
+                </ul>
+              </div>
+              <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-2.5">
+                {video.tags.map((tag) => (
+                  <span key={tag}>
+                    <span
+                      className="rounded-full border bg-gradient-to-tr from-fuchsia-800/20 to-blue-500/10 px-3
+                  py-1  text-sm text-blue-800 "
+                    >
+                      {tag}
+                    </span>
+                  </span>
+                ))}
+              </div>
+              {/* <GradientBg /> */}
+            </div>
+
+            {/* <p>{timestamps}</p> */}
+            {/* <p>{processPlainText(video.description)}</p> */}
           </div>
-
-          {/* <p>{timestamps}</p> */}
-          {/* <p>{processPlainText(video.description)}</p> */}
         </div>
-      </div>
 
-      <div className=""></div>
-    </div>
+        <div className=""></div>
+      </div>
+    </>
   );
 };
 

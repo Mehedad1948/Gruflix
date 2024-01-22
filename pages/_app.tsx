@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { magic } from "@/lib/magic-client";
 import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "react-query";
+import Footer from "@/components/Footer";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,7 @@ export default function MyApp({
         <SessionProvider session={session}>
           <Navbar />
           <Component {...pageProps} />
+          <Footer />
         </SessionProvider>
       </QueryClientProvider>
     </main>

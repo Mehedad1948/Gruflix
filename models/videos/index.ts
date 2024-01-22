@@ -53,5 +53,6 @@ export interface VideoData {
   description: string;
   publishedAt: string; // You might want to use a more specific type like Date
   channelTitle: string;
-  statistics: { viewCount: number };
+  tags: string[];
+  statistics: { viewCount: number; likeCount: number; commentCount: number };
 }

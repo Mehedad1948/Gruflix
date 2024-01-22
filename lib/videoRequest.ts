@@ -16,6 +16,7 @@ export async function videoRequest(address: string): Promise<VideoData[]> {
 
     const videos = data.items.map((item: any) => {
       const snippet = item.snippet;
+      const statistics = item.statistics;
       return {
         title: snippet.title,
         imgUrl: snippet.thumbnails.high.url,
@@ -24,9 +25,14 @@ export async function videoRequest(address: string): Promise<VideoData[]> {
         description: snippet.description,
         publishedAt: snippet.publishedAt,
         channelTitle: snippet.channelTitle,
-        statistics: snippet.statistics
-          ? item.statistics.viewCount
-          : { viewCount: 0 },
+        tags: snippet.tags,
+        statistics: statistics
+          ? {
+              likeCount: statistics.likeCount || 0,
+              viewCount: statistics.viewCount || 0,
+              commentCount: statistics.commentCount || 0,
+            }
+          : { viewCount: 0, likeCount: 0, commentCount: 0 },
       };
     });
 
