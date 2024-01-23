@@ -8,6 +8,7 @@ import {
   ClientSafeProvider,
   LiteralUnion,
   getProviders,
+  signIn,
 } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -41,8 +42,6 @@ function Login({
     ClientSafeProvider
   > | null;
 }) {
-  console.log({ providers });
-
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
@@ -122,8 +121,10 @@ function Login({
                         from-[#cbdcf7] to-white sm:items-stretch "
       >
         <div className="hidden h-screen w-1/2 bg-white sm:block"></div>
-        <div className="relative flex h-full min-h-screen w-full items-end sm:items-center 
-                  justify-center  sm:w-1/2">
+        <div
+          className="relative flex h-full min-h-screen w-full items-end sm:items-center 
+                  justify-center  sm:w-1/2"
+        >
           <GradientBg className="absolute right-0 h-full max-h-screen w-full" />
           <main
             className="w-full sm:max-w-md rounded-lg border bg-white/80
@@ -168,6 +169,20 @@ function Login({
                 </Form>
               )}
             </Formik>
+            <div className="flex items-center gap-6 justify-center mt-2">
+              {providers &&
+                Object.values(providers).map((provider) => (
+                  <div
+                    className="border rounded-full cursor-pointer aspect-square bg-gradient-to-tr
+                from-fuchsia-500 to-black w-12 text-sm text-white flex 
+                justify-center items-center"
+                    onClick={() => signIn(provider.id)}
+                    key={provider.id}
+                  >
+                    {provider.name}
+                  </div>
+                ))}
+            </div>
           </main>
         </div>
       </div>
