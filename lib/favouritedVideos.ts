@@ -20,7 +20,8 @@ export const favouritedVideos = async ({
     description: "",
     publishedAt: "",
     channelTitle: "",
-    statistics: { viewCount: 0 },
+    tags: [],
+    statistics: { viewCount: 0, likeCount: 0, commentCount: 0 },
   }));
   return videoData;
 };

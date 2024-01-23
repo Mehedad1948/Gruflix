@@ -1,12 +1,55 @@
+import GradientBg from "@/components/atoms/gadient-bg";
+import Input from "@/components/atoms/input";
 import { magic } from "@/lib/magic-client";
+import { Form, Formik, useField } from "formik";
+import { GetServerSidePropsContext } from "next";
+import { BuiltInProviderType } from "next-auth/providers";
+import {
+  ClientSafeProvider,
+  LiteralUnion,
+  getProviders,
+} from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { FormEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  FormEvent,
+  useEffect,
+  useState,
+} from "react";
 import toast from "react-hot-toast";
+import { z } from "zod";
 
-function Login() {
+const initialValues = {
+  login_email: "",
+  login_password: "",
+};
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const providers = await getProviders();
+  return {
+    props: { providers },
+  };
+}
+
+function Login({
+  providers,
+}: {
+  providers: Record<
+    LiteralUnion<BuiltInProviderType, string>,
+    ClientSafeProvider
+  > | null;
+}) {
+  console.log({ providers });
+
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  // const [field, meta] = useField("login_email");
+  // console.log(meta.onChange);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -23,6 +66,16 @@ function Login() {
       router.events.off("routeChangeError", handleComplete);
     };
   }, [router]);
+
+  const loginValidation = z.object({
+    login_email: z.string().email("Invalid email address"),
+    login_password: z.string().min(4, "Too short password"),
+  });
+
+  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setEmail()
+  // };
 
   async function handleLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -65,49 +118,58 @@ function Login() {
         <title>Login</title>
       </Head>
       <div
-        className="flex  min-h-screen w-full items-end justify-center bg-gradient-to-tr
-                        from-[#cbdcf7] to-white sm:items-center "
+        className=" flex h-full min-h-screen w-full  bg-gradient-to-tr
+                        from-[#cbdcf7] to-white sm:items-stretch "
       >
-        <main
-          className="w-full max-w-md rounded-lg border bg-gradient-to-tr to-white from-sky-100
-                     px-4 py-3
-                     shadow-md shadow-blue-300 outline-2 outline-blue-950/20 backdrop-blur-sm"
-        >
-          <h2>Sign in</h2>
-          <form onSubmit={handleLogin} className="mt-3 flex flex-col gap-4">
-            <label className="relative overflow-visible">
-              <p className="text-lg font-medium">Email</p>
-              <input
-                value={email}
-                onChange={(e) => {
-                  setMsg("");
-                  setEmail(e.target.value);
-                }}
-                name="email"
-                type="email"
-                className="relative z-20 mt-1 w-full rounded border border-blue-100 bg-white px-1
-                           py-1 focus:outline-none"
-              />
-
-              <p
-                className={`${
-                  msg.length > 0
-                    ? "translate-y-6 rotate-0"
-                    : "translate-y-0 -rotate-3"
-                } absolute bottom-0 z-0 origin-bottom-left font-medium text-rose-600
-                transition-transform duration-300`}
-              >
-                {msg}
-              </p>
-            </label>
-            <button
-              className="mt-6 w-full rounded bg-gradient-to-tr from-slate-900
-                          to-slate-700 py-2 font-medium text-white"
+        <div className="hidden h-screen w-1/2 bg-white sm:block"></div>
+        <div className="relative flex h-full min-h-screen w-full items-end sm:items-center 
+                  justify-center  sm:w-1/2">
+          <GradientBg className="absolute right-0 h-full max-h-screen w-full" />
+          <main
+            className="w-full sm:max-w-md rounded-lg border bg-white/80
+                     px-4 py-3 shadow-md shadow-blue-300 outline-2 outline-blue-950/20 
+                    backdrop-blur-xl "
+          >
+            <h2>Sign in</h2>
+            <Formik
+              enableReinitialize
+              initialValues={initialValues}
+              onSubmit={() => {}}
+              validationSchema={loginValidation}
             >
-              {isLoading ? "Loading..." : "Login"}
-            </button>
-          </form>
-        </main>
+              {(form) => (
+                <Form className="mt-3 flex flex-col gap-6">
+                  <Input
+                    error="Email is invalid"
+                    value={email}
+                    onChange={(e) => {
+                      setMsg("");
+                      setEmail(e.target.value);
+                    }}
+                    placeholder="Email Address"
+                    name="login_email"
+                    type="email"
+                  />
+                  <Input
+                    error="Password is too short"
+                    placeholder="password"
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    type="password"
+                    min="4"
+                    minLength={4}
+                  />
+
+                  <button
+                    className=" w-full rounded bg-gradient-to-tr from-slate-900
+                          to-slate-700 py-2 font-medium text-white "
+                  >
+                    {isLoading ? "Loading..." : "Login"}
+                  </button>
+                </Form>
+              )}
+            </Formik>
+          </main>
+        </div>
       </div>
     </>
   );

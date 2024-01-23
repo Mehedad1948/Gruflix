@@ -1,11 +1,13 @@
-const GradientBg = () => {
+interface Props extends React.HTMLAttributes<HTMLOrSVGElement> {}
+
+const GradientBg = ({ ...props }: Props) => {
   return (
     <svg
+      {...props}
       viewBox="0 0 784 1000"
       preserveAspectRatio="none"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="sc-17e9fa4e-12 cwYObF"
     >
       <g clip-path="url(#bg_signup_auth0_svg__clip0_4654_6181)">
         <path fill="#F6F1E7" d="M0 0h888.889v1000H0z"></path>
