@@ -4,7 +4,6 @@ import Github from "@/components/atoms/icons/github";
 import Google from "@/components/atoms/icons/google";
 import Linkedin from "@/components/atoms/icons/linkedin";
 import Input from "@/components/atoms/input";
-import { createNewUser } from "@/lib/db/hasura";
 import { magic } from "@/lib/magic-client";
 import { Form, Formik, useField } from "formik";
 import { GetServerSidePropsContext } from "next";
@@ -25,8 +24,6 @@ import {
   useState,
 } from "react";
 import toast from "react-hot-toast";
-import jwt from "jsonwebtoken";
-
 import { z } from "zod";
 const bcryptjs = require("bcryptjs");
 
@@ -68,14 +65,26 @@ function Login({
   const [msg, setMsg] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-  const [repeatPassword, setRepeatPassword] = useState("");
-  const [formState, setFormState] = useState<"login" | "register">("login");
   // const [field, meta] = useField("login_email");
   // console.log(meta.onChange);
 
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    // Access the dynamic segment value
+    const { auth } = router.query;
+
+    // Check if the dynamic segment matches the allowed values
+    if (auth === 'register') {
+      console.log('User is on the register page');
+    } else if (auth === 'login') {
+      console.log('User is on the login page');
+    } else {
+      console.log('Invalid authentication page');
+    }
+  }, [router.query.auth]);
 
   useEffect(() => {
     const handleComplete = () => {
@@ -100,7 +109,7 @@ function Login({
   //   setEmail()
   // };
 
-  async function handleLogin(e: React.FormEvent<FormEvent>) {
+  async function handleLogin() {
     // const response = await fetch("/api/auth/signup", {
     //   method: "POST",
     //   body: JSON.stringify({
@@ -108,34 +117,18 @@ function Login({
     //     password: "1234",
     //   }),
     // });
-e.preventDefault()
+
     const saltRounds = 10;
     const salt = bcryptjs.genSaltSync(saltRounds);
 
     const hashedPassword = bcryptjs.hashSync(loginPassword, salt);
 
-    if (formState === "login") {
-      const res = await signIn("credentials", {
-        email: loginEmail,
-        password: hashedPassword,
-        redirect: false,
-      });
-    } else {
-      const token = jwt.sign(
-        {
-          iat: Math.floor(Date.now() / 1000),
-          exp: Math.floor(Date.now() / 1000 + 7 * 24 * 60 * 60),
-          "https://hasura.io/jwt/claims": {
-            "x-hasura-default-role": "user",
-            "x-hasura-allowed-roles": ["user", "admin"],
-            // "x-hasura-user-id": `${metadata.issuer}`,
-          },
-        },
-        "12345678912345678912345678912345",
-      );
-      const res = await createNewUser(token, email, hashedPassword);
-      console.log({ res });
-    }
+    const res = await signIn("credentials", {
+      email: loginEmail,
+      password: hashedPassword,
+      redirect: false,
+    });
+    console.log({ res });
 
     // if (email.length === 0) {
     //   setMsg("Please enter your email address");
@@ -177,7 +170,7 @@ e.preventDefault()
   return (
     <>
       <Head>
-        <title>{formState}</title>
+        <title>Login</title>
       </Head>
       <div
         className=" flex h-full min-h-screen w-full  bg-white flex-col sm:flex-row
@@ -185,23 +178,12 @@ e.preventDefault()
       >
         <div
           className=" h-[35vh] sm:h-screen sm:w-1/3 text-white  bg-gradient-to-tr from-slate-900
-          to-slate-700 flex flex-col
+          to-slate-700 flex
                          items-center justify-center"
         >
           <div>
             <h1>Gruflix</h1>
             <p className="text-lg font-semibold ml-1">Keep Learning</p>
-          </div>
-          <div className="text-sm mt-3 flex gap-2 flex-col items-center justify-self-end">
-            <p>Dont have account yet? </p>
-            <span
-              onClick={() => {
-                setFormState((s) => (s === "login" ? "register" : "login"));
-              }}
-              className="text-slate-800 rounded font-semibold px-3 py-0.5 bg-slate-200 "
-            >
-              Sign up here
-            </span>
           </div>
         </div>
         <div
@@ -213,72 +195,62 @@ e.preventDefault()
             className="w-full sm:max-w-lg rounded-lg bg-white/90
                      px-4 py-3 sm:py-4  rounded-t-md "
           >
-            <h2>{formState}</h2>
-
-            <form
-              onSubmit={handleLogin}
-              className={`${formState === "login" ? "" : ""} mt-3 flex flex-col  
-                  gap-8 transition-all duration-200`}
+            <h2>Sign in</h2>
+            <Formik
+              enableReinitialize
+              initialValues={initialValues}
+              onSubmit={() => {}}
+              validationSchema={loginValidation}
             >
-              <Input
-                label="Email"
-                error="Email is invalid"
-                value={loginEmail}
-                onChange={(e) => {
-                  setMsg("");
-                  setLoginEmail(e.target.value);
-                }}
-                placeholder="Email Address"
-                name="login_email"
-                type="email"
-              />
-              <Input
-                label="Password"
-                error="Password is too short"
-                placeholder="password"
-                onChange={(e) => setLoginPassword(e.target.value)}
-                type="password"
-                min="4"
-                minLength={4}
-              />
-              <Input
-                className={`${formState === "login" ? "opacity-0 absolute hidden overflow-hidden" : "opacity-100"} 
-                    transition-all duration-200`}
-                label="Repeat password"
-                error="Passwords are not same"
-                placeholder="Repeat password"
-                onChange={(e) => setRepeatPassword(e.target.value)}
-                type="password"
-                min="4"
-                minLength={4}
-              />
+              {(form) => (
+                <Form className="mt-3 flex flex-col gap-8 ">
+                  <Input
+                    error="Email is invalid"
+                    value={loginEmail}
+                    onChange={(e) => {
+                      setMsg("");
+                      setLoginEmail(e.target.value);
+                    }}
+                    placeholder="Email Address"
+                    name="login_email"
+                    type="email"
+                  />
+                  <Input
+                    error="Password is too short"
+                    placeholder="password"
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    type="password"
+                    min="4"
+                    minLength={4}
+                  />
 
-              <button
-                className=" w-full rounded bg-gradient-to-tr from-slate-900
+                  <button
+                    onClick={handleLogin}
+                    className=" w-full rounded bg-gradient-to-tr from-slate-900
                           to-slate-700 py-2 font-medium text-white "
-              >
-                {isLoading ? "Loading..." : formState}
-              </button>
-            </form>
-
-            <div className="flex items-stretch gap-3 justify-center mt-4">
+                  >
+                    {isLoading ? "Loading..." : "Login"}
+                  </button>
+                </Form>
+              )}
+            </Formik>
+            <div className="flex items-center gap-6 justify-center mt-4">
               {providers &&
-                Object.values(providers).map((provider) => {
-                  if (provider.name !== "Credentials") {
-                    return (
-                      <div
-                        className="border rounded-lg cursor-pointer  bg-gradient-to-tr
-                from-indigo-400 to-indigo-950 justify-evenly text-sm text-white flex 
-                 py-2 items-center gap-2 grow h-12"
-                        onClick={() => signIn(provider.id)}
-                        key={provider.id}
-                      >
-                        {providersIcons[provider.name.toLowerCase()]}
-                        <span>{provider.name}</span>
-                      </div>
-                    );
-                  }
-                })}
+                Object.values(providers).map((provider) => (
+                  <div
+                    className="border rounded-lg cursor-pointer aspect-square bg-gradient-to-tr
+                from-indigo-400 to-indigo-950 w-12 text-sm text-white flex 
+                justify-center items-center "
+                    onClick={() => signIn(provider.id)}
+                    key={provider.id}
+                  >
+                    {providersIcons[provider.name.toLowerCase()]}
+                  </div>
+                ))}
+            </div>
+
+            <div className='text-sm mt-3'>
+              <p>Dont have account yet? <span className='text-blue-600'>Sign up here</span></p> 
             </div>
           </main>
         </div>

@@ -10,6 +10,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
     try {
       const auth = req.headers.authorization;
       const didToken = auth ? auth.substr(7) : "";
+      console.log("req.body", req.body);
 
       const metadata = await magicAdmin.users.getMetadataByToken(didToken);
       console.log({ metadata });
@@ -34,7 +35,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
 
       const cookie = setCookie("token", token, 7);
 
-      // if (isNewUserQuery) await createNewUser(token, metadata);
+      if (isNewUserQuery) await createNewUser(token, metadata);
 
       res.setHeader("Set-Cookie", cookie);
 

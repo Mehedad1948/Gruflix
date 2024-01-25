@@ -2,16 +2,53 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import Auth0Provider from "next-auth/providers/auth0";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
+import jwt from "jsonwebtoken";
 import { HasuraAdapter } from "next-auth-hasura-adapter";
 import * as jsonwebtoken from "jsonwebtoken";
 import LinkedInProvider from "next-auth/providers/linkedin";
+import { findUserByEmail } from "@/lib/db/hasura";
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export const authOptions: NextAuthOptions = {
   // https://next-auth.js.org/configuration/providers/oauth
   providers: [
+    CredentialsProvider({
+      type: "credentials",
+      credentials: {},
+      async authorize(credentials, req) {
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
+
+        const token = jwt.sign(
+          {
+            // email,
+            // password,
+            iat: Math.floor(Date.now() / 1000),
+            exp: Math.floor(Date.now() / 1000 + 7 * 24 * 60 * 60),
+            "https://hasura.io/jwt/claims": {
+              "x-hasura-default-role": "user",
+              "x-hasura-allowed-roles": ["user", "admin"],
+              // "x-hasura-user-id": `${metadata.issuer}`,
+            },
+          },
+          process.env.JWT_SECRET as string,
+        );
+        //  Logic to retrieve Use from db
+        const user = await findUserByEmail(token, email);
+        console.log(
+          "///////////////**********************//////////////",
+          // req.headers?.cookie,
+        );
+        console.log({ user, email });
+
+        return { email: "hi", id: "123", user };
+      },
+    }),
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
@@ -24,11 +61,11 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.LINKEDIN_CLIENT_ID as string,
       clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
     }),
-    Auth0Provider({
-      clientId: process.env.AUTH0_CLIENT_ID as string,
-      clientSecret: process.env.AUTH0_CLIENT_SECRET as string,
-      issuer: process.env.AUTH0_ISSUER as string
-    })
+    // Auth0Provider({
+    //   clientId: process.env.AUTH0_CLIENT_ID as string,
+    //   clientSecret: process.env.AUTH0_CLIENT_SECRET as string,
+    //   issuer: process.env.AUTH0_ISSUER as string,
+    // }),
   ],
   adapter: HasuraAdapter({
     endpoint: process.env.NEXT_PUBLIC_HASURA_ADMIN_URL!,
@@ -38,7 +75,7 @@ export const authOptions: NextAuthOptions = {
     colorScheme: "auto",
   },
   pages: {
-    signIn: '/login'
+    signIn: "/login",
   },
   // Use JWT strategy so we can forward them to Hasura
   session: { strategy: "jwt" },

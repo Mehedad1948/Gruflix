@@ -27,6 +27,34 @@ export async function queryHasuraGQL(
   return await result.json();
 }
 
+export async function findUserByEmail(token: string, email: string) {
+  try {
+    const user = await queryHasuraGQL(
+      `query FindUserByEmail($email: String!) {
+        users(where: {email: {_eq: $email}}) {
+          accounts {
+            type
+            provider
+          }
+          password
+          name
+          email
+        }
+      }
+      `,
+      "FindUserByEmail",
+      { email },
+      token,
+    );
+
+    return user?.data.users[0];
+  } catch (err) {
+    console.log(err);
+    return null;
+    // throw Error(JSON.stringify(err));
+  }
+}
+
 export async function isNewUser(token: string, issuer: string) {
   try {
     const user = await queryHasuraGQL(
@@ -52,15 +80,13 @@ export async function isNewUser(token: string, issuer: string) {
 
 export async function createNewUser(
   token: string,
-  metadata: MagicUserMetadata,
+  email: string,
+  password: string,
 ) {
-  const { issuer, email, publicAddress } = metadata;
-
   try {
     const user = await queryHasuraGQL(
-      `mutation createNewUser($email: String!, $issuer: String!, 
-        $publicAddress: String!) {
-        insert_users(objects: {email: $email, issuer: $issuer, publicAddress: $publicAddress}){
+      `mutation createNewUser($email: String!, $password: String!) {
+        insert_users(objects: {email: $email, password: $password}){
       returning {
           email
           id
@@ -69,7 +95,7 @@ export async function createNewUser(
       }
       `,
       "createNewUser",
-      { issuer, email, publicAddress },
+      { email, password },
       token,
     );
     console.log("createNewUser", user);
@@ -178,7 +204,6 @@ export const createStats = async ({
   favourited: 0 | 1;
   watched: boolean;
 }) => {
-
   const insetStatsDoc = `mutation insertStats(
     $userId: uuid!, $videoId: String!, 
     $favourited: Int!, $watched: Boolean!) {
