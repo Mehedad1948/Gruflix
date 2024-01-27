@@ -122,20 +122,18 @@ const Video = ({ video }: { video: VideoData }) => {
 
       <div
         className={`${
-          theaterMode ? "my-16 !grid-cols-[0fr,_1fr,_0fr] " : "my-20  "
-        }  grid w-full grid-cols-[0fr,_1fr,_0fr] items-center 
+          theaterMode ? "sm:my-16 !grid-cols-[0fr,_1fr,_0fr] " : "sm:my-20  "
+        }  grid w-full grid-cols-[0fr,_1fr,_0fr] items-center my-14
       transition-[grid] duration-1000 ease-out lg:grid-cols-[0.1fr,_0.6fr,_0.3fr]`}
       >
-        <div>
-          
-        </div>
-        <div className="overflow-hidden rounded-lg  bg-slate-50 pb-6 shadow-lg">
+        <div></div>
+        <div className="overflow-hidden rounded-lg  bg-slate-50 pb-6 mx-1 sm:mx-0 shadow-lg">
           <div className="relative bg-black shadow shadow-blue-400">
             <iframe
               id="player"
               // type="text/html"
               className={`${
-                theaterMode ? "!h-[85vh]" : "w-full"
+                theaterMode ? "sm:!h-[85vh]" : "w-full"
               } mx-auto aspect-[16/9] max-w-full rounded-sm sm:rounded-t-lg  `}
               src={`https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=http://example.com&rel=1`}
               // frameborder="0"
@@ -174,7 +172,10 @@ const Video = ({ video }: { video: VideoData }) => {
                   className=" w-6"
                   checked={favourited === 1}
                 />
-                <button onClick={() => setTheaterMode((s) => !s)}>
+                <button
+                  className="sm:block hidden"
+                  onClick={() => setTheaterMode((s) => !s)}
+                >
                   Theater
                 </button>
               </div>
@@ -211,8 +212,8 @@ const Video = ({ video }: { video: VideoData }) => {
               <div>
                 <h4 className="mt-3 font-semibold">📋 Links and Resources:</h4>
                 <ul
-                  className="my-2 flex w-fit flex-col  gap-3 rounded border border-blue-300
-                       bg-blue-50 py-2 text-blue-800"
+                  className="my-2 flex w-fit flex-col gap-1.5 sm:gap-3 rounded border border-blue-300
+                       bg-blue-50 py-2 text-blue-800 max-w-full"
                 >
                   {links.map((link) => (
                     <Link
@@ -225,18 +226,23 @@ const Video = ({ video }: { video: VideoData }) => {
                   ))}
                 </ul>
               </div>
-              <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-2.5">
-                {video.tags.map((tag) => (
-                  <span key={tag}>
-                    <span
-                      className="rounded-full border bg-gradient-to-tr from-fuchsia-800/20 to-blue-500/10 px-3
-                  py-1  text-sm text-blue-800 "
-                    >
-                      {tag}
+              <div className="mt-4">
+                <h4 className="mb-2"># Tags:</h4>
+                <div className=" flex flex-wrap items-center gap-1.5 sm:gap-x-2 sm:gap-y-2.5 ">
+                  {video.tags.map((tag) => (
+                    <span key={tag}>
+                      <span
+                        className="rounded-full border bg-gradient-to-tr
+                       from-fuchsia-800/20 to-blue-500/10 px-3
+                  py-1 text-xs sm:text-sm text-blue-800 "
+                      >
+                        {tag}
+                      </span>
                     </span>
-                  </span>
-                ))}
+                  ))}
+                </div>
               </div>
+
               {/* <GradientBg /> */}
             </div>
 

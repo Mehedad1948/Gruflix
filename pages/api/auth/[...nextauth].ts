@@ -44,9 +44,12 @@ export const authOptions: NextAuthOptions = {
           "///////////////**********************//////////////",
           // req.headers?.cookie,
         );
-        console.log({ user, email });
 
-        return { email: "hi", id: "123", user };
+        if (user) {
+          return { email: user.email, id: user.id };
+        } else {
+          return null;
+        }
       },
     }),
     GithubProvider({
@@ -97,9 +100,8 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     // Add the required Hasura claims
     // https://hasura.io/docs/latest/graphql/core/auth/authentication/jwt/#the-spec
+  
     async jwt({ token }) {
-      // console.log({ token });
-
       return {
         ...token,
         "https://hasura.io/jwt/claims": {
@@ -111,8 +113,8 @@ export const authOptions: NextAuthOptions = {
       };
     },
     // Add user ID to the session
-    session: async ({ session, token }) => {
-      // console.log({ session });
+    session: async ({ session, token , user}) => {
+      // console.log({ user });
 
       if (session?.user) {
         session.user.id = token.sub!;

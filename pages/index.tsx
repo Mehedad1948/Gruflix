@@ -27,9 +27,10 @@ export const getServerSideProps: GetServerSideProps = async (
       });
     }
   }
-  const reactVideos = await getVideos("reactjs");
+  const reactVideos = await getVideos("best reactjs course");
   const tailwindVideos = await getVideos("tailwind");
   const threejsVideos = await getVideos("three js");
+
   return {
     props: { reactVideos, tailwindVideos, threejsVideos, watchItAgain },
   };
@@ -48,6 +49,8 @@ export default function Home({
   threejsVideos,
   watchItAgain,
 }: Props) {
+  console.log({ reactVideos });
+
   const [colorMode, setColorMode] = useColorMode();
   const videosSample = [
     { imgUrl: "/static/Lewishowes.jpg", linkTo: "/lecturers/Lewishowes" },
@@ -89,27 +92,27 @@ export default function Home({
 
       <SectionCard
         title="React"
-        colorClass="bg-gradient-to-tr from-blue-950 to-slate-950"
+        // colorClass="bg-gradient-to-tr from-blue-950 to-slate-950"
         videos={reactVideos}
         size="small"
       />
       {watchItAgain.length > 0 && (
         <SectionCard
           title="ٌWatch it again"
-          colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
+          // colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
           videos={watchItAgain}
           size="medium"
         />
       )}
       <SectionCard
         title="TailwindCSS"
-        colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
+        // colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
         videos={tailwindVideos}
         size="medium"
       />
       <SectionCard
         title="Three.js"
-        colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
+        // colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
         videos={threejsVideos}
         size="large"
       />

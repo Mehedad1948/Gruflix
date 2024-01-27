@@ -16,7 +16,7 @@ function Navbar() {
   const [isNavigating, setIsNavigating] = useState(false);
 
   const { data: session, status } = useSession();
-  console.log({ session });
+  // console.log({ session });
 
   const router = useRouter();
 
@@ -94,7 +94,7 @@ function Navbar() {
               "Authenticating..."
             ) : session?.user ? (
               <div className="flex items-center gap-2">
-                <span>{session.user?.name}</span>
+                <span>{session.user?.name ? session.user?.name : session.user?.email }</span>
                 {session.user.image && (
                   <Image
                     className="w-7 rounded-full"

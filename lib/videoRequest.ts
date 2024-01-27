@@ -25,7 +25,7 @@ export async function videoRequest(address: string): Promise<VideoData[]> {
         description: snippet.description,
         publishedAt: snippet.publishedAt,
         channelTitle: snippet.channelTitle,
-        tags: snippet.tags,
+        tags: snippet.tags || [],
         statistics: statistics
           ? {
               likeCount: statistics.likeCount || 0,

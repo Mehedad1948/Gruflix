@@ -1,13 +1,14 @@
 @import "./scrollbar.css";
+@import "./gradients.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    @apply min-h-screen bg-gradient-to-tr from-sky-50 to-blue-200 font-medium;
+    @apply min-h-screen bg-gradient-to-tr from-[#a4a1b2] to-[#dbede1] font-medium font-['Montserrat'];
   }
-
+  /* from-[#8ca3f5] to-[#3d4353] */
   h1 {
     @apply text-4xl font-semibold;
   }
@@ -21,7 +22,7 @@
 }
 
 .loading-line {
-  animation: lineAnimation 3s linear infinite alternate; /* Adjust duration as needed */
+  animation: lineAnimation 2.5s linear infinite; /* Adjust duration as needed */
 }
 
 .animation-delay {
@@ -38,7 +39,7 @@
     right: 60%;
   }
   66% {
-    width: 7.5%;
+    width: 2%;
   }
   66% {
     width: 15%;

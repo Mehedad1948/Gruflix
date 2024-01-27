@@ -12,7 +12,9 @@ import { BuiltInProviderType } from "next-auth/providers";
 import {
   ClientSafeProvider,
   LiteralUnion,
+  getCsrfToken,
   getProviders,
+  getSession,
   signIn,
 } from "next-auth/react";
 import Head from "next/head";
@@ -21,6 +23,7 @@ import {
   ChangeEvent,
   ChangeEventHandler,
   FormEvent,
+  FormEventHandler,
   useEffect,
   useState,
 } from "react";
@@ -28,6 +31,8 @@ import toast from "react-hot-toast";
 import jwt from "jsonwebtoken";
 
 import { z } from "zod";
+import { sendEmail } from "@/lib/utils/sendEmail";
+import { redirect } from "next/dist/server/api-utils";
 const bcryptjs = require("bcryptjs");
 
 const initialValues = {
@@ -36,9 +41,23 @@ const initialValues = {
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { req, query } = context;
+  const session = await getSession({ req });
+  console.log({ context, req });
+  const callbackUrl = query?.callbackUrl || "";
+  if (session) {
+    return {
+      redirect: {
+        destination: callbackUrl,
+      },
+    };
+  }
+
+  const csrfTpken = await getCsrfToken(context);
+
   const providers = await getProviders();
   return {
-    props: { providers },
+    props: { providers, csrfTpken, callbackUrl },
   };
 }
 
@@ -56,14 +75,16 @@ const providersIcons: Partial<Record<KeyType, JSX.Element>> = {
 
 function Login({
   providers,
+  csrfTpken,
+  callbackUrl,
 }: {
   providers: Record<
     LiteralUnion<BuiltInProviderType, string>,
     ClientSafeProvider
   > | null;
+  csrfTpken: string;
+  callbackUrl: string;
 }) {
-  console.log({ providers });
-
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
@@ -100,7 +121,7 @@ function Login({
   //   setEmail()
   // };
 
-  async function handleLogin(e: React.FormEvent<FormEvent>) {
+  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     // const response = await fetch("/api/auth/signup", {
     //   method: "POST",
     //   body: JSON.stringify({
@@ -108,7 +129,7 @@ function Login({
     //     password: "1234",
     //   }),
     // });
-e.preventDefault()
+    e.preventDefault();
     const saltRounds = 10;
     const salt = bcryptjs.genSaltSync(saltRounds);
 
@@ -120,7 +141,10 @@ e.preventDefault()
         password: hashedPassword,
         redirect: false,
       });
+
+      return router.push(callbackUrl || "/");
     } else {
+      console.log("call create", process.env.JWT_SECRET);
       const token = jwt.sign(
         {
           iat: Math.floor(Date.now() / 1000),
@@ -133,8 +157,39 @@ e.preventDefault()
         },
         "12345678912345678912345678912345",
       );
-      const res = await createNewUser(token, email, hashedPassword);
-      console.log({ res });
+
+      const res = await createNewUser(token, loginEmail, hashedPassword);
+      if (res.success) {
+        toast.success("Welcome");
+        const activationCode = res.data.id;
+        const activation_token = jwt.sign(
+          {
+            id: activationCode,
+            iat: Math.floor(Date.now() / 1000),
+            exp: Math.floor(Date.now() / 1000 + 7 * 24 * 60 * 60),
+            "https://hasura.io/jwt/claims": {
+              "x-hasura-default-role": "user",
+              "x-hasura-allowed-roles": ["user", "admin"],
+              // "x-hasura-user-id": `${metadata.issuer}`,
+            },
+          },
+          "12345678912345678912345678912345",
+        );
+        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/activate/${activation_token}`;
+        console.log({ loginEmail });
+
+        const send = await fetch("/api/activate-account", {
+          method: "POST",
+          body: JSON.stringify({
+            email: loginEmail,
+            url,
+            subject: "Activate your Account",
+          }),
+        });
+        console.log({ send });
+
+        setFormState("login");
+      }
     }
 
     // if (email.length === 0) {
@@ -192,17 +247,31 @@ e.preventDefault()
             <h1>Gruflix</h1>
             <p className="text-lg font-semibold ml-1">Keep Learning</p>
           </div>
-          <div className="text-sm mt-3 flex gap-2 flex-col items-center justify-self-end">
-            <p>Dont have account yet? </p>
-            <span
-              onClick={() => {
-                setFormState((s) => (s === "login" ? "register" : "login"));
-              }}
-              className="text-slate-800 rounded font-semibold px-3 py-0.5 bg-slate-200 "
-            >
-              Sign up here
-            </span>
-          </div>
+          {formState === "login" ? (
+            <div className="text-sm mt-3 flex gap-2 flex-col items-center justify-self-end">
+              <p>Dont have account yet? </p>
+              <button
+                onClick={() => {
+                  setFormState((s) => (s === "login" ? "register" : "login"));
+                }}
+                className="text-slate-800 rounded font-semibold px-3 py-0.5 bg-slate-200 "
+              >
+                Register here
+              </button>
+            </div>
+          ) : (
+            <div className="text-sm mt-3 flex gap-2 flex-col items-center justify-self-end">
+              <p>Already have an account? </p>
+              <button
+                onClick={() => {
+                  setFormState((s) => (s === "login" ? "register" : "login"));
+                }}
+                className="text-slate-800 rounded font-semibold px-3 py-0.5 bg-slate-200 "
+              >
+                Login here
+              </button>
+            </div>
+          )}
         </div>
         <div
           className="relative flex h-full sm:min-h-screen w-full items-end sm:items-center 
@@ -213,12 +282,12 @@ e.preventDefault()
             className="w-full sm:max-w-lg rounded-lg bg-white/90
                      px-4 py-3 sm:py-4  rounded-t-md "
           >
-            <h2>{formState}</h2>
+            <h2 className="capitalize">{formState}</h2>
 
             <form
               onSubmit={handleLogin}
               className={`${formState === "login" ? "" : ""} mt-3 flex flex-col  
-                  gap-8 transition-all duration-200`}
+                 gap-6 sm:gap-8 transition-all duration-200`}
             >
               <Input
                 label="Email"
@@ -255,7 +324,7 @@ e.preventDefault()
 
               <button
                 className=" w-full rounded bg-gradient-to-tr from-slate-900
-                          to-slate-700 py-2 font-medium text-white "
+                          to-slate-700 py-2 font-medium text-white capitalize"
               >
                 {isLoading ? "Loading..." : formState}
               </button>

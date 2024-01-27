@@ -47,7 +47,7 @@ export async function findUserByEmail(token: string, email: string) {
       token,
     );
 
-    return user?.data.users[0];
+    return user?.data.users[0] || null;
   } catch (err) {
     console.log(err);
     return null;
@@ -90,7 +90,6 @@ export async function createNewUser(
       returning {
           email
           id
-          issuer
         }}
       }
       `,
@@ -100,10 +99,10 @@ export async function createNewUser(
     );
     console.log("createNewUser", user);
 
-    return user.data.insert_users;
-  } catch (err) {
+    return { success: true, data: user.data.insert_users.returning[0] };
+  } catch (err: any) {
     console.log(err);
-    throw Error(JSON.stringify(err));
+    return { success: false, message: err.message };
   }
 }
 
@@ -297,6 +296,8 @@ export const getWatchedVideos = async ({
   userId: string;
   token: string;
 }): Promise<{ favourited: 0 | 1; videoId: string }[]> => {
+  console.log({ userId, token });
+
   const getWatchedDoc = `query getWatched(
     $userId: uuid!) {
     stats(where: {
@@ -316,7 +317,7 @@ export const getWatchedVideos = async ({
       { userId },
       token,
     );
-    console.log(wathcedVideos.errors);
+    console.log("wathcedVideos.errors", wathcedVideos.errors);
 
     return wathcedVideos.data.stats;
   } catch (err) {
