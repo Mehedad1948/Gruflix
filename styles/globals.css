@@ -6,7 +6,7 @@
 
 @layer base {
   body {
-    @apply min-h-screen bg-gradient-to-tr from-[#a4a1b2] to-[#dbede1] font-medium font-['Montserrat'];
+    @apply min-h-screen bg-gradient-to-tr from-[#d6d7dd] to-[#ffffff] font-medium font-['Montserrat'];
   }
   /* from-[#8ca3f5] to-[#3d4353] */
   h1 {
