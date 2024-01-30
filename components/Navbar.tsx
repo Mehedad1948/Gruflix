@@ -14,11 +14,32 @@ function Navbar() {
   const [username, setUsername] = useState("");
   const [isLoading, setIsloading] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const { data: session, status } = useSession();
   // console.log({ session });
 
   const router = useRouter();
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      const isScrollingDown = currentScrollPos > prevScrollPos;
+
+      setIsScrolled(isScrollingDown);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [prevScrollPos]);
 
   useEffect(() => {
     const hacdleStart = () => {
@@ -66,8 +87,10 @@ function Navbar() {
 
   return (
     <nav
-      className="fixed left-0 top-0 z-50 flex w-full gap-8 rounded-b-lg bg-sky-50/90 px-4 pb-4
-                 pt-4 text-black shadow backdrop-blur sm:px-10 sm:pb-6"
+      className={`${isScrolled ? '-translate-y-[105%]' : ''} fixed left-0 top-0 z-50
+       flex w-full gap-8  bg-white px-4 pb-4
+                 pt-4 text-black shadow sm:px-10 sm:pb-6
+                 transition-transform duration-500`}
     >
       {isNavigating && (
         <div className="loading-line absolute bottom-0 h-1 w-full bg-orange-400"></div>

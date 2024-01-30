@@ -38,7 +38,7 @@ function Card({
       className="max-w group relative z-0 flex h-full min-h-full w-full min-w-[100px]  grow cursor-pointer
                  flex-col overflow-hidden rounded 
                   bg-white backdrop-blur-lg
-                 text-slate-900  
+                 text-slate-900  max-w-[300px]
                  shadow-lg transition-all duration-500 hover:z-10"
     >
       <div

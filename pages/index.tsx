@@ -9,6 +9,8 @@ import { watchedVideos } from "@/lib/watchedVideos";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { VideoData } from "@/models/videos";
 import { verifyToken } from "@/lib/utils/verifiyToken";
+import Slider from '@/components/Slider';
+
 
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext,
@@ -78,6 +80,16 @@ export default function Home({
     get();
   }, []);
 
+
+  useEffect(() => {
+    {
+      async () => {
+        const LocomotiveScroll = (await import("locomotive-scroll")).default;
+        const locomotive = new LocomotiveScroll();
+      };
+    }
+  }, []);
+
   return (
     <div>
       <Head>
@@ -89,7 +101,7 @@ export default function Home({
         subtitle="Lecture in harvard university"
         imgUrl="/static/jp2.jpg"
       />
-
+     
       <SectionCard
         title="React"
         // colorClass="bg-gradient-to-tr from-blue-950 to-slate-950"

@@ -5,7 +5,8 @@ import Link from "next/link";
 import { VideoData } from "@/models/videos";
 import ReactIcon from "./atoms/icons/react";
 import useEmblaCarousel from "embla-carousel-react";
-
+import Slider from "./Slider";
+import { SwiperSlide } from "swiper/react";
 
 interface Props {
   videos: VideoData[];
@@ -21,7 +22,7 @@ function SectionCard({
   colorClass = "",
 }: Props) {
   // console.log({ videos });
- const [emblaRef] = useEmblaCarousel()
+  const [emblaRef] = useEmblaCarousel();
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const handleScroll: WheelEventHandler<HTMLDivElement> = (e) => {
@@ -35,38 +36,38 @@ function SectionCard({
 
   return (
     <section
-    ref={emblaRef}
+      ref={emblaRef}
       className={
         colorClass +
         " " +
-        ` relative mx-auto  flex w-full sm:w-[95%] flex-col items-center justify-center
-           gap-2 rounded-lg shadow mt-8 first:mt-2 border sm:p-4
+        ` relative mx-auto flex   w-full h-screen flex-col items-center justify-center
+           gap-2 rounded-lg bg-gr mt-8 first:mt-2  sm:p-4
             overflow-hidden`
       }
     >
-      {/* <ReactIcon color="white" className="absolute  " /> */}
-      {/* <div
-        className="absolute right-5 top-1/2 z-50 flex aspect-square w-12 -translate-y-1/2 items-center
-                     justify-center rounded-full bg-blue-400/50 align-middle 
-                     backdrop-hue-rotate-180 "
+      <h2
+        data-scroll
+        data-scroll-speed="0.3"
+        className=" w-fit top-0 pt-[20vh] left-0 absolute h-[50vh] rounded-lg text-center text-transparent
+                     bg-gradient-to-r from-fuchsia-600 to-blue-700 bg-clip-text text-[50vh]"
       >
-        <IoIosArrowForward />
-      </div> */}
-      <h2 className=" w-11/12   py-2  rounded-lg text-center text-slate-700">
         {title}
       </h2>
-      <div
-        ref={scrollContainerRef}
-        onWheel={handleScroll}
-        className="mx-auto flex grid-cols-1 justify-items-center gap-x-4 gap-y-4 
-                  pt-4  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-      >
-        {videos &&
-          videos.map((video: any) => (
-            <Link key={video.id} href={`/video/${video.id}`}>
-              <Card video={video} key={video.id}  size={size} />
-            </Link>
-          ))}
+      <div className="grow"></div>
+
+      <div className="block w-full cards-container">
+        <Slider
+          sliderPreview={4}
+          spaceBetween={20}
+          cardsArray={videos || []}
+          render={(video: any) => (
+            <SwiperSlide key={video.id}>
+              <Link className="block " href={`/video/${video.id}`}>
+                <Card video={video} key={video.id} size={size} />
+              </Link>
+            </SwiperSlide>
+          )}
+        />
       </div>
     </section>
   );

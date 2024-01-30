@@ -70,3 +70,15 @@
   margin: 0;
   padding: 0;
 }
+
+.cards-container {
+  perspective: 20px;
+}
+
+.swiper-slide {
+transform: rotateZ('30deg');
+}
+
+.swiper-slide img {
+
+}

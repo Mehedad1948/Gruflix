@@ -3,7 +3,7 @@ import { AppProps } from "next/app";
 import "@/styles/globals.css";
 import { montserrat } from "../styles/fonts";
 import Navbar from "@/components/Navbar";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { magic } from "@/lib/magic-client";
 import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -18,6 +18,7 @@ export default function MyApp({
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     const isUserLoggedIn = async () => {
