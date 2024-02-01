@@ -59,8 +59,8 @@ function Footer() {
 
   return (
     <footer
-      className="w-full bg-white px-4 pb-4 grid grid-cols-4 items-start shadow-lg
-                 pt-4 text-black  backdrop-blur sm:px-10 sm:pb-6 rounded-t-lg mt-8"
+      className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 px-4 pb-4 grid grid-cols-4 items-start shadow-lg
+                 pt-4 text-black  backdrop-blur sm:px-10 sm:pb-6 rounded-t-lg mt-8 h-screen"
     >
       <Logo />
 

@@ -6,7 +6,8 @@
 
 @layer base {
   body {
-    @apply min-h-screen bg-gradient-to-tr from-[#d6d7dd] to-[#ffffff] font-medium font-['Montserrat'];
+    @apply min-h-screen bg-gradient-to-tr from-[#f8f1e9] to-[#f8f1e9] font-medium 
+    font-['Montserrat'] selection:bg-emerald-300;
   }
   /* from-[#8ca3f5] to-[#3d4353] */
   h1 {
@@ -76,9 +77,23 @@
 }
 
 .swiper-slide {
-transform: rotateZ('30deg');
+  transform: rotateZ("30deg");
 }
 
 .swiper-slide img {
+}
 
+.prespective {
+  perspective: 500px;
+}
+
+.swiper {
+  overflow: visible;
+}
+
+.rotateY {
+  rotate: y 4deg;
+}
+.rotateYreverse {
+  rotate: y -4deg;
 }

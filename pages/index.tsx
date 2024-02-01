@@ -104,6 +104,7 @@ export default function Home({
      
       <SectionCard
         title="React"
+        colorClass='bg-'
         // colorClass="bg-gradient-to-tr from-blue-950 to-slate-950"
         videos={reactVideos}
         size="small"

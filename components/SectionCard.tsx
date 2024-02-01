@@ -42,20 +42,21 @@ function SectionCard({
         " " +
         ` relative mx-auto flex   w-full h-screen flex-col items-center justify-center
            gap-2 rounded-lg bg-gr mt-8 first:mt-2  sm:p-4
-            overflow-hidden`
+            overflow-hidden prespective`
       }
     >
       <h2
         data-scroll
         data-scroll-speed="0.3"
-        className=" w-fit top-0 pt-[20vh] left-0 absolute h-[50vh] rounded-lg text-center text-transparent
-                     bg-gradient-to-r from-fuchsia-600 to-blue-700 bg-clip-text text-[50vh]"
+        className=" w-fit top-0 pt-[20vh] left-0 absolute h-[50vh]  rounded-lg text-center text-transparent
+                     bg-gradient-to-r from-amber-950 to-emerald-950 bg-clip-text text-[30vh] rotateY 
+                     translate-x-24"
       >
         {title}
       </h2>
       <div className="grow"></div>
 
-      <div className="block w-full cards-container">
+      <div className="block w-full cards-container rotateY translate-x-24 p-2 overflow-visible">
         <Slider
           sliderPreview={4}
           spaceBetween={20}

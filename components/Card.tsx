@@ -36,9 +36,9 @@ function Card({
   return (
     <div
       className="max-w group relative z-0 flex h-full min-h-full w-full min-w-[100px]  grow cursor-pointer
-                 flex-col overflow-hidden rounded 
-                  bg-white backdrop-blur-lg
-                 text-slate-900  max-w-[300px]
+                 flex-col  rounded 
+                  bg-rose-50 backdrop-blur-lg
+                 text-slate-900  max-w-[320px] ring-2 ring-amber-400
                  shadow-lg transition-all duration-500 hover:z-10"
     >
       <div
