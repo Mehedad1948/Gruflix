@@ -17,7 +17,7 @@ interface Props {
   render: (item: any, index: number) => React.ReactNode;
   sliderPreview?: number;
   spaceBetween?: number;
-  freeMode?:boolean
+  freeMode?: boolean;
 }
 
 export default function Slider({
@@ -25,7 +25,7 @@ export default function Slider({
   render,
   sliderPreview = 3,
   spaceBetween = 30,
-  freeMode=true
+  freeMode = true,
 }: Props) {
   return (
     <>
@@ -34,13 +34,24 @@ export default function Slider({
         spaceBetween={spaceBetween}
         freeMode={freeMode}
         pagination={{
-            enabled:false,
+          enabled: false,
           clickable: false,
         }}
         modules={[FreeMode, Pagination]}
         className="mySwiper"
         breakpoints={{
-          
+          340: {
+            slidesPerView: 1,
+            spaceBetween: 15,
+          },
+          700: {
+            slidesPerView: 3,
+            spaceBetween: 15,
+          },
+          1000: {
+            slidesPerView: 5,
+            spaceBetween: 15,
+          },
         }}
       >
         {cardsArray?.map(render)}

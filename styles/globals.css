@@ -89,6 +89,7 @@
 
 .swiper {
   overflow: visible;
+  padding: 8px;
 }
 
 .rotateY {

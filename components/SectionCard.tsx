@@ -49,14 +49,15 @@ function SectionCard({
         data-scroll
         data-scroll-speed="0.3"
         className=" w-fit top-0 pt-[20vh] left-0 absolute h-[50vh]  rounded-lg text-center text-transparent
-                     bg-gradient-to-r from-amber-950 to-emerald-950 bg-clip-text text-[30vh] rotateY 
-                     translate-x-24"
+                     bg-gradient-to-r from-amber-950 to-emerald-950 bg-clip-text text-[10vh] md:text-[30vh] rotateY 
+                     translate-x-8 md:translate-x-24"
       >
         {title}
       </h2>
       <div className="grow"></div>
 
-      <div className="block w-full cards-container rotateY translate-x-24 p-2 overflow-visible">
+      <div className="block w-full cards-container  translate-x-8 lg:translate-x-24
+       p-4 overflow-visible">
         <Slider
           sliderPreview={4}
           spaceBetween={20}

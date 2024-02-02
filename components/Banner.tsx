@@ -41,20 +41,20 @@ function Banner({ title, subtitle, imgUrl }: Props) {
         </div>
       </CoverText> */}
       <div
-        className="w-[50%] right-16 p-8 roinded-lg  
-                absolute top-1/2 -translate-y-1/2 z-10 before:content-[''] 
+        className="md:w-[50%] w-full md:right-16 md:p-8 roinded-lg  h-screen md:h-fit flex flex-col items-center justify-center
+                md:absolute top-1/2 md:-translate-y-1/2 z-10 before:content-[''] p-2
                   after:w-full after:h-full after:absolute after:content-[''] after:-z10
                 after:bg-gradient-to-r after:from-rose-900 after:to-emerald-950 after:top-0 after:left-0 after:border-2 after:border-amber-900  
                 before:top-0 before:left-0 before:translate-x-3 before:translate-y-3
                 before:w-full before:absolute before:h-full before:-z-10 before:bg-purple-200/0"
       >
         <img
-          className="z-20 relative border-2 border-rose-600 rounded"
+          className="z-20 relative border-2 border-rose-600 rounded w-full"
           src={imgUrl}
           alt=""
         />
         <div className="flex flex-col gap-3 mt-4 relative z-20">
-          <h1 className="text-amber-100">Tailwind Connect 2023 — Keynote</h1>
+          <h1 className="text-amber-100 text-xl md:text-3xl">Tailwind Connect 2023 — Keynote</h1>
           <p className="text-amber-100 font-medium">
             The keynote from Tailwind Connect 2023, our first-ever live event
             that took place on June 20th, 2023, featuring presentations from
