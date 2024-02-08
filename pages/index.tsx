@@ -118,13 +118,37 @@ export default function Home({
         />
       )}
       <SectionCard
-        title="TailwindCSS"
+        title="Next.js"
         // colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
         videos={tailwindVideos}
         size="medium"
       />
       <SectionCard
+        title="Typescript"
+        // colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
+        videos={threejsVideos}
+        size="large"
+      />
+      <SectionCard
         title="Three.js"
+        // colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
+        videos={threejsVideos}
+        size="large"
+      />
+      <SectionCard
+        title="GSAP"
+        // colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
+        videos={threejsVideos}
+        size="large"
+      />
+      <SectionCard
+        title="Vue.js"
+        // colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
+        videos={threejsVideos}
+        size="large"
+      />
+      <SectionCard
+        title="Nuxt.js"
         // colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
         videos={threejsVideos}
         size="large"

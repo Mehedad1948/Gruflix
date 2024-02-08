@@ -22,7 +22,6 @@ function Navbar() {
 
   const router = useRouter();
 
-
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
@@ -33,11 +32,11 @@ function Navbar() {
     };
 
     // Add scroll event listener
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     // Clean up the event listener on component unmount
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [prevScrollPos]);
 
@@ -87,10 +86,10 @@ function Navbar() {
 
   return (
     <nav
-      className={`${isScrolled ? '-translate-y-[105%]' : ''} fixed left-0 top-0 z-50
-       flex w-full gap-8  bg-white px-4 pb-4
+      className={`${isScrolled ? "-translate-y-[105%]" : ""} fixed left-0 top-0 z-50
+        w-full gap-8  bg-white px-4 pb-4
                  pt-4 text-black shadow sm:px-10 sm:pb-6
-                 transition-transform duration-500`}
+                 transition-transform duration-500 sm:flex hidden`}
     >
       {isNavigating && (
         <div className="loading-line absolute bottom-0 h-1 w-full bg-orange-400"></div>
@@ -117,7 +116,11 @@ function Navbar() {
               "Authenticating..."
             ) : session?.user ? (
               <div className="flex items-center gap-2">
-                <span>{session.user?.name ? session.user?.name : session.user?.email }</span>
+                <span>
+                  {session.user?.name
+                    ? session.user?.name
+                    : session.user?.email}
+                </span>
                 {session.user.image && (
                   <Image
                     className="w-7 rounded-full"

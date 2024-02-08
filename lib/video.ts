@@ -17,9 +17,9 @@ export async function getVideos(searchQuery: string) {
       channelTitle: "Net Ninja",
       tags: [],
       statistics: {
-        viewCount: 0,
-        likeCount: 0,
-        commentCount: 0,
+        viewCount: Math.floor(Math.random() * 5000),
+        likeCount: Math.floor(Math.random() * 5000),
+        commentCount: Math.floor(Math.random() * 5000),
       },
     },
     {
@@ -33,9 +33,9 @@ export async function getVideos(searchQuery: string) {
       channelTitle: "Fireship",
       tags: [],
       statistics: {
-        viewCount: 0,
-        likeCount: 0,
-        commentCount: 0,
+        viewCount: Math.floor(Math.random() * 5000),
+        likeCount: Math.floor(Math.random() * 5000),
+        commentCount: Math.floor(Math.random() * 5000),
       },
     },
     {
@@ -50,9 +50,9 @@ export async function getVideos(searchQuery: string) {
       channelTitle: "Tailwind Labs",
       tags: [],
       statistics: {
-        viewCount: 0,
-        likeCount: 0,
-        commentCount: 0,
+        viewCount: Math.floor(Math.random() * 5000),
+        likeCount: Math.floor(Math.random() * 5000),
+        commentCount: Math.floor(Math.random() * 5000),
       },
     },
     {
@@ -66,9 +66,9 @@ export async function getVideos(searchQuery: string) {
       channelTitle: "freeCodeCamp.org",
       tags: [],
       statistics: {
-        viewCount: 0,
-        likeCount: 0,
-        commentCount: 0,
+        viewCount: Math.floor(Math.random() * 5000),
+        likeCount: Math.floor(Math.random() * 5000),
+        commentCount: Math.floor(Math.random() * 5000),
       },
     },
     {
@@ -82,9 +82,9 @@ export async function getVideos(searchQuery: string) {
       channelTitle: "Fireship",
       tags: [],
       statistics: {
-        viewCount: 0,
-        likeCount: 0,
-        commentCount: 0,
+        viewCount: Math.floor(Math.random() * 5000),
+        likeCount: Math.floor(Math.random() * 5000),
+        commentCount: Math.floor(Math.random() * 5000),
       },
     },
     {
@@ -99,9 +99,9 @@ export async function getVideos(searchQuery: string) {
       channelTitle: "Fireship",
       tags: [],
       statistics: {
-        viewCount: 0,
-        likeCount: 0,
-        commentCount: 0,
+        viewCount: Math.floor(Math.random() * 5000),
+        likeCount: Math.floor(Math.random() * 5000),
+        commentCount: Math.floor(Math.random() * 5000),
       },
     },
     {
@@ -115,9 +115,9 @@ export async function getVideos(searchQuery: string) {
       channelTitle: "Edoardo Midali",
       tags: [],
       statistics: {
-        viewCount: 0,
-        likeCount: 0,
-        commentCount: 0,
+        viewCount: Math.floor(Math.random() * 5000),
+        likeCount: Math.floor(Math.random() * 5000),
+        commentCount: Math.floor(Math.random() * 5000),
       },
     },
     {
@@ -131,9 +131,9 @@ export async function getVideos(searchQuery: string) {
       channelTitle: "Tailwind Labs",
       tags: [],
       statistics: {
-        viewCount: 0,
-        likeCount: 0,
-        commentCount: 0,
+        viewCount: Math.floor(Math.random() * 5000),
+        likeCount: Math.floor(Math.random() * 5000),
+        commentCount: Math.floor(Math.random() * 5000),
       },
     },
     {
@@ -147,9 +147,9 @@ export async function getVideos(searchQuery: string) {
       channelTitle: "Traversy Media",
       tags: [],
       statistics: {
-        viewCount: 0,
-        likeCount: 0,
-        commentCount: 0,
+        viewCount: Math.floor(Math.random() * 5000),
+        likeCount: Math.floor(Math.random() * 5000),
+        commentCount: Math.floor(Math.random() * 5000),
       },
     },
     {
@@ -163,9 +163,9 @@ export async function getVideos(searchQuery: string) {
       channelTitle: "Web Dev Simplified",
       tags: [],
       statistics: {
-        viewCount: 0,
-        likeCount: 0,
-        commentCount: 0,
+        viewCount: Math.floor(Math.random() * 5000),
+        likeCount: Math.floor(Math.random() * 5000),
+        commentCount: Math.floor(Math.random() * 5000),
       },
     },
   ];

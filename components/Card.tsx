@@ -31,18 +31,19 @@ function Card({
   function handleImageError() {
     setImgSrc("/static/jp.jpg");
   }
+
   // console.log({ imgSrc, title });
 
   return (
     <div
       className="max-w group relative z-0 flex h-full min-h-full w-full min-w-[100px]  grow cursor-pointer
-                 flex-col  rounded 
-                  bg-rose-50 backdrop-blur-lg
-                 text-slate-900  max-w-[320px] ring-2 ring-amber-400
+                 flex-col  rounded  overflow-hidden mx-auto
+                  bg-slate-50 backdrop-blur-lg 
+                 text-slate-900  max-w-[320px] border-2 border-amber-400/40
                  shadow-lg transition-all duration-500 hover:z-10"
     >
       <div
-        className=" relative aspect-[16/9]  overflow-hidden rounded-t-md  w-full
+        className=" relative aspect-[16/9]  overflow-hidden rounded-t-md  w-full max-w-full
        "
       >
         {/* <div
@@ -53,7 +54,7 @@ function Card({
         ></div> */}
         <img
           // onError={handleImageError}
-          className="mx-auto -mt-[45px] object-cover  transition-transform 
+          className="mx-auto -mt-[27px] object-cover  transition-transform 
                     duration-[1000ms] group-hover:brightness-110 "
           src={imgSrc}
           // layout="fill"
@@ -78,23 +79,21 @@ function Card({
         <PlayIconOverlay />
       </div>
       <div className="px-2 pt-2">
-        <h3 className=" font-semibold text-xl text-slate-800 my-1">{title}</h3>
-        <p className="mt-1">{description}</p>
+        <h3 className=" font-semibold text-xl  bg-gradient-to-r from-slate-700 to-violet-600 bg-clip-text text-transparent my-1">
+          {title}
+        </h3>
+        <p className="mt-1 break-words">{description}</p>
       </div>
       <span className="grow"></span>
       <div className="flex items-center gap-4 justify-end w-full mt-2 p-2 sm:text-lg">
         <div className="flex items-center gap-1.5 text-slate-700 w-full justify-center sm:justify-end">
           <Heart className="mb-0.5 " />
-          {statistics.likeCount === 0
-            ? Math.floor(Math.random() * 5000)
-            : statistics.likeCount}
+          {statistics.likeCount}
           <span className="text-sm">likes</span>
         </div>
         <div className="flex items-center gap-1.5 text-slate-700 ">
           <IoEyeSharp className="" />
-          {statistics.viewCount === 0
-            ? Math.floor(Math.random() * 5000)
-            : statistics.viewCount}
+          {statistics.viewCount}
           <span className="text-sm">views</span>
         </div>
       </div>

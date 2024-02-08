@@ -37,7 +37,7 @@ export async function getStaticPaths() {
 const Video = ({ video }: { video: VideoData }) => {
   const [theaterMode, setTheaterMode] = useState(false);
   const [favourited, setFavourited] = useState<0 | 1>(0);
-  console.log({ video });
+  // console.log({ video });
 
   const router = useRouter();
   const { videoId } = router.query;
