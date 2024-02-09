@@ -6,8 +6,8 @@
 
 @layer base {
   body {
-    @apply min-h-screen bg-gradient-to-r after:from-rose-900 after:to-emerald-950 font-medium 
-    font-['Montserrat'] selection:bg-emerald-300;
+    @apply min-h-screen  font-medium 
+     selection:bg-emerald-300;
   }
   /* from-[#8ca3f5] to-[#3d4353] */
   h1 {

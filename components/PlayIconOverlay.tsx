@@ -9,7 +9,8 @@ function PlayIconOverlay() {
     >
       <div
         className="center flex  gap-1.5 items-center justify-end
-                    rounded-full bg-emerald-500 py-2 px-2.5 text-2xl text-white
+                    rounded-full  bg-gradient-to-r from-amber-900 to-amber-500
+                     py-2 px-2.5 text-2xl text-white
                      rotate-0 w-48 text-right"
       >
          <span className='text-base'>Watch</span> <HiPlay />

@@ -15,7 +15,7 @@ import { IoEyeSharp } from "react-icons/io5";
 export async function getStaticProps(context: GetStaticPropsContext) {
   const { videoId } = context.params as { videoId: string };
 
-  const video = await videoById(videoId);
+  const video = (await videoById(videoId)) || null;
 
   return {
     props: {
@@ -40,6 +40,7 @@ const Video = ({ video }: { video: VideoData }) => {
   // console.log({ video });
 
   const router = useRouter();
+
   const { videoId } = router.query;
   // console.log({ video });
 
@@ -122,12 +123,14 @@ const Video = ({ video }: { video: VideoData }) => {
 
       <div
         className={`${
-          theaterMode ? "sm:my-16 !grid-cols-[0fr,_1fr,_0fr] " : "sm:my-20  "
-        }  grid w-full grid-cols-[0fr,_1fr,_0fr] items-center my-14
+          theaterMode ? "sm:mb-16 !grid-cols-[0fr,_1fr,_0fr] " : "sm:my-20  "
+        }  grid w-full grid-cols-[0fr,_1fr,_0fr] items-center
       transition-[grid] duration-1000 ease-out lg:grid-cols-[0.1fr,_0.6fr,_0.3fr]`}
       >
         <div></div>
-        <div className="overflow-hidden rounded-lg  bg-slate-50 pb-6 mx-1 sm:mx-0 shadow-lg">
+        <div className="overflow-hidden rounded-lg  bg-slate-50 pb-6 mx-1 sm:mx-0 
+        shadow-amber-100 border border-amber-200
+         shadow">
           <div className="relative bg-black shadow shadow-blue-400">
             <iframe
               id="player"
@@ -201,7 +204,10 @@ const Video = ({ video }: { video: VideoData }) => {
             after:z-0 after:block after:-skew-y-0 after:rounded-full  after:px-3 
              sm:text-left sm:text-lg  xl:text-xl"
               >
-                <span className="relative z-10 bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
+                <span
+                  className="relative z-10 bg-gradient-to-r from-pink-500 to-violet-500
+                                 bg-clip-text text-transparent"
+                >
                   {" "}
                   {video.title}
                 </span>
@@ -233,8 +239,8 @@ const Video = ({ video }: { video: VideoData }) => {
                     <span key={tag}>
                       <span
                         className="rounded-full border bg-gradient-to-tr
-                       from-fuchsia-800/20 to-blue-500/10 px-3
-                  py-1 text-xs sm:text-sm text-blue-800 "
+                       from-orange-800/20 to-amber-500/10 px-3
+                  py-1 text-xs sm:text-sm text-amber-800 "
                       >
                         {tag}
                       </span>

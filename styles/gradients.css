@@ -43,5 +43,41 @@
 }
 
 .elegant {
-  background: linear-gradient(9deg, rgb(140, 163, 245) 0%,  rgb(61, 67, 83) 100%);
+  background: linear-gradient(
+    9deg,
+    rgb(140, 163, 245) 0%,
+    rgb(61, 67, 83) 100%
+  );
+}
+
+.frame {
+  background: rgb(235, 248, 205);
+  background: linear-gradient(
+    54deg,
+    rgba(235, 248, 205, 1) 0%,
+    rgba(212, 200, 190, 1) 19%,
+    rgba(242, 251, 216, 1) 49%,
+    rgba(199, 202, 200, 1) 100%
+  );
+}
+
+.header-text {
+  background: rgb(245, 158, 11);
+  background: linear-gradient(
+    110deg,
+    rgba(245, 158, 11, 1) 0%,
+    rgba(245, 158, 11, 1) 49%,
+    rgba(255, 205, 0, 1) 64%,
+    rgba(245, 158, 11, 1) 100%
+  );
+}
+
+.hero-text {
+  background: rgb(32, 20, 0);
+  background: linear-gradient(
+    110deg,
+    rgb(32, 0, 0) 0%,
+    rgb(175, 135, 2) 64%,
+    rgba(32, 20, 0, 1) 100%
+  );
 }

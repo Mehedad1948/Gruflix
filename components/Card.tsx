@@ -36,11 +36,11 @@ function Card({
 
   return (
     <div
-      className="max-w group relative z-0 flex h-full min-h-full w-full min-w-[100px]  grow cursor-pointer
+      className="max-w group relative z-0 flex h-full min-h-full w-full min-w-[100px]  grow 
                  flex-col  rounded  overflow-hidden mx-auto
                   bg-slate-50 backdrop-blur-lg 
                  text-slate-900  max-w-[320px] border-2 border-amber-400/40
-                 shadow-lg transition-all duration-500 hover:z-10"
+                 shadow-lg"
     >
       <div
         className=" relative aspect-[16/9]  overflow-hidden rounded-t-md  w-full max-w-full
@@ -54,8 +54,7 @@ function Card({
         ></div> */}
         <img
           // onError={handleImageError}
-          className="mx-auto -mt-[27px] object-cover  transition-transform 
-                    duration-[1000ms] group-hover:brightness-110 "
+          className="mx-auto -mt-[27px] object-cover   "
           src={imgSrc}
           // layout="fill"
           // width={imageStyles[size].width}
@@ -76,7 +75,7 @@ function Card({
             />
           </div>
         </div> */}
-        <PlayIconOverlay />
+        {/* <PlayIconOverlay /> */}
       </div>
       <div className="px-2 pt-2">
         <h3 className=" font-semibold text-xl  bg-gradient-to-r from-slate-700 to-violet-600 bg-clip-text text-transparent my-1">

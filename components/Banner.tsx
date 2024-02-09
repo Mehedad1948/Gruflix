@@ -7,13 +7,17 @@ interface Props {
   imgUrl: string;
 }
 let timer: NodeJS.Timeout;
+
+// Whether you're a newbie or a seasoned pro, there's
+// something here for everyone. Let's ignite our coding journey together
+// and elevate our skills to new heights!
+
 const Banner = ({ title, subtitle, imgUrl }: Props) => {
   const [message, setMessage] = useState("");
   const [text, setText] = useState("");
   const [started, setStarted] = useState(false);
-  const dummyText = ` The keynote from Tailwind Connect 2023, our first-ever live event
-  that took place on June 20th, 2023, featuring presentations from
-  Adam Wathan, Sam Selikoff, and Steve Schoger.`;
+  const dummyText = `  Welcome to our coding hub! Explore a goldmine of top-notch YouTube
+  programming videos.`;
   function handleOnPlay() {}
 
   const handleGenerate = () => {
@@ -26,7 +30,7 @@ const Banner = ({ title, subtitle, imgUrl }: Props) => {
       i++;
       if (i === dummyText.length - 1) clearInterval(timer);
       setText((prev) => prev + dummyText[i]);
-    }, 50);
+    }, 40);
   };
 
   useEffect(() => {
@@ -35,17 +39,49 @@ const Banner = ({ title, subtitle, imgUrl }: Props) => {
 
   return (
     <div
-      className="relative  flex h-screen w-full gap-4 items-center overflow-hidden sm:px-16
+      className="relative min-h-screen w-full gap-4 h-fit items-center overflow-hidden
                     "
     >
       <div
-        className="grow flex flex-col p-4 absolute sm:relative z-30 bottom-8 
-      sm:max-w-[50%]  sm:items-center"
+        className="grow flex flex-col items-center justify-center p-4 h-fit  z-30  relative
+    "
       >
-        <h1 className="text-amber-50 sm:text-black">GRUFLIX</h1>
-        <h2 className="font-semibold relative capitalize text-amber-50 sm:text-black z-10 text-[30px]">
-          A palce to grow
-        </h2>
+        <div
+          className=" w-full sm:w-11/12 mx-auto sm:p-4 min-h-screen flex flex-col 
+        items-center justify-center sm:justify-start sm:items-start"
+        >
+          <h1
+            className="h-fit header-text w-fit  
+                      text-[45px] mx-auto sm:mx-0 sm:text-[70px] lg:text-[65px] xl:text-[80px] 
+                      leading-[45px] sm:leading-[70px] lg:leading-[65px] xl:leading-[80px]
+                      text-transparent bg-clip-text "
+          >
+            GURUFLIX
+          </h1>
+          <h2
+            className="font-semibold relative capitalize text-amber-950 max-w-full 
+            z-10 text-xl mx-auto mt-4 sm:mt-2"
+          >
+            <span
+              className="absolute top-0 left-0 hero-text w-fit text-[35px] sm:text-[50px] lg:text-[65px] xl:text-[80px] text-transparent 
+          bg-clip-text leading-[38px] sm:leading-[54px] lg:leading-[65px] xl:leading-[80px] pb-1
+          text-center sm:text-left"
+            >
+              {" "}
+              {/* {text.length > 0 && (
+                <div className="h-1 w-6 bg-amber-950 rounded inline-block"></div>
+              )} */}
+              {text}
+            </span>
+            <span
+              className="opacity-0  pointer-events-none
+              text-[35px] sm:text-[50px] lg:text-[65px] xl:text-[80px] 
+              bg-clip-text leading-[38px] sm:leading-[54px] lg:leading-[65px] xl:leading-[80px]"
+            >
+              {dummyText}
+            </span>
+          </h2>
+        </div>
         {/* <h2
           className="absolute z-0 text-rose-500 top-0 text-[50px]
        translate-y-0.5 -translate-x-0.5 font-semibold font-['a_astro_space']"
@@ -71,26 +107,28 @@ const Banner = ({ title, subtitle, imgUrl }: Props) => {
       </CoverText> */}
       <div
         onClick={() => handleGenerate()}
-        className="md:w-[50%] w-full md:right-16 md:p-8 roinded-lg  h-screen md:h-fit flex flex-col
-         items-center sm:justify-center relative md:absolute
-                 z-10 before:content-[''] p-2
-                  after:w-full after:h-full after:absolute after:content-[''] after:-z10
-                after:bg-gradient-to-r after:from-rose-900 after:to-emerald-950 after:top-0 after:left-0 after:border-2 after:border-amber-900  
-                before:top-0 before:left-0 before:translate-x-3 before:translate-y-3
-                before:w-full before:absolute before:h-full before:-z-10 before:bg-purple-200/0"
+        className=" mx-auto  roinded-lg   md:h-fit flex flex-col
+         items-center sm:justify-center relative
+                 z-10 
+               rounded-t-2xl w-11/12 md:w-2/3 overflow-hidden  
+               "
       >
         <img
-          className="z-20 relative border-2 border-rose-600 rounded w-full"
+          className="z-20 relative border-2 border-amber-400 rounded w-full"
           src={imgUrl}
           alt=""
         />
         <div className="flex flex-col gap-3 mt-4 relative z-20">
-          <h1 className="text-amber-100 text-xl md:text-3xl">
+          <h1 className="text-amber-800 text-2xl md:text-3xl">
             Tailwind Connect 2023 — Keynote
           </h1>
-          <p className="text-amber-100 font-medium relative w-full">
-            <span className="absolute left-0 top-0"> {text}</span>
-            <span className="opacity-0 pointer-events-none">{dummyText}</span>
+          <p className="text-amber-800 text-lg font-semibold relative w-full">
+            <span className="">
+              {" "}
+              The keynote from Tailwind Connect 2023, our first-ever live event
+              that took place on June 20th, 2023, featuring presentations from
+              Adam Wathan, Sam Selikoff, and Steve Schoger.
+            </span>
           </p>
         </div>
       </div>

@@ -59,52 +59,35 @@ function Footer() {
 
   return (
     <footer
-      className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 px-4 pb-4 grid grid-cols-4 items-start shadow-lg
-                 pt-4 text-black  backdrop-blur sm:px-10 sm:pb-6 rounded-t-lg mt-8 h-screen"
+      className="w-full bg-gradient-to-r from-amber-500 to-amber-700 px-4  
+                 pt-4 text-amber-50  min-h-[50vh] flex-col
+                 flex items-center justify-center"
     >
-      <Logo />
+      <div
+        className=" text-amber-50 text-[40px] sm:text-[100px] px-4 sm:px-6 py-2 border-2 sm:border-4 bg-gradient-to-r from-amber-500/50
+       to-amber-700/50 
+      border-amber-300 rounded-lg"
+      >
+        GURUFLIX
+      </div>
 
-<div className='flex flex-col'>
-<span>Topics</span>
-<ul>
-  <li>React</li>
-  <li>Vue</li>
-  <li>Next</li>
-</ul>
-</div>
+      <div className=" px-6 py-1 my-2">
+        <ul className="flex gap-4 flex-wrap text-3xl">
+          <li>React</li>
+          <li>Vue</li>
+          <li>Next</li>
+        </ul>
+      </div>
       <span className="grow"></span>
-
-      <div className="relative h-fit">
-        <div
-          ref={ref}
-          onClick={() => setIsMenuOpen((state) => !state)}
-          className="flex  items-center gap-2"
+      <div className="flex items-center justify-start  w-full sm:w-fit">
+        <p
+          className="font-normal text-sm px-1 sm:px-5 py-2 border-t border-amber-300
+        text-amber-100 flex sm:flex-row flex-col items-center w-full sm:w-fit gap-x-1.5"
         >
-          <div>
-            {status === "loading" ? (
-              "Authenticating..."
-            ) : session ? (
-              session.user?.name
-            ) : (
-              <button
-                type="button"
-                className="inline"
-                onClick={() => router.push("/login")}
-              >
-                Login
-              </button>
-            )}
-          </div>
-          <MdKeyboardArrowDown />
-        </div>
-        {isMenuOpen && (
-          <div
-            className="absolute -bottom-11 right-0 w-32 rounded border-2 border-sky-200 bg-sky-100/70
-                       px-2 py-1 text-center backdrop-blur-sm"
-          >
-            <button onClick={handleLogout}>Sign out</button>
-          </div>
-        )}
+          <span>Some rights are reserved</span>{" "}
+          <span className="sm:block hidden">|</span>
+          <span className="w-max break-words"> GURUFLIX - 2024</span>
+        </p>
       </div>
     </footer>
   );

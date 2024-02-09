@@ -8,6 +8,7 @@ export async function videoRequest(address: string): Promise<VideoData[]> {
       `${YOUTUBE_BASE_URL}${address}&key=${YOUTUBE_API_KEY}`,
     );
     const data = await response.json();
+    console.log({ data });
 
     if (data?.error) {
       error("YouTube Api Error", address, data?.error);

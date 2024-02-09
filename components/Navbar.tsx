@@ -86,15 +86,15 @@ function Navbar() {
 
   return (
     <nav
-      className={`${isScrolled ? "-translate-y-[105%]" : ""} fixed left-0 top-0 z-50
-        w-full gap-8  bg-white px-4 pb-4
-                 pt-4 text-black shadow sm:px-10 sm:pb-6
+      className={`${isScrolled ? "-translate-y-[105%]" : ""}  z-50
+        w-full gap-8   px-4 pb-4 
+                 pt-4 text-black sm:px-10 sm:pb-6
                  transition-transform duration-500 sm:flex hidden`}
     >
       {isNavigating && (
         <div className="loading-line absolute bottom-0 h-1 w-full bg-orange-400"></div>
       )}
-      <Logo />
+      {/* <Logo /> */}
       <ul className="flex  gap-4">
         {/* <Link href="/">Home</Link> */}
         <Link className="w-max" href="/browse/my-list">

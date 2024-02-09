@@ -59,9 +59,9 @@ function SectionCard({
       <div className="grow"></div>
 
       <div
-        className={`${showMore ? "sm:grid-rows-[1fr,_repeat(2,_400px)] grid-rows-1" : "-mb-6 !grid-rows-[repeat(4,_0px)]"}
+        className={`${showMore ? "sm:grid-rows-[repeat(3,_400px)] grid-rows-1" : "-mb-6 !grid-rows-[repeat(3,_0px)]"}
          w-full cards-container 
-       p-4  grid-cols-1 justify-items-center sm:grid-cols-2  transition-all duration-200
+       p-4  grid-cols-1 justify-items-center sm:grid-cols-2 
        md:grid-cols-3 xl:grid-cols-4 gap-4  overflow-hidden sm:grid hidden`}
       >
         {videos.map((video, index) => (
@@ -80,7 +80,7 @@ function SectionCard({
           z-20 hover:px-6 transition-all duration-300 ease-out
         "
         >
-          <div className="absolute left-0 top-0 w-full h-full border-x bg-white
+          <div className="absolute left-0 top-0 w-full h-full border-x bg-[#fbfdf7]
            border-amber-300 rounded-full z-20"></div>
           <div
             className="w-screen absolute  h-[1px]
@@ -92,7 +92,7 @@ function SectionCard({
           text-amber-700 hover:bg-amber-50 cursor-pointer`}
             onClick={() => setShowMore(!showMore)}
           >
-            {showMore ? "Show Less" : "Show More"}
+            {showMore ? "Hide Videos" : "Show Videos"}
           </button>
         </div>
       )}

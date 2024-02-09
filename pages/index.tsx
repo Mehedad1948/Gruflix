@@ -135,7 +135,7 @@ export default function Home({
         videos={threejsVideos}
         size="large"
       />
-      <SectionCard
+      {/* <SectionCard
         title="GSAP"
         // colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
         videos={threejsVideos}
@@ -153,6 +153,12 @@ export default function Home({
         videos={threejsVideos}
         size="large"
       />
+      <SectionCard
+        title="Clean Code"
+        // colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
+        videos={threejsVideos}
+        size="large"
+      /> */}
     </div>
   );
 }
