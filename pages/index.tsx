@@ -4,12 +4,15 @@ import Banner from "@/components/Banner";
 import SectionCard from "@/components/SectionCard";
 import { getVideos } from "@/lib/video";
 import { queryHasuraGQL } from "@/lib/db/hasura";
-import { useEffect } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { watchedVideos } from "@/lib/watchedVideos";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { VideoData } from "@/models/videos";
 import { verifyToken } from "@/lib/utils/verifiyToken";
-import Slider from '@/components/Slider';
+import Slider from "@/components/Slider";
+import { NextPageWithLayout } from "./_app";
+import Default from "@/components/layouts/default";
+import { LoadMore } from '@/components/molecules/load-more';
 
 
 export const getServerSideProps: GetServerSideProps = async (
@@ -45,13 +48,12 @@ interface Props {
   watchItAgain: VideoData[];
 }
 
-export default function Home({
+const Home: NextPageWithLayout = ({
   reactVideos = [],
   tailwindVideos,
   threejsVideos,
   watchItAgain,
-}: Props) {
-  console.log({ reactVideos });
+}: Props) => {
 
   const [colorMode, setColorMode] = useColorMode();
   const videosSample = [
@@ -81,6 +83,7 @@ export default function Home({
   }, []);
 
 
+
   useEffect(() => {
     {
       async () => {
@@ -97,14 +100,15 @@ export default function Home({
       </Head>
 
       <Banner
+        videos={[reactVideos[0], tailwindVideos[0], threejsVideos[0]]}
         title="Jordan B Peterson"
         subtitle="Lecture in harvard university"
         imgUrl="/static/jp2.jpg"
       />
-     
+
       <SectionCard
         title="React"
-        colorClass='bg-'
+        colorClass="bg-"
         // colorClass="bg-gradient-to-tr from-blue-950 to-slate-950"
         videos={reactVideos}
         size="small"
@@ -135,6 +139,9 @@ export default function Home({
         videos={threejsVideos}
         size="large"
       />
+
+      <LoadMore />
+    
       {/* <SectionCard
         title="GSAP"
         // colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
@@ -161,4 +168,10 @@ export default function Home({
       /> */}
     </div>
   );
-}
+};
+
+Home.getLayout = function getLayout(page: ReactElement) {
+  return <Default>{page}</Default>;
+};
+
+export default Home;

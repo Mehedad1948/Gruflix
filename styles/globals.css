@@ -5,6 +5,12 @@
 @tailwind utilities;
 
 @layer base {
+  body,
+  html,
+  main,
+  #__next {
+    @apply h-full;
+  }
   body {
     @apply min-h-screen  font-medium 
      selection:bg-emerald-300;
@@ -100,5 +106,5 @@
 }
 
 .test {
-  grid-template-rows: 1fr repeat( auto-fit, 0px );
+  grid-template-rows: 1fr repeat(auto-fit, 0px);
 }

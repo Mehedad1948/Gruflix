@@ -6,6 +6,8 @@ import PlayIconOverlay from "./PlayIconOverlay";
 import { VideoData } from "@/models/videos";
 import Heart from "./atoms/icons/heart";
 import { IoEyeSharp } from "react-icons/io5";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const imageStyles = {
   small: { width: 150, height: 170 },
@@ -32,11 +34,17 @@ function Card({
     setImgSrc("/static/jp.jpg");
   }
 
+  // useGSAP(() => {
+  //   console.log("run");
+
+  //   gsap.fromTo(".card-anim", { scale: 0 }, { scale: 1, duration: 0.5, stagger: 0.2 });
+  // });
+
   // console.log({ imgSrc, title });
 
   return (
     <div
-      className="max-w group relative z-0 flex h-full min-h-full w-full min-w-[100px]  grow 
+      className="card-anim max-w group relative z-0 flex h-full min-h-full w-full min-w-[100px]  grow 
                  flex-col  rounded  overflow-hidden mx-auto
                   bg-slate-50 backdrop-blur-lg 
                  text-slate-900  max-w-[320px] border-2 border-amber-400/40
@@ -75,7 +83,7 @@ function Card({
             />
           </div>
         </div> */}
-        {/* <PlayIconOverlay /> */}
+        <PlayIconOverlay />
       </div>
       <div className="px-2 pt-2">
         <h3 className=" font-semibold text-xl  bg-gradient-to-r from-slate-700 to-violet-600 bg-clip-text text-transparent my-1">

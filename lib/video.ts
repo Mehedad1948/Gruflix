@@ -6,12 +6,12 @@ export async function getVideos(searchQuery: string) {
   //   const videos = await videoRequest(url);
   // console.log({ videos });
 
-  const videos = [
+   const videos = [
     {
       title: "Tailwind CSS Tutorial",
       imgUrl: "https://i.ytimg.com/vi/bxmDnn7lrnk/hqdefault.jpg",
       channelId: "UCW5YeuERMmlnqo4oq8vwUpg",
-      id: 687,
+      id: '687',
       description: "",
       publishedAt: "2020-07-06T07:23:27Z",
       channelTitle: "Net Ninja",
@@ -43,7 +43,7 @@ export async function getVideos(searchQuery: string) {
       imgUrl:
         "https://yt3.ggpht.com/ikv41jMTr1uHGdILrJhvbfVJcDt4oqhwApKX37TjAleF_cRPbF2W-waj7uMnS5JySvnlvAlTCg=s800-c-k-c0xffffffff-no-rj-mo",
       channelId: "UCOe-8z68tgw9ioqVvYM4ddQ",
-      id: 440,
+      id: '440',
       description:
         "We're a small team of developers and designers spread out all across the world, building tools that help other developers build ...",
       publishedAt: "2020-09-22T23:47:58Z",
@@ -108,7 +108,7 @@ export async function getVideos(searchQuery: string) {
       title: "Corso Tailwind CSS Italiano 2023",
       imgUrl: "https://i.ytimg.com/vi/y2UDe_Suk5Y/hqdefault.jpg",
       channelId: "UC0L-hCq_zb0ZX8JJ3c6D_wA",
-      id: 697,
+      id: '697',
       description:
         "In questo corso di tailwind css vedremo il framework css più in crescita ed apprezzato negli ultimi anni. Vedremo come funziona ...",
       publishedAt: "2022-11-03T07:08:28Z",

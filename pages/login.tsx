@@ -24,6 +24,7 @@ import {
   ChangeEventHandler,
   FormEvent,
   FormEventHandler,
+  ReactElement,
   useEffect,
   useState,
 } from "react";
@@ -33,6 +34,9 @@ import jwt from "jsonwebtoken";
 import { z } from "zod";
 import { sendEmail } from "@/lib/utils/sendEmail";
 import { redirect } from "next/dist/server/api-utils";
+import VideoPage from "@/components/layouts/video-page";
+import { NextPageWithLayout } from "./_app";
+import Default from "@/components/layouts/default";
 const bcryptjs = require("bcryptjs");
 
 const initialValues = {
@@ -73,7 +77,7 @@ const providersIcons: Partial<Record<KeyType, JSX.Element>> = {
   auth0: <Apple className="scale-125" />,
 };
 
-function Login({
+const Login: NextPageWithLayout = ({
   providers,
   csrfTpken,
   callbackUrl,
@@ -84,7 +88,7 @@ function Login({
   > | null;
   csrfTpken: string;
   callbackUrl: string;
-}) {
+}) => {
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
@@ -234,126 +238,128 @@ function Login({
       <Head>
         <title>{formState}</title>
       </Head>
-      <div
-        className=" flex h-full min-h-screen w-full  bg-white flex-col sm:flex-row
-                        from-[#cbdcf7] to-white sm:items-stretch "
-      >
+      <div className="  h-screen frame w-full block ">
         <div
-          className=" h-[35vh] sm:h-screen sm:w-1/3 text-white  bg-gradient-to-tr from-slate-900
-          to-slate-700 flex flex-col
+          className="flex flex-col h-full sm:flex-row-reverse b
+                         sm:items-stretch "
+        >
+          <div
+            className="   sm:w-1/3 text-white   backdrop-blur-sm h-full  flex flex-col
                          items-center justify-center"
-        >
-          <div>
-            <h1>Gruflix</h1>
-            <p className="text-lg font-semibold ml-1">Keep Learning</p>
-          </div>
-          {formState === "login" ? (
-            <div className="text-sm mt-3 flex gap-2 flex-col items-center justify-self-end">
-              <p>Dont have account yet? </p>
-              <button
-                onClick={() => {
-                  setFormState((s) => (s === "login" ? "register" : "login"));
-                }}
-                className="text-slate-800 rounded font-semibold px-3 py-0.5 bg-slate-200 "
-              >
-                Register here
-              </button>
-            </div>
-          ) : (
-            <div className="text-sm mt-3 flex gap-2 flex-col items-center justify-self-end">
-              <p>Already have an account? </p>
-              <button
-                onClick={() => {
-                  setFormState((s) => (s === "login" ? "register" : "login"));
-                }}
-                className="text-slate-800 rounded font-semibold px-3 py-0.5 bg-slate-200 "
-              >
-                Login here
-              </button>
-            </div>
-          )}
-        </div>
-        <div
-          className="relative flex h-full sm:min-h-screen w-full items-end sm:items-center 
-                  justify-center  sm:w-2/3"
-        >
-          {/* <GradientBg className="absolute right-0 h-full max-h-screen w-full" /> */}
-          <main
-            className="w-full sm:max-w-lg rounded-lg bg-white/90
-                     px-4 py-3 sm:py-4  rounded-t-md "
           >
-            <h2 className="capitalize">{formState}</h2>
-
-            <form
-              onSubmit={handleLogin}
-              className={`${formState === "login" ? "" : ""} mt-3 flex flex-col  
-                 gap-6 sm:gap-8 transition-all duration-200`}
-            >
-              <Input
-                label="Email"
-                error="Email is invalid"
-                value={loginEmail}
-                onChange={(e) => {
-                  setMsg("");
-                  setLoginEmail(e.target.value);
-                }}
-                placeholder="Email Address"
-                name="login_email"
-                type="email"
-              />
-              <Input
-                label="Password"
-                error="Password is too short"
-                placeholder="password"
-                onChange={(e) => setLoginPassword(e.target.value)}
-                type="password"
-                min="4"
-                minLength={4}
-              />
-              <Input
-                className={`${formState === "login" ? "opacity-0 absolute hidden overflow-hidden" : "opacity-100"} 
-                    transition-all duration-200`}
-                label="Repeat password"
-                error="Passwords are not same"
-                placeholder="Repeat password"
-                onChange={(e) => setRepeatPassword(e.target.value)}
-                type="password"
-                min="4"
-                minLength={4}
-              />
-
-              <button
-                className=" w-full rounded bg-gradient-to-tr from-slate-900
-                          to-slate-700 py-2 font-medium text-white capitalize"
-              >
-                {isLoading ? "Loading..." : formState}
-              </button>
-            </form>
-
-            <div className="flex items-stretch gap-3 justify-center mt-4">
-              {providers &&
-                Object.values(providers).map((provider) => {
-                  if (provider.name !== "Credentials") {
-                    return (
-                      <div
-                        className="border rounded-lg cursor-pointer  bg-gradient-to-tr
-                from-indigo-400 to-indigo-950 justify-evenly text-sm text-white flex 
-                 py-2 items-center gap-2 grow h-12"
-                        onClick={() => signIn(provider.id)}
-                        key={provider.id}
-                      >
-                        {providersIcons[provider.name.toLowerCase()]}
-                        <span>{provider.name}</span>
-                      </div>
-                    );
-                  }
-                })}
+            <div>
+              <h1 className="text-amber-700">
+                Gruflix
+              </h1>
+              <p className="text-lg font-semibold ml-1 text-amber-700">Keep Learning</p>
             </div>
-          </main>
+            {formState === "login" ? (
+              <div className="text mt-3 flex gap-2 flex-col items-center text-amber-700 justify-self-end">
+                <p>Dont have account yet? </p>
+                <button
+                  onClick={() => {
+                    setFormState((s) => (s === "login" ? "register" : "login"));
+                  }}
+                  className="rounded font-semibold px-4 py-0.5 header-text text-amber-50 "
+                >
+                  Register here
+                </button>
+              </div>
+            ) : (
+              <div className="text-sm mt-3 flex gap-2 flex-col items-center justify-self-end">
+                <p>Already have an account? </p>
+                <button
+                  onClick={() => {
+                    setFormState((s) => (s === "login" ? "register" : "login"));
+                  }}
+                  className="text-slate-800 rounded font-semibold px-3 py-0.5 bg-slate-200 "
+                >
+                  Login here
+                </button>
+              </div>
+            )}
+          </div>
+          <div
+            className="relative flex h-full  w-full items-end sm:items-center 
+                  justify-center  sm:w-2/3"
+          >
+            {/* <GradientBg className="absolute right-0 h-full max-h-screen w-full" /> */}
+            <main
+              className="w-full h-fit sm:max-w-lg rounded-lg bg-white backdrop-blur-sm border-amber-300 border
+                     px-4 py-3 sm:py-4  rounded-t-md shadow shadow-amber-200"
+            >
+              <h2 className="capitalize text-amber-600">{formState}</h2>
+
+              <form
+                onSubmit={handleLogin}
+                className={`${formState === "login" ? "" : ""} mt-3 flex flex-col  
+                 gap-6 sm:gap-8 transition-all duration-200`}
+              >
+                <Input
+                  label="Email"
+                  error="Email is invalid"
+                  value={loginEmail}
+                  onChange={(e) => {
+                    setMsg("");
+                    setLoginEmail(e.target.value);
+                  }}
+                  placeholder="Email Address"
+                  name="login_email"
+                  type="email"
+                />
+                <Input
+                  label="Password"
+                  error="Password is too short"
+                  placeholder="password"
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  type="password"
+                  min="4"
+                  minLength={4}
+                />
+                <Input
+                  className={`${formState === "login" ? "opacity-0 absolute hidden overflow-hidden" : "opacity-100"} 
+                    transition-all duration-200`}
+                  label="Repeat password"
+                  error="Passwords are not same"
+                  placeholder="Repeat password"
+                  onChange={(e) => setRepeatPassword(e.target.value)}
+                  type="password"
+                  min="4"
+                  minLength={4}
+                />
+
+                <button
+                  className=" w-full rounded hero-text py-2 font-medium text-white capitalize"
+                >
+                  {isLoading ? "Loading..." : formState}
+                </button>
+              </form>
+
+              <div className="flex items-stretch gap-3 justify-center mt-4">
+                {providers &&
+                  Object.values(providers).map((provider) => {
+                    if (provider.name !== "Credentials") {
+                      return (
+                        <div
+                          className="border rounded-lg cursor-pointer  header-text justify-evenly text-sm text-white flex 
+                 py-2 items-center gap-2 grow h-12"
+                          onClick={() => signIn(provider.id)}
+                          key={provider.id}
+                        >
+                          {providersIcons[provider.name.toLowerCase()]}
+                          <span>{provider.name}</span>
+                        </div>
+                      );
+                    }
+                  })}
+              </div>
+            </main>
+          </div>
         </div>
       </div>
     </>
   );
-}
+};
+
 
 export default Login;

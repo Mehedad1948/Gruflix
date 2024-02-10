@@ -7,6 +7,8 @@ import ReactIcon from "./atoms/icons/react";
 import useEmblaCarousel from "embla-carousel-react";
 import Slider from "./Slider";
 import { SwiperSlide } from "swiper/react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 interface Props {
   videos: VideoData[];
@@ -35,6 +37,10 @@ function SectionCard({
   };
   // console.log({ videos });
 
+  const sectionCard = useRef(null);
+
+
+
   return (
     <section
       ref={emblaRef}
@@ -42,16 +48,17 @@ function SectionCard({
         colorClass +
         " " +
         ` relative mx-auto flex   w-full min-h-fit flex-col items-center justify-center
-           gap-2 rounded-lg bg-gr  first:mt-2  sm:p-4
-            overflow-hidden prespective`
+          rounded-lg  first:mt-2 last:mb-6  sm:px-4
+            overflow-hidden prespective `
       }
     >
       <h2
         data-scroll
         data-scroll-speed="0.3"
-        className=" w-fit top-0  left-0  align-top  rounded-lg text-center text-transparent
+        className="title w-fit top-0  left-0  align-top  rounded-lg text-center text-transparent
                      bg-gradient-to-r from-amber-700 to-slate-900 bg-clip-text
-                      text-[40px] md:text-[80px] lg:text-[150px] lg:leading-[150px] md:pb-[35px]
+                      text-[40px] leading-[44px] md:text-[80px] lg:text-[150px] md:leading-[88px]
+                       lg:leading-[158px] sm:py-6 lg:py-12 xl:py-16
                      "
       >
         {title}
@@ -59,10 +66,15 @@ function SectionCard({
       <div className="grow"></div>
 
       <div
-        className={`${showMore ? "sm:grid-rows-[repeat(3,_400px)] grid-rows-1" : "-mb-6 !grid-rows-[repeat(3,_0px)]"}
+      ref={sectionCard}
+        className={`${
+          showMore
+            ? " sm:grid-rows-[repeat(5,_400px)] gap-4 md:grid-rows-[repeat(4,_400px)] xl:grid-rows-[repeat(3,_400px)] grid-rows-1"
+            : "-mb-6 sm:grid-rows-[repeat(6,_0px)] md:grid-rows-[repeat(4,_0px)] xl:grid-rows-[repeat(3,_0px)]"
+        }
          w-full cards-container 
        p-4  grid-cols-1 justify-items-center sm:grid-cols-2 
-       md:grid-cols-3 xl:grid-cols-4 gap-4  overflow-hidden sm:grid hidden`}
+       md:grid-cols-3 xl:grid-cols-4   overflow-hidden sm:grid hidden`}
       >
         {videos.map((video, index) => (
           <Link
@@ -70,7 +82,7 @@ function SectionCard({
             className="block overflow-hidden"
             href={`/video/${video.id}`}
           >
-            <Card video={video}  size={size} />
+            <Card video={video} size={size} />
           </Link>
         ))}
       </div>
@@ -80,8 +92,10 @@ function SectionCard({
           z-20 hover:px-6 transition-all duration-300 ease-out
         "
         >
-          <div className="absolute left-0 top-0 w-full h-full border-x bg-[#fbfdf7]
-           border-amber-300 rounded-full z-20"></div>
+          <div
+            className="absolute left-0 top-0 w-full h-full border-x bg-[#fbfdf7]
+           border-amber-300 rounded-full z-20"
+          ></div>
           <div
             className="w-screen absolute  h-[1px]
           z-0 top-1/2 bg-amber-300 right-1/2 translate-x-1/2"
@@ -96,7 +110,7 @@ function SectionCard({
           </button>
         </div>
       )}
-      {/* <div
+      <div
         className="block sm:hidden w-full cards-container 
        p-4 overflow-visible"
       >
@@ -112,7 +126,7 @@ function SectionCard({
             </SwiperSlide>
           )}
         />
-      </div> */}
+      </div>
     </section>
   );
 }

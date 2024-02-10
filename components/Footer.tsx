@@ -59,7 +59,7 @@ function Footer() {
 
   return (
     <footer
-      className="w-full bg-gradient-to-r from-amber-500 to-amber-700 px-4  
+      className="w-full bg-gradient-to-r from-amber-600 to-amber-800 px-4  
                  pt-4 text-amber-50  min-h-[50vh] flex-col
                  flex items-center justify-center"
     >

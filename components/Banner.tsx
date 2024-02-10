@@ -1,10 +1,14 @@
 import { BsFillPlayFill } from "react-icons/bs";
 import CoverText from "./CoverText";
 import { useEffect, useState } from "react";
+import { HiPlay } from "react-icons/hi2";
+import Link from "next/link";
+import { VideoData } from "@/models/videos";
 interface Props {
   title: string;
   subtitle: string;
   imgUrl: string;
+  videos: VideoData[];
 }
 let timer: NodeJS.Timeout;
 
@@ -12,7 +16,7 @@ let timer: NodeJS.Timeout;
 // something here for everyone. Let's ignite our coding journey together
 // and elevate our skills to new heights!
 
-const Banner = ({ title, subtitle, imgUrl }: Props) => {
+const Banner = ({ title, subtitle, imgUrl, videos }: Props) => {
   const [message, setMessage] = useState("");
   const [text, setText] = useState("");
   const [started, setStarted] = useState(false);
@@ -20,8 +24,8 @@ const Banner = ({ title, subtitle, imgUrl }: Props) => {
   programming videos.`;
   function handleOnPlay() {}
 
-  const handleGenerate = () => {
-    if (timer || text.length === dummyText.length) {
+  useEffect(() => {
+    if (text.length === dummyText.length) {
       return;
     }
     setStarted(true);
@@ -31,10 +35,8 @@ const Banner = ({ title, subtitle, imgUrl }: Props) => {
       if (i === dummyText.length - 1) clearInterval(timer);
       setText((prev) => prev + dummyText[i]);
     }, 40);
-  };
 
-  useEffect(() => {
-    handleGenerate();
+    return () => clearInterval(timer);
   }, []);
 
   return (
@@ -52,8 +54,8 @@ const Banner = ({ title, subtitle, imgUrl }: Props) => {
         >
           <h1
             className="h-fit header-text w-fit  
-                      text-[45px] mx-auto sm:mx-0 sm:text-[70px] lg:text-[65px] xl:text-[80px] 
-                      leading-[45px] sm:leading-[70px] lg:leading-[65px] xl:leading-[80px]
+                      text-[48px] mx-auto sm:mx-0 sm:text-[70px] lg:text-[65px] xl:text-[80px] 
+                      leading-[48px] sm:leading-[70px] lg:leading-[65px] xl:leading-[80px]
                       text-transparent bg-clip-text "
           >
             GURUFLIX
@@ -106,18 +108,26 @@ const Banner = ({ title, subtitle, imgUrl }: Props) => {
         </div>
       </CoverText> */}
       <div
-        onClick={() => handleGenerate()}
         className=" mx-auto  roinded-lg   md:h-fit flex flex-col
          items-center sm:justify-center relative
-                 z-10 
+                 z-10 mb-6
                rounded-t-2xl w-11/12 md:w-2/3 overflow-hidden  
                "
       >
-        <img
-          className="z-20 relative border-2 border-amber-400 rounded w-full"
-          src={imgUrl}
-          alt=""
-        />
+        <Link href={`/video/${videos[0].id}`} className="relative block border">
+          <img
+            className="z-20 relative  border-2 border-amber-400 rounded w-full"
+            src={imgUrl}
+            alt=""
+          />
+          <div
+            className="absolute left-3 z-30 bottom-3 header-text p-2.5 sm:p-3 aspect-square rounded-full
+          text-white text-lg sm:text-xl"
+          >
+            <HiPlay />
+          </div>
+        </Link>
+
         <div className="flex flex-col gap-3 mt-4 relative z-20">
           <h1 className="text-amber-800 text-2xl md:text-3xl">
             Tailwind Connect 2023 — Keynote

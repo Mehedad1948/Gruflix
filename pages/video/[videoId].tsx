@@ -8,9 +8,12 @@ import { GetStaticPropsContext } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { IoEyeSharp } from "react-icons/io5";
+import { NextPageWithLayout } from "../_app";
+import Default from "@/components/layouts/default";
+import VideoPage from "@/components/layouts/video-page";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const { videoId } = context.params as { videoId: string };
@@ -34,7 +37,7 @@ export async function getStaticPaths() {
   return { paths, fallback: "blocking" };
 }
 
-const Video = ({ video }: { video: VideoData }) => {
+const Video: NextPageWithLayout = ({ video }: { video: VideoData }) => {
   const [theaterMode, setTheaterMode] = useState(false);
   const [favourited, setFavourited] = useState<0 | 1>(0);
   // console.log({ video });
@@ -123,14 +126,16 @@ const Video = ({ video }: { video: VideoData }) => {
 
       <div
         className={`${
-          theaterMode ? "sm:mb-16 !grid-cols-[0fr,_1fr,_0fr] " : "sm:my-20  "
+          theaterMode ? "sm:pb-4 !grid-cols-[0fr,_1fr,_0fr] " : "py-8  "
         }  grid w-full grid-cols-[0fr,_1fr,_0fr] items-center
       transition-[grid] duration-1000 ease-out lg:grid-cols-[0.1fr,_0.6fr,_0.3fr]`}
       >
         <div></div>
-        <div className="overflow-hidden rounded-lg  bg-slate-50 pb-6 mx-1 sm:mx-0 
-        shadow-amber-100 border border-amber-200
-         shadow">
+        <div
+          className="overflow-hidden rounded-lg  bg-slate-50 pb-6 mx-1 sm:mx-0 
+        shadow-emerald-100 border border-amber-200
+         shadow-lg"
+        >
           <div className="relative bg-black shadow shadow-blue-400">
             <iframe
               id="player"
@@ -205,7 +210,7 @@ const Video = ({ video }: { video: VideoData }) => {
              sm:text-left sm:text-lg  xl:text-xl"
               >
                 <span
-                  className="relative z-10 bg-gradient-to-r from-pink-500 to-violet-500
+                  className="relative z-10 hero-text
                                  bg-clip-text text-transparent"
                 >
                   {" "}
@@ -218,12 +223,12 @@ const Video = ({ video }: { video: VideoData }) => {
               <div>
                 <h4 className="mt-3 font-semibold">📋 Links and Resources:</h4>
                 <ul
-                  className="my-2 flex w-fit flex-col gap-1.5 sm:gap-3 rounded border border-blue-300
-                       bg-blue-50 py-2 text-blue-800 max-w-full"
+                  className="my-2 flex w-fit flex-col gap-1.5 sm:gap-3 rounded border border-orange-300
+                       bg-orange-50/70 py-2 text-orange-800 max-w-full"
                 >
                   {links.map((link) => (
                     <Link
-                      className="w-fit px-3 text-sm hover:text-blue-700 sm:text-base"
+                      className="w-fit px-3 text-sm hover:text-orange-700 sm:text-base"
                       key={link}
                       href={link}
                     >
@@ -261,6 +266,10 @@ const Video = ({ video }: { video: VideoData }) => {
       </div>
     </>
   );
+};
+
+Video.getLayout = function getLayout(page: ReactElement) {
+  return <VideoPage>{page}</VideoPage>;
 };
 
 export default Video;
