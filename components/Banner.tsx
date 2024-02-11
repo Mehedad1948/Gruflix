@@ -1,9 +1,20 @@
 import { BsFillPlayFill } from "react-icons/bs";
 import CoverText from "./CoverText";
-import { useEffect, useState } from "react";
+import {
+  LegacyRef,
+  MouseEvent,
+  MouseEventHandler,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { HiPlay } from "react-icons/hi2";
 import Link from "next/link";
 import { VideoData } from "@/models/videos";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+
 interface Props {
   title: string;
   subtitle: string;
@@ -19,6 +30,18 @@ let timer: NodeJS.Timeout;
 const Banner = ({ title, subtitle, imgUrl, videos }: Props) => {
   const [message, setMessage] = useState("");
   const [text, setText] = useState("");
+  const [position, setPosition] = useState({
+    left: 0,
+    top: 0,
+    height: 0,
+    width: 0,
+  });
+  const [buttonDimensions, setButtonDimensions] = useState({
+    left: 0,
+    top: 0,
+    height: 0,
+    width: 0,
+  });
   const [started, setStarted] = useState(false);
   const dummyText = `  Welcome to our coding hub! Explore a goldmine of top-notch YouTube
   programming videos.`;
@@ -38,6 +61,80 @@ const Banner = ({ title, subtitle, imgUrl, videos }: Props) => {
 
     return () => clearInterval(timer);
   }, []);
+
+  useGSAP(() => {
+    console.log("run");
+
+    gsap.fromTo(
+      ".card-anim",
+      { opacity: 0, y: "5%" },
+      { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: "back.out" },
+    );
+  }, {});
+
+  const titleRef = useRef(null);
+
+  const imageContainer: LegacyRef<HTMLDivElement> = useRef(null);
+  const playButton: LegacyRef<HTMLDivElement> = useRef(null);
+
+  useEffect(() => {
+    if (imageContainer.current) {
+      const { top, left, width, height } =
+        imageContainer.current.getBoundingClientRect();
+
+      setPosition({ left, top, height, width });
+    }
+    if (playButton.current) {
+      const { top, left, width, height } =
+        playButton.current.getBoundingClientRect();
+
+      setButtonDimensions({ left, top, height, width });
+    }
+  }, []);
+  console.log({ buttonDimensions });
+
+  const handleHover = (event: any) => {
+    const tl = gsap.timeline();
+
+    const x = event.clientX - position.left;
+    const y =
+      event.clientY -
+      position.top -
+      position.height +
+      buttonDimensions.height / 2;
+
+    console.log("Hover me", event);
+    tl.to(".play-icon", {
+      x: x,
+      y: y,
+      duration: 2.5,
+      ease: "elastic.out",
+    });
+
+    // tl.to(
+    //   ".play-icon",
+    //   {
+    //     left: "50%",
+    //     duration: 0.4,
+    //     ease: "none",
+    //   },
+    //   "0",
+    // );
+  };
+
+  const handleHoverOut = (event: any) => {
+    console.log("Leave me");
+    const tl = gsap.timeline();
+
+    tl.to(".play-icon", {
+      x: "16px",
+      y: '8px',
+      duration: 1,
+      ease: "bounce.out",
+    });
+
+   
+  };
 
   return (
     <div
@@ -115,13 +212,24 @@ const Banner = ({ title, subtitle, imgUrl, videos }: Props) => {
                "
       >
         <Link href={`/video/${videos[0].id}`} className="relative block border">
+          <div className=" p-7 w-full h-full absolute top-0 left-0 z-50">
+            <div
+              ref={imageContainer}
+              onMouseLeave={handleHoverOut}
+              onMouseMove={handleHover}
+              className="w-full h-full "
+            ></div>
+          </div>
           <img
-            className="z-20 relative  border-2 border-amber-400 rounded w-full"
+            className="z-20 relative border-2 border-amber-400 rounded w-full"
             src={imgUrl}
             alt=""
           />
           <div
-            className="absolute left-3 z-30 bottom-3 header-text p-2.5 sm:p-3 aspect-square rounded-full
+            ref={playButton}
+            style={{ transform: "translate(50%, -50%)" }}
+            className="play-icon origin-center absolute bottom-0 left-0 z-30 w-12 h-12 flex items-center justify-center
+             header-text p-2.5 sm:p-3 aspect-square rounded-full 
           text-white text-lg sm:text-xl"
           >
             <HiPlay />
@@ -132,7 +240,10 @@ const Banner = ({ title, subtitle, imgUrl, videos }: Props) => {
           <h1 className="text-amber-800 text-2xl md:text-3xl">
             Tailwind Connect 2023 — Keynote
           </h1>
-          <p className="text-amber-800 text-lg font-semibold relative w-full">
+          <p
+            ref={titleRef}
+            className="text-amber-800 text-lg font-semibold relative w-full"
+          >
             <span className="">
               {" "}
               The keynote from Tailwind Connect 2023, our first-ever live event

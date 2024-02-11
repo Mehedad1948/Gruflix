@@ -34,17 +34,11 @@ function Card({
     setImgSrc("/static/jp.jpg");
   }
 
-  // useGSAP(() => {
-  //   console.log("run");
-
-  //   gsap.fromTo(".card-anim", { scale: 0 }, { scale: 1, duration: 0.5, stagger: 0.2 });
-  // });
-
-  // console.log({ imgSrc, title });
+  
 
   return (
     <div
-      className="card-anim max-w group relative z-0 flex h-full min-h-full w-full min-w-[100px]  grow 
+      className=" max-w group relative z-0 flex h-full min-h-full w-full min-w-[100px]  grow 
                  flex-col  rounded  overflow-hidden mx-auto
                   bg-slate-50 backdrop-blur-lg 
                  text-slate-900  max-w-[320px] border-2 border-amber-400/40

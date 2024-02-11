@@ -1,4 +1,10 @@
-import { MutableRefObject, WheelEventHandler, useRef, useState } from "react";
+import {
+  MutableRefObject,
+  WheelEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Card, { CardSizes } from "./Card";
 import { IoIosArrowForward } from "react-icons/io";
 import Link from "next/link";
@@ -9,6 +15,7 @@ import Slider from "./Slider";
 import { SwiperSlide } from "swiper/react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 interface Props {
   videos: VideoData[];
@@ -38,8 +45,56 @@ function SectionCard({
   // console.log({ videos });
 
   const sectionCard = useRef(null);
+  const titleRef = useRef(null);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // gsap.registerPlugin(ScrollTrigger);
 
+      if (titleRef.current) {
+        const reveal = gsap.fromTo(
+          titleRef.current,
+          {
+            opacity: 0,
+            y: "20%",
+          },
+          { 
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "circ.out",
+            scrollTrigger: { 
+              trigger: titleRef.current,
+              start: "top 70%",
+              end: "100px 10%",
+              toggleActions: "play none none reverse",
+              // markers: true,
+            }, 
+          },
+        );
+
+        // Clean up animation on component unmount
+        return () => {
+          if (reveal) {
+            reveal.kill();
+          }
+        };
+      }
+    }
+  }, []);
+
+  useGSAP(
+    () => {
+      console.log("run"); 
+
+      gsap.fromTo(
+        ".card-anim", 
+        { opacity: 0, y: "7%", scaleY: 0.95 },
+        { opacity: 1, y: 0, scaleY: 1, duration: 0.7, stagger: 0.2, ease: "back.out" },
+      );
+    },
+    { dependencies: [showMore], scope: sectionCard },
+  );
 
   return (
     <section
@@ -53,6 +108,8 @@ function SectionCard({
       }
     >
       <h2
+        key={title}
+        ref={titleRef}
         data-scroll
         data-scroll-speed="0.3"
         className="title w-fit top-0  left-0  align-top  rounded-lg text-center text-transparent
@@ -66,7 +123,7 @@ function SectionCard({
       <div className="grow"></div>
 
       <div
-      ref={sectionCard}
+        ref={sectionCard}
         className={`${
           showMore
             ? " sm:grid-rows-[repeat(5,_400px)] gap-4 md:grid-rows-[repeat(4,_400px)] xl:grid-rows-[repeat(3,_400px)] grid-rows-1"
@@ -78,11 +135,14 @@ function SectionCard({
       >
         {videos.map((video, index) => (
           <Link
-            key={index}
-            className="block overflow-hidden"
+            key={video.id}
+            className="block overflow-hidden card-anim origin-bottom"
             href={`/video/${video.id}`}
           >
             <Card video={video} size={size} />
+            {/* <div
+              className="w-48 h-64 bg-orange-600"
+            ></div> */}
           </Link>
         ))}
       </div>
@@ -118,7 +178,7 @@ function SectionCard({
           sliderPreview={4}
           spaceBetween={20}
           cardsArray={videos || []}
-          render={(video: any) => (
+          render={(video: any, index) => (
             <SwiperSlide key={video.id}>
               <Link className="block " href={`/video/${video.id}`}>
                 <Card video={video} key={video.id} size={size} />
