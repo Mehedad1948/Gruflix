@@ -49,7 +49,7 @@ function SectionCard({
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // gsap.registerPlugin(ScrollTrigger);
+      gsap.registerPlugin(ScrollTrigger);
 
       if (titleRef.current) {
         const reveal = gsap.fromTo(
