@@ -4,28 +4,28 @@ import SectionCard from "@/components/SectionCard";
 import { getVideosById } from "@/lib/videoByChannelld";
 import { useRouter } from "next/router";
 
-export async function getStaticProps(staticProps: {
-  params: { lecturerName: string };
-}) {
-  const { lecturerName } = staticProps.params;
-  const videos = await getVideosById(lecturerName);
-  return { props: { videos } };
-}
+// export async function getStaticProps(staticProps: {
+//   params: { lecturerName: string };
+// }) {
+//   const { lecturerName } = staticProps.params;
+//   const videos = await getVideosById(lecturerName);
+//   return { props: { videos } };
+// }
 
-export const getStaticPaths = async () => {
-  return {
-    paths: [
-      {
-        params: {
-          lecturerName: "Lewishowes",
-        },
-      }, // See the "paths" section below
-    ],
-    fallback: true, // false or "blocking"
-  };
-};
+// export const getStaticPaths = async () => {
+//   return {
+//     paths: [
+//       {
+//         params: {
+//           lecturerName: "Lewishowes",
+//         },
+//       }, // See the "paths" section below
+//     ],
+//     fallback: true, // false or "blocking"
+//   };
+// };
 
-function Lecturer({ videos }: any) {
+function Lecturer() {
   // console.log(videos);
   const router = useRouter();
   const { lecturerName } = router.query;
@@ -36,13 +36,13 @@ function Lecturer({ videos }: any) {
         subtitle="School of Greatness"
         imgUrl="/static/SOG-feature-image2.jpg"
       /> */}
-
+{/* 
       <SectionCard
         title={lecturerName as string}
         colorClass="bg-[#222]"
         videos={videos}
         size="small"
-      />
+      /> */}
     </div>
   );
 }
