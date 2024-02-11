@@ -31,11 +31,11 @@ function Lecturer({ videos }: any) {
   const { lecturerName } = router.query;
   return (
     <div>
-      <Banner
+      {/* <Banner
         title="Lewis Howes"
         subtitle="School of Greatness"
         imgUrl="/static/SOG-feature-image2.jpg"
-      />
+      /> */}
 
       <SectionCard
         title={lecturerName as string}
