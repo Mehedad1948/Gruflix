@@ -26,7 +26,7 @@
 //             "x-hasura-user-id": `${metadata.issuer}`,
 //           },
 //         },
-//         process.env.JWT_SECRET as string,
+//         process.env.NEXT_PUBLIC_JWT_SECRET,
 //       );
 
 //       const isNewUserQuery = metadata.issuer

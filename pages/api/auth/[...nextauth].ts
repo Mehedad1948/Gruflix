@@ -19,10 +19,13 @@ export const authOptions: NextAuthOptions = {
       type: "credentials",
       credentials: {},
       async authorize(credentials, req) {
+        console.log({ credentials });
+
         const { email, password } = credentials as {
           email: string;
           password: string;
         };
+        // console.log({req});
 
         const token = jwt.sign(
           {
@@ -36,12 +39,13 @@ export const authOptions: NextAuthOptions = {
               // "x-hasura-user-id": `${metadata.issuer}`,
             },
           },
-          process.env.JWT_SECRET as string,
+          process.env.NEXT_PUBLIC_JWT_SECRET,
         );
         //  Logic to retrieve Use from db
         const user = await findUserByEmail(token, email);
         console.log(
           "///////////////**********************//////////////",
+          user
           // req.headers?.cookie,
         );
 
@@ -85,6 +89,8 @@ export const authOptions: NextAuthOptions = {
   // Encode and decode your JWT with the HS256 algorithm
   jwt: {
     encode: ({ secret, token }) => {
+      console.log("encode runs", token);
+
       const encodedToken = jsonwebtoken.sign(token!, secret, {
         algorithm: "HS256",
       });
@@ -100,8 +106,10 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     // Add the required Hasura claims
     // https://hasura.io/docs/latest/graphql/core/auth/authentication/jwt/#the-spec
-  
+
     async jwt({ token }) {
+      console.log("callbacks runs");
+
       return {
         ...token,
         "https://hasura.io/jwt/claims": {
@@ -113,8 +121,9 @@ export const authOptions: NextAuthOptions = {
       };
     },
     // Add user ID to the session
-    session: async ({ session, token , user}) => {
+    session: async ({ session, token, user }) => {
       // console.log({ user });
+      console.log("sessions runs", session?.user, { user, token });
 
       if (session?.user) {
         session.user.id = token.sub!;

@@ -60,7 +60,7 @@ const Banner = ({ title, subtitle, imgUrl, videos }: Props) => {
       const y =
         event.clientY - containerTop - containerHeight + buttonHeight / 2;
 
-      console.log("Hover me", event);
+      // console.log("Hover me", event);
       gsap.to(".play-icon", {
         x: x,
         y: y,
@@ -71,7 +71,7 @@ const Banner = ({ title, subtitle, imgUrl, videos }: Props) => {
   };
 
   const handleHoverOut = (event: any) => {
-    console.log("Leave me");
+    // console.log("Leave me");
 
     gsap.to(".play-icon", {
       x: "16px",

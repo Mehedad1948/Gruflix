@@ -19,11 +19,11 @@ const stats = async (req: NextApiRequest, res: NextApiResponse) => {
     } else {
       // let decodedToken = jwt.verify(
       //   token,
-      //   process.env.JWT_SECRET as string,
+      //   process.env.NEXT_PUBLIC_JWT_SECRET,
       // ) as DecodedToken;
 
       const userId = await verifyToken(token);
-      console.log({ userId });
+      console.log({ userId, token });
 
       const videoId = req.body.videoId || req.query.videoId;
       if (!userId) {

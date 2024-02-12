@@ -37,6 +37,7 @@ import { redirect } from "next/dist/server/api-utils";
 import VideoPage from "@/components/layouts/video-page";
 import { NextPageWithLayout } from "./_app";
 import Default from "@/components/layouts/default";
+import Link from "next/link";
 const bcryptjs = require("bcryptjs");
 
 const initialValues = {
@@ -47,12 +48,14 @@ const initialValues = {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, query } = context;
   const session = await getSession({ req });
-  console.log({ context, req });
+  // console.log({ context, req });
   const callbackUrl = query?.callbackUrl || "";
+  console.log({ session, callbackUrl });
+
   if (session) {
     return {
       redirect: {
-        destination: callbackUrl,
+        destination: callbackUrl || "/",
       },
     };
   }
@@ -136,7 +139,7 @@ const Login: NextPageWithLayout = ({
     e.preventDefault();
     const saltRounds = 10;
     const salt = bcryptjs.genSaltSync(saltRounds);
-
+    setIsLoading(true);
     const hashedPassword = bcryptjs.hashSync(loginPassword, salt);
 
     if (formState === "login") {
@@ -145,10 +148,15 @@ const Login: NextPageWithLayout = ({
         password: hashedPassword,
         redirect: false,
       });
+      console.log({ res });
 
-      return router.push(callbackUrl || "/");
+      if (res?.ok) {
+        return router.push(callbackUrl || "/");
+      } else {
+        toast.error("Credentials are not valid");
+        setIsLoading(false);
+      }
     } else {
-      console.log("call create", process.env.JWT_SECRET);
       const token = jwt.sign(
         {
           iat: Math.floor(Date.now() / 1000),
@@ -159,12 +167,14 @@ const Login: NextPageWithLayout = ({
             // "x-hasura-user-id": `${metadata.issuer}`,
           },
         },
-        "12345678912345678912345678912345",
+        process.env.NEXT_PUBLIC_JWT_SECRET,
       );
 
       const res = await createNewUser(token, loginEmail, hashedPassword);
       if (res.success) {
         toast.success("Welcome");
+        setIsLoading(false);
+
         const activationCode = res.data.id;
         const activation_token = jwt.sign(
           {
@@ -177,20 +187,20 @@ const Login: NextPageWithLayout = ({
               // "x-hasura-user-id": `${metadata.issuer}`,
             },
           },
-          "12345678912345678912345678912345",
+          process.env.NEXT_PUBLIC_JWT_SECRET,
         );
         const url = `${process.env.NEXT_PUBLIC_BASE_URL}/activate/${activation_token}`;
         console.log({ loginEmail });
 
-        const send = await fetch("/api/activate-account", {
-          method: "POST",
-          body: JSON.stringify({
-            email: loginEmail,
-            url,
-            subject: "Activate your Account",
-          }),
-        });
-        console.log({ send });
+        // const send = await fetch("/api/activate-account", {
+        //   method: "POST",
+        //   body: JSON.stringify({
+        //     email: loginEmail,
+        //     url,
+        //     subject: "Activate your Account",
+        //   }),
+        // });
+        // console.log({ send });
 
         setFormState("login");
       }
@@ -240,54 +250,60 @@ const Login: NextPageWithLayout = ({
       </Head>
       <div className="  h-screen frame w-full block ">
         <div
-          className="flex flex-col h-full sm:flex-row-reverse b
-                         sm:items-stretch "
+          className="flex flex-col h-full md:flex-row-reverse b
+                         md:items-stretch items-center justify-center"
         >
-          <div
-            className=" sm:w-1/2 lg:w-[600px]   text-slate-800 
-             backdrop-blur-sm h-full  flex flex-col
-                         items-center justify-center sm:pr-4"
-          >
+          <div className="h-full  sm:w-1/2 lg:w-[750px] w-full flex items-center justify-center">
             <div
-              className="w-full absolute z-0 frame border-2 shadow-amber-200 
+              className="w-full sm:aspect-square  text-slate-800 
+             backdrop-blur-sm h-full sm:h-fit  flex flex-col
+                         items-center justify-center sm:pr-4 relative"
+            >
+              <div
+                className="w-full absolute z-0 top-1/2 -translate-y-1/2 frame border-2 shadow-amber-200 
                        border-amber-700/10  rounded-tr-full rounded-bl-full
               h-full max-h-[650px]"
-            ></div>
-            <div
-              className="w-full absolute z-0 frame border-2  border-amber-700/10 shadow-amber-200 
+              ></div>
+              <div
+                className="w-full absolute z-0 frame border-2  border-amber-700/10 shadow-amber-200 
              rounded-tl-full rounded-br-full
               h-full max-h-[650px]"
-            ></div>
-            <div className="relative z-50">
-              <h1
-                className="text-[35px] text-center  sm:text-[50px] bg-gradient-to-r
+              ></div>
+              <div className="relative z-50">
+                <h1
+                  className="text-[35px] text-center  sm:text-[50px] bg-gradient-to-r
               from-amber-900 to-amber-600 font-bold mb-2 bg-clip-text text-transparent"
-              >
-                Gruflix
-              </h1>
-              <p className="text-lg font-semibold ml-1 text-center bg-gradient-to-r
-              from-amber-900 to-amber-600 bg-clip-text text-transparent">
-                Keep Learning
-              </p>
-            </div>
+                >
+                  <Link href="/"> Gruflix</Link>
+                </h1>
+                <p
+                  className="text-lg font-semibold ml-1 text-center bg-gradient-to-r
+              from-amber-900 to-amber-600 bg-clip-text text-transparent"
+                >
+                  Keep Learning
+                </p>
+              </div>
 
-            <div className="text mt-3 flex gap-2 bg-gradient-to-r
+              <div
+                className="text mt-3 flex gap-2 bg-gradient-to-r
               from-amber-900 to-amber-600 bg-clip-text text-transparent
-              font-semibold flex-col items-center justify-self-end relative z-50">
-              {formState === "login" ? (
-                <p>Dont have account yet? </p>
-              ) : (
-                <p>Already have an account? </p>
-              )}
-              <button
-                onClick={() => {
-                  setFormState((s) => (s === "login" ? "register" : "login"));
-                }}
-                className="rounded font-semibold px-4 py-0.5 bg-gradient-to-r
-                from-amber-900 to-amber-600 text-amber-50 "
+              font-semibold flex-col items-center justify-self-end relative z-50"
               >
-                {formState === "login" ? ` Register here` : "Login here"}
-              </button>
+                {formState === "login" ? (
+                  <p>Dont have account yet? </p>
+                ) : (
+                  <p>Already have an account? </p>
+                )}
+                <button
+                  onClick={() => {
+                    setFormState((s) => (s === "login" ? "register" : "login"));
+                  }}
+                  className="rounded font-semibold px-4 py-0.5 bg-gradient-to-r
+                from-amber-900 to-amber-600 text-amber-50 "
+                >
+                  {formState === "login" ? ` Register here` : "Login here"}
+                </button>
+              </div>
             </div>
           </div>
           <div
@@ -339,12 +355,12 @@ const Login: NextPageWithLayout = ({
                   minLength={4}
                 />
 
-                <button className=" w-full rounded hero-text py-2 font-medium text-white capitalize">
+                <button className=" w-full text-lg rounded hero-text py-2 font-medium text-white capitalize">
                   {isLoading ? "Loading..." : formState}
                 </button>
               </form>
 
-              <div className="flex items-stretch gap-3 justify-center mt-4">
+              <div className="grid grid-cols-3 gap-2 mt-4 flex-wrap">
                 {providers &&
                   Object.values(providers).map((provider) => {
                     if (provider.name !== "Credentials") {
@@ -356,7 +372,9 @@ const Login: NextPageWithLayout = ({
                           key={provider.id}
                         >
                           {providersIcons[provider.name.toLowerCase()]}
-                          <span>{provider.name}</span>
+                          <span className="hidden sm:inline-block">
+                            {provider.name}
+                          </span>
                         </div>
                       );
                     }

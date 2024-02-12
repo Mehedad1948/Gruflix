@@ -6,6 +6,6 @@ export async function initGapi() {
     ],
     clientId: "YOUR_CLIENT_ID",
   });
-  console.log({ client });
+  // console.log({ client });
   return client;
 }

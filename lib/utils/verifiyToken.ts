@@ -8,7 +8,7 @@ interface DecodedToken {
 export async function verifyToken(token: string) {
   let decodedToken = jwt.verify(
     token,
-    process.env.JWT_SECRET as string,
+    process.env.NEXT_PUBLIC_JWT_SECRET,
   ) as DecodedToken;
   console.log({ decodedToken });
 

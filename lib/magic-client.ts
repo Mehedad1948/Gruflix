@@ -1,7 +1,7 @@
 const { Magic } = require("magic-sdk");
 
 export const createMagic = () => {
-  console.log('window', typeof window !== "undefined");
+  // console.log('window', typeof window !== "undefined");
   
   return (
     typeof window !== "undefined" &&

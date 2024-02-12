@@ -19,7 +19,7 @@ channelId=${channelId}&maxResults=10&
 key=${YOUTUBE_API_KEY}`,
     );
     const data = await response.json();
-    console.log({ data });
+    // console.log({ data });
     if (data?.error) {
       console.log("Error", data.error);
       return [];

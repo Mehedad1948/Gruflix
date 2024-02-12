@@ -169,6 +169,8 @@ const Video: NextPageWithLayout = ({ video }: { video: VideoData }) => {
                     })
                       .then((resalt) => resalt.json())
                       .then((data) => {
+                        console.log({ data });
+
                         if (!data.success) {
                           toast.error(data.error);
                           setTimeout(() => {

@@ -1,4 +1,5 @@
 import { MagicUserMetadata } from "@magic-sdk/admin";
+import { v4 as uuidv4 } from "uuid";
 
 export async function queryHasuraGQL(
   operationsDoc: string,
@@ -83,6 +84,9 @@ export async function createNewUser(
   email: string,
   password: string,
 ) {
+  const sub = uuidv4();
+  console.log({ sub });
+
   try {
     const user = await queryHasuraGQL(
       `mutation createNewUser($email: String!, $password: String!) {
@@ -296,7 +300,7 @@ export const getWatchedVideos = async ({
   userId: string;
   token: string;
 }): Promise<{ favourited: 0 | 1; videoId: string }[]> => {
-  console.log({ userId, token });
+  // console.log({ userId, token });
 
   const getWatchedDoc = `query getWatched(
     $userId: uuid!) {
@@ -317,7 +321,7 @@ export const getWatchedVideos = async ({
       { userId },
       token,
     );
-    console.log("wathcedVideos.errors", wathcedVideos.errors);
+    // console.log("wathcedVideos.errors", wathcedVideos.errors);
 
     return wathcedVideos.data.stats;
   } catch (err) {

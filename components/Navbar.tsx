@@ -94,12 +94,12 @@ function Navbar() {
       {isNavigating && (
         <div className="loading-line absolute bottom-0 h-1 w-full bg-orange-400"></div>
       )}
-      {/* <Logo /> */}
+      <Logo />
       <ul className="flex  gap-4">
         {/* <Link href="/">Home</Link> */}
-        <Link className="w-max" href="/browse/my-list">
+        {/* <Link className="w-max" href="/browse/my-list">
           My List
-        </Link>
+        </Link> */}
       </ul>
 
       <span className="grow"></span>
@@ -107,10 +107,14 @@ function Navbar() {
       <div className="relative h-fit">
         <div
           ref={ref}
-          onClick={() => setIsMenuOpen((state) => !state)}
-          className="flex  items-center gap-2"
+          onClick={() => {
+            status !== "loading" &&
+              session?.user &&
+              setIsMenuOpen((state) => !state);
+          }}
+          className="flex  items-center gap-2 text-slate-800 font-semibold"
         >
-          <MdKeyboardArrowDown />
+          {status !== "loading" && session?.user && <MdKeyboardArrowDown />}
           <div>
             {status === "loading" ? (
               "Authenticating..."
@@ -132,19 +136,25 @@ function Navbar() {
                 )}
               </div>
             ) : (
-              <button type="button" className="inline" onClick={() => signIn()}>
+              <button
+                className="block z-50  rounded-full border-2 border-orange-400 bg-[#f59e0b] cursor-pointer
+              px-4 py-1 text-center  text-amber-50 font-semibold hover:scale-105 transition-transform 
+              duration-500"
+                onClick={() => signIn()}
+              >
                 Login
               </button>
             )}
           </div>
         </div>
         {isMenuOpen && (
-          <div
-            className="absolute -bottom-11 right-0 w-32 rounded border-2 border-sky-200 bg-sky-100/70
-                       px-2 py-1 text-center backdrop-blur-sm"
+          <button
+            onClick={() => signOut()}
+            className="absolute -bottom-11 z-50 right-0 w-32 rounded  header-text cursor-pointer
+                       px-2 py-1 text-center  text-amber-50 font-semibold"
           >
-            <button onClick={() => signOut()}>Sign out</button>
-          </div>
+            Sign out
+          </button>
         )}
       </div>
     </nav>

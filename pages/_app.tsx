@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Footer from "@/components/Footer";
 import { NextPage } from "next";
+import { Toaster } from "react-hot-toast";
 import Default from "@/components/layouts/default";
 
 const queryClient = new QueryClient();
@@ -60,6 +61,7 @@ export default function MyApp({
     <main className={`${montserrat.variable} font-sans`}>
       <QueryClientProvider client={queryClient}>
         <SessionProvider session={session}>
+          <Toaster />
           {getLayout(<Component {...pageProps} />)}
         </SessionProvider>
       </QueryClientProvider>

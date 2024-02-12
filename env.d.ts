@@ -8,7 +8,7 @@ declare global {
       PORT?: string;
       PWD: string;
       APPLE_ID: string;
-      JWT_SECRET: string;
+      NEXT_PUBLIC_JWT_SECRET: string;
       YOUTUBE_BASE_URL: string;
       MAILING_SERVOCE_CLIENT_ID: string;
       MAILING_SERVOCE_CLIENT_SECRET: string;

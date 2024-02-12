@@ -111,7 +111,7 @@ const Home: NextPageWithLayout = ({
       />
       {watchItAgain.length > 0 && (
         <SectionCard
-          title="ٌWatch it again"
+          title="ٌWatch Again"
           // colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"
           videos={watchItAgain}
           size="medium"
