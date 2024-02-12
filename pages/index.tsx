@@ -12,8 +12,7 @@ import { verifyToken } from "@/lib/utils/verifiyToken";
 import Slider from "@/components/Slider";
 import { NextPageWithLayout } from "./_app";
 import Default from "@/components/layouts/default";
-import { LoadMore } from '@/components/molecules/load-more';
-
+import { LoadMore } from "@/components/molecules/load-more";
 
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext,
@@ -54,6 +53,7 @@ const Home: NextPageWithLayout = ({
   threejsVideos,
   watchItAgain,
 }: Props) => {
+  console.log({ reactVideos });
 
   const [colorMode, setColorMode] = useColorMode();
   const videosSample = [
@@ -82,8 +82,6 @@ const Home: NextPageWithLayout = ({
     get();
   }, []);
 
-
-
   useEffect(() => {
     {
       async () => {
@@ -100,10 +98,10 @@ const Home: NextPageWithLayout = ({
       </Head>
 
       <Banner
-        videos={[reactVideos[0], tailwindVideos[0], threejsVideos[0]]}
+        videos={[reactVideos[2], tailwindVideos[2], threejsVideos[2]]}
         title="Jordan B Peterson"
         subtitle="Lecture in harvard university"
-        imgUrl="/static/jp2.jpg"
+        imgUrl="https://i.ytimg.com/vi/SqcY0GlETPk/hqdefault.jpg"
       />
 
       <SectionCard
@@ -141,7 +139,7 @@ const Home: NextPageWithLayout = ({
       />
 
       <LoadMore />
-    
+
       {/* <SectionCard
         title="GSAP"
         // colorClass="bg-gradient-to-tr from-emerald-900 to-slate-950"

@@ -15,8 +15,12 @@ import Slider from "./Slider";
 import { SwiperSlide } from "swiper/react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import ScrollTrigger from "gsap/ScrollTrigger";
-
+// import ScrollTrigger from "gsap/ScrollTrigger";
+let ScrollTrigger: any;
+(async () => {
+  const importedScrollTrigger = await import("gsap/ScrollTrigger");
+  ScrollTrigger = importedScrollTrigger;
+})();
 interface Props {
   videos: VideoData[];
   title: string;
@@ -58,18 +62,18 @@ function SectionCard({
             opacity: 0,
             y: "20%",
           },
-          { 
+          {
             y: 0,
             opacity: 1,
             duration: 0.8,
             ease: "circ.out",
-            scrollTrigger: { 
+            scrollTrigger: {
               trigger: titleRef.current,
               start: "top 70%",
               end: "100px 10%",
               toggleActions: "play none none reverse",
               // markers: true,
-            }, 
+            },
           },
         );
 
@@ -85,12 +89,19 @@ function SectionCard({
 
   useGSAP(
     () => {
-      console.log("run"); 
+      console.log("run");
 
       gsap.fromTo(
-        ".card-anim", 
+        ".card-anim",
         { opacity: 0, y: "7%", scaleY: 0.95 },
-        { opacity: 1, y: 0, scaleY: 1, duration: 0.7, stagger: 0.2, ease: "back.out" },
+        {
+          opacity: 1,
+          y: 0,
+          scaleY: 1,
+          duration: 0.7,
+          stagger: 0.2,
+          ease: "back.out",
+        },
       );
     },
     { dependencies: [showMore], scope: sectionCard },
@@ -153,7 +164,7 @@ function SectionCard({
         "
         >
           <div
-            className="absolute left-0 top-0 w-full h-full border-x bg-[#fbfdf7]
+            className="absolute left-0 top-0 w-full h-full border-x bg-[#fbfdf5]
            border-amber-300 rounded-full z-20"
           ></div>
           <div

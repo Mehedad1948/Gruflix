@@ -3,172 +3,172 @@ import { videoRequest } from "./videoRequest";
 
 export async function getVideos(searchQuery: string) {
   const url = `/search?part=snippet&q=${searchQuery}&safeSearch=strict&chart=mostPopular&maxResults=10`;
-  //   const videos = await videoRequest(url);
+  // const videos = await videoRequest(url);
   // console.log({ videos });
 
-   const videos = [
+  const videos = [
     {
-      title: "Tailwind CSS Tutorial",
-      imgUrl: "https://i.ytimg.com/vi/bxmDnn7lrnk/hqdefault.jpg",
-      channelId: "UCW5YeuERMmlnqo4oq8vwUpg",
-      id: '687',
-      description: "",
-      publishedAt: "2020-07-06T07:23:27Z",
-      channelTitle: "Net Ninja",
-      tags: [],
-      statistics: {
-        viewCount: Math.floor(Math.random() * 5000),
-        likeCount: Math.floor(Math.random() * 5000),
-        commentCount: Math.floor(Math.random() * 5000),
-      },
-    },
-    {
-      title: "Tailwind in 100 Seconds",
-      imgUrl: "https://i.ytimg.com/vi/mr15Xzb1Ook/hqdefault.jpg",
-      channelId: "UCsBjURrPoezykLs9EqgamOA",
-      id: "mr15Xzb1Ook",
+      title: "ReactJS Course For Beginners 2023",
+      imgUrl: "https://i.ytimg.com/vi/U2Wltnv-doo/hqdefault.jpg",
+      channelId: "UC8S4rDRZn6Z_StJ-hh7ph8g",
+      id: 843,
       description:
-        "Tailwind is a utility-first CSS framework for building websites. It takes a functional approach to web design by providing thousands ...",
-      publishedAt: "2021-08-26T16:07:49Z",
-      channelTitle: "Fireship",
+        "In this course you will learn everything you need to know to go from a beginner react developer to an advanced one. Course ...",
+      publishedAt: "2022-07-11T05:16:23Z",
+      channelTitle: "PedroTech",
       tags: [],
       statistics: {
-        viewCount: Math.floor(Math.random() * 5000),
-        likeCount: Math.floor(Math.random() * 5000),
-        commentCount: Math.floor(Math.random() * 5000),
-      },
-    },
-    {
-      title: "Tailwind Labs",
-      imgUrl:
-        "https://yt3.ggpht.com/ikv41jMTr1uHGdILrJhvbfVJcDt4oqhwApKX37TjAleF_cRPbF2W-waj7uMnS5JySvnlvAlTCg=s800-c-k-c0xffffffff-no-rj-mo",
-      channelId: "UCOe-8z68tgw9ioqVvYM4ddQ",
-      id: '440',
-      description:
-        "We're a small team of developers and designers spread out all across the world, building tools that help other developers build ...",
-      publishedAt: "2020-09-22T23:47:58Z",
-      channelTitle: "Tailwind Labs",
-      tags: [],
-      statistics: {
-        viewCount: Math.floor(Math.random() * 5000),
-        likeCount: Math.floor(Math.random() * 5000),
-        commentCount: Math.floor(Math.random() * 5000),
-      },
-    },
-    {
-      title: "Learn Tailwind CSS – Course for Beginners",
-      imgUrl: "https://i.ytimg.com/vi/ft30zcMlFao/hqdefault.jpg",
-      channelId: "UC8butISFwT-Wl7EV0hUK0BQ",
-      id: "ft30zcMlFao",
-      description:
-        "This course will give you a full introduction into all of the core concepts of Tailwind CSS — it will also provide details on every ...",
-      publishedAt: "2023-01-17T16:56:57Z",
-      channelTitle: "freeCodeCamp.org",
-      tags: [],
-      statistics: {
-        viewCount: Math.floor(Math.random() * 5000),
-        likeCount: Math.floor(Math.random() * 5000),
-        commentCount: Math.floor(Math.random() * 5000),
-      },
-    },
-    {
-      title: "Tailwind CSS is the worst…",
-      imgUrl: "https://i.ytimg.com/vi/lHZwlzOUOZ4/hqdefault.jpg",
-      channelId: "UCsBjURrPoezykLs9EqgamOA",
-      id: "lHZwlzOUOZ4",
-      description:
-        "People have been debating the merits of Tailwind on twitter recently, so let's look at the pros and cons of this popular CSS library.",
-      publishedAt: "2023-01-16T18:34:07Z",
-      channelTitle: "Fireship",
-      tags: [],
-      statistics: {
-        viewCount: Math.floor(Math.random() * 5000),
-        likeCount: Math.floor(Math.random() * 5000),
-        commentCount: Math.floor(Math.random() * 5000),
+        viewCount: 0,
+        likeCount: 0,
+        commentCount: 0,
       },
     },
     {
       title:
-        "Ultimate Tailwind CSS Tutorial // Build a Discord-inspired Animated Navbar",
-      imgUrl: "https://i.ytimg.com/vi/pfaSUYaSgRo/hqdefault.jpg",
-      channelId: "UCsBjURrPoezykLs9EqgamOA",
-      id: "pfaSUYaSgRo",
+        "React Course - Beginner&#39;s Tutorial for React JavaScript Library [2022]",
+      imgUrl: "https://i.ytimg.com/vi/bMknfKXIFA8/hqdefault.jpg",
+      channelId: "UC8butISFwT-Wl7EV0hUK0BQ",
+      id: "bMknfKXIFA8",
       description:
-        "Learn the basics of Tailwind CSS by building a Discord-inspired navbar from scratch. Learn how to leverage utility classes to build ...",
-      publishedAt: "2021-10-19T16:01:06Z",
-      channelTitle: "Fireship",
+        "Learn React by building eight real-world projects and solving 140+ coding challenges. You can also follow this course ...",
+      publishedAt: "2022-01-10T14:47:57Z",
+      channelTitle: "freeCodeCamp.org",
       tags: [],
       statistics: {
-        viewCount: Math.floor(Math.random() * 5000),
-        likeCount: Math.floor(Math.random() * 5000),
-        commentCount: Math.floor(Math.random() * 5000),
+        viewCount: 0,
+        likeCount: 0,
+        commentCount: 0,
       },
     },
     {
-      title: "Corso Tailwind CSS Italiano 2023",
-      imgUrl: "https://i.ytimg.com/vi/y2UDe_Suk5Y/hqdefault.jpg",
-      channelId: "UC0L-hCq_zb0ZX8JJ3c6D_wA",
-      id: '697',
+      title: "React Tutorial for Beginners",
+      imgUrl: "https://i.ytimg.com/vi/SqcY0GlETPk/hqdefault.jpg",
+      channelId: "UCWv7vMbMWH4-V0ZXdmDpPBA",
+      id: "SqcY0GlETPk",
       description:
-        "In questo corso di tailwind css vedremo il framework css più in crescita ed apprezzato negli ultimi anni. Vedremo come funziona ...",
-      publishedAt: "2022-11-03T07:08:28Z",
-      channelTitle: "Edoardo Midali",
+        "React JS Tutorial for Beginners - Learn React 18 with TypeScript and build awesome frontend app! - Want to learn more? Get my ...",
+      publishedAt: "2023-03-12T08:00:07Z",
+      channelTitle: "Programming with Mosh",
       tags: [],
       statistics: {
-        viewCount: Math.floor(Math.random() * 5000),
-        likeCount: Math.floor(Math.random() * 5000),
-        commentCount: Math.floor(Math.random() * 5000),
+        viewCount: 0,
+        likeCount: 0,
+        commentCount: 0,
       },
     },
     {
-      title: "Tailwind Connect 2023 — Keynote",
-      imgUrl: "https://i.ytimg.com/vi/CLkxRnRQtDE/hqdefault.jpg",
-      channelId: "UCOe-8z68tgw9ioqVvYM4ddQ",
-      id: "CLkxRnRQtDE",
+      title: "5 Best FREE React Online Courses",
+      imgUrl: "https://i.ytimg.com/vi/13PRKOCJg_Y/hqdefault.jpg",
+      channelId: "UCVyTG4sCw-rOvB9oHkzZD1w",
+      id: "13PRKOCJg_Y",
       description:
-        "The keynote from Tailwind Connect 2023, our first-ever live event that took place on June 20th, 2023, featuring presentations from ...",
-      publishedAt: "2023-07-06T14:39:36Z",
-      channelTitle: "Tailwind Labs",
+        "Start learning today! For more #webdesign & #development resources: ➢ Visit Creative Tim Courses: https://bit.ly/3s4llfw ...",
+      publishedAt: "2022-12-14T22:00:00Z",
+      channelTitle: "Creative Tim Tutorials",
       tags: [],
       statistics: {
-        viewCount: Math.floor(Math.random() * 5000),
-        likeCount: Math.floor(Math.random() * 5000),
-        commentCount: Math.floor(Math.random() * 5000),
+        viewCount: 0,
+        likeCount: 0,
+        commentCount: 0,
       },
     },
     {
-      title: "Tailwind Crash Course | Project From Scratch",
-      imgUrl: "https://i.ytimg.com/vi/dFgzHOX84xQ/hqdefault.jpg",
-      channelId: "UC29ju8bIPH5as8OGnQzwJyA",
-      id: "dFgzHOX84xQ",
+      title: "Complete React course with projects | part 1",
+      imgUrl: "https://i.ytimg.com/vi/FxgM9k1rg0Q/hqdefault.jpg",
+      channelId: "UCNQ6FEtztATuaVhZKCY28Yw",
+      id: "FxgM9k1rg0Q",
       description:
-        "In this video, we will set up Tailwind CLI and create a landing page from start to finish, going over many of the common utility ...",
-      publishedAt: "2022-04-05T13:00:20Z",
-      channelTitle: "Traversy Media",
+        "00:00:00 React Roadmap 00:30:17 Create React Projects 01:05:32 Understand the react flow and structure 01:41:30 Create your ...",
+      publishedAt: "2023-09-11T13:30:08Z",
+      channelTitle: "Chai aur Code",
       tags: [],
       statistics: {
-        viewCount: Math.floor(Math.random() * 5000),
-        likeCount: Math.floor(Math.random() * 5000),
-        commentCount: Math.floor(Math.random() * 5000),
+        viewCount: 0,
+        likeCount: 0,
+        commentCount: 0,
       },
     },
     {
-      title: "Watching Tailwind Tutorials Is A Waste Of Time",
-      imgUrl: "https://i.ytimg.com/vi/Ksn1tThNTjI/hqdefault.jpg",
+      title: "How I Would Learn React From Scratch In 2023",
+      imgUrl: "https://i.ytimg.com/vi/a7YYJVGBy6A/hqdefault.jpg",
       channelId: "UCFbNIlppjAuEX4znoulh0Cw",
-      id: "Ksn1tThNTjI",
-      description:
-        "Learn CSS Today Course: https://courses.webdevsimplified.com/learn-css-today I love Tailwind. It is one of (if not) my favorite ...",
-      publishedAt: "2023-04-25T16:00:12Z",
+      id: "a7YYJVGBy6A",
+      description: "React Simplified Course: ...",
+      publishedAt: "2023-08-01T16:00:01Z",
       channelTitle: "Web Dev Simplified",
       tags: [],
       statistics: {
-        viewCount: Math.floor(Math.random() * 5000),
-        likeCount: Math.floor(Math.random() * 5000),
-        commentCount: Math.floor(Math.random() * 5000),
+        viewCount: 0,
+        likeCount: 0,
+        commentCount: 0,
+      },
+    },
+    {
+      title:
+        "99% React Courses Miss These Essential Real-World Skills | Tanay Pratap Hindi",
+      imgUrl: "https://i.ytimg.com/vi/cTXn8VsgzTM/hqdefault.jpg",
+      channelId: "UCNFmBuclxQPe57orKiQbyfA",
+      id: "cTXn8VsgzTM",
+      description:
+        "Meetup link: https://lu.ma/tanaypratap Discover the crucial skills that most React courses overlook and learn how to differentiate ...",
+      publishedAt: "2023-05-14T14:30:11Z",
+      channelTitle: "Tanay Pratap",
+      tags: [],
+      statistics: {
+        viewCount: 0,
+        likeCount: 0,
+        commentCount: 0,
+      },
+    },
+    {
+      title: "ReactJS Tutorial for Beginners",
+      imgUrl: "https://i.ytimg.com/vi/QFaFIcGhPoM/hqdefault.jpg",
+      channelId: "UC80PWRj_ZU8Zu0HSMNVwKWw",
+      id: 860,
+      description:
+        "React is an open source javascript library for building user interfaces. React is a project created and maintained by Facebook.",
+      publishedAt: "2018-10-29T12:01:47Z",
+      channelTitle: "Codevolution",
+      tags: [],
+      statistics: {
+        viewCount: 0,
+        likeCount: 0,
+        commentCount: 0,
+      },
+    },
+    {
+      title:
+        "React JS Full Course 2023 | Build an App and Master React in 1 Hour",
+      imgUrl: "https://i.ytimg.com/vi/b9eMGE7QtTk/hqdefault.jpg",
+      channelId: "UCmXmlB4-HJytD7wek0Uo97A",
+      id: "b9eMGE7QtTk",
+      description:
+        "After building this simple, half-hour movie application, imagine what a long and comprehensive 20-hour Next.js course would look ...",
+      publishedAt: "2022-03-04T11:06:59Z",
+      channelTitle: "JavaScript Mastery",
+      tags: [],
+      statistics: {
+        viewCount: 0,
+        likeCount: 0,
+        commentCount: 0,
+      },
+    },
+    {
+      title:
+        "How to learn ReactJS in 30 Days 👩‍💻 #technology #programming #software #react #career",
+      imgUrl: "https://i.ytimg.com/vi/m1_ppy3HOEU/hqdefault.jpg",
+      channelId: "UCWI-ohtRu8eEeDj93hmUsUQ",
+      id: "m1_ppy3HOEU",
+      description: "",
+      publishedAt: "2022-05-27T17:04:51Z",
+      channelTitle: "Coding with Lewis",
+      tags: [],
+      statistics: {
+        viewCount: 0,
+        likeCount: 0,
+        commentCount: 0,
       },
     },
   ];
-
   return videos;
 }

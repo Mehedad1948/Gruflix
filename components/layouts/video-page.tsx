@@ -7,7 +7,7 @@ interface Props {
 
 const VideoPage = ({ children }: Props) => {
   return (
-    <div className=" frame bg-fixed min-h-screen h-full relative">
+    <div className=" frame bg-fixed  min-h-screen h-fit relative">
         <Navbar />
         {children}
         {/* <div className="w-64 aspect-square fixed z-0 top-1/3 left-1/3 frame rounded-full"></div>
