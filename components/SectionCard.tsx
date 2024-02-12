@@ -16,11 +16,11 @@ import { SwiperSlide } from "swiper/react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 // import ScrollTrigger from "gsap/ScrollTrigger";
-let ScrollTrigger: any;
-(async () => {
-  const importedScrollTrigger = await import("gsap/ScrollTrigger");
-  ScrollTrigger = importedScrollTrigger;
-})();
+// let ScrollTrigger: any;
+// (async () => {
+//   const importedScrollTrigger = await import("gsap/ScrollTrigger");
+//   ScrollTrigger = importedScrollTrigger;
+// })();
 interface Props {
   videos: VideoData[];
   title: string;
