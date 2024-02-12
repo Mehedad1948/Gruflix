@@ -92,7 +92,7 @@ const Home: NextPageWithLayout = ({
   return (
     <div>
       <Head>
-        <title>Gruflix</title>
+        <title>Guruflix</title>
       </Head>
 
       <Banner
