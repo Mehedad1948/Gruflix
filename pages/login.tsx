@@ -244,40 +244,51 @@ const Login: NextPageWithLayout = ({
                          sm:items-stretch "
         >
           <div
-            className="   sm:w-1/3 text-white   backdrop-blur-sm h-full  flex flex-col
-                         items-center justify-center"
+            className=" sm:w-1/2 lg:w-[600px]   text-slate-800 
+             backdrop-blur-sm h-full  flex flex-col
+                         items-center justify-center sm:pr-4"
           >
-            <div>
-              <h1 className="text-amber-700">
+            <div
+              className="w-full absolute z-0 frame border-2 shadow-amber-200 
+                       border-amber-700/10  rounded-tr-full rounded-bl-full
+              h-full max-h-[650px]"
+            ></div>
+            <div
+              className="w-full absolute z-0 frame border-2  border-amber-700/10 shadow-amber-200 
+             rounded-tl-full rounded-br-full
+              h-full max-h-[650px]"
+            ></div>
+            <div className="relative z-50">
+              <h1
+                className="text-[35px] text-center  sm:text-[50px] bg-gradient-to-r
+              from-amber-900 to-amber-600 font-bold mb-2 bg-clip-text text-transparent"
+              >
                 Gruflix
               </h1>
-              <p className="text-lg font-semibold ml-1 text-amber-700">Keep Learning</p>
+              <p className="text-lg font-semibold ml-1 text-center bg-gradient-to-r
+              from-amber-900 to-amber-600 bg-clip-text text-transparent">
+                Keep Learning
+              </p>
             </div>
-            {formState === "login" ? (
-              <div className="text mt-3 flex gap-2 flex-col items-center text-amber-700 justify-self-end">
+
+            <div className="text mt-3 flex gap-2 bg-gradient-to-r
+              from-amber-900 to-amber-600 bg-clip-text text-transparent
+              font-semibold flex-col items-center justify-self-end relative z-50">
+              {formState === "login" ? (
                 <p>Dont have account yet? </p>
-                <button
-                  onClick={() => {
-                    setFormState((s) => (s === "login" ? "register" : "login"));
-                  }}
-                  className="rounded font-semibold px-4 py-0.5 header-text text-amber-50 "
-                >
-                  Register here
-                </button>
-              </div>
-            ) : (
-              <div className="text-sm mt-3 flex gap-2 flex-col items-center justify-self-end">
+              ) : (
                 <p>Already have an account? </p>
-                <button
-                  onClick={() => {
-                    setFormState((s) => (s === "login" ? "register" : "login"));
-                  }}
-                  className="text-slate-800 rounded font-semibold px-3 py-0.5 bg-slate-200 "
-                >
-                  Login here
-                </button>
-              </div>
-            )}
+              )}
+              <button
+                onClick={() => {
+                  setFormState((s) => (s === "login" ? "register" : "login"));
+                }}
+                className="rounded font-semibold px-4 py-0.5 bg-gradient-to-r
+                from-amber-900 to-amber-600 text-amber-50 "
+              >
+                {formState === "login" ? ` Register here` : "Login here"}
+              </button>
+            </div>
           </div>
           <div
             className="relative flex h-full  w-full items-end sm:items-center 
@@ -328,9 +339,7 @@ const Login: NextPageWithLayout = ({
                   minLength={4}
                 />
 
-                <button
-                  className=" w-full rounded hero-text py-2 font-medium text-white capitalize"
-                >
+                <button className=" w-full rounded hero-text py-2 font-medium text-white capitalize">
                   {isLoading ? "Loading..." : formState}
                 </button>
               </form>
@@ -360,6 +369,5 @@ const Login: NextPageWithLayout = ({
     </>
   );
 };
-
 
 export default Login;

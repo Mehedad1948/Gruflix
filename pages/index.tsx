@@ -53,8 +53,6 @@ const Home: NextPageWithLayout = ({
   threejsVideos,
   watchItAgain,
 }: Props) => {
-  console.log({ reactVideos });
-
   const [colorMode, setColorMode] = useColorMode();
   const videosSample = [
     { imgUrl: "/static/Lewishowes.jpg", linkTo: "/lecturers/Lewishowes" },
