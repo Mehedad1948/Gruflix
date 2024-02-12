@@ -17,10 +17,10 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 // import { ScrollTrigger } from "gsap/ScrollTrigger";
 let ScrollTrigger: any;
-(async () => {
-  const importedScrollTrigger = (await import("gsap/ScrollTrigger")).ScrollTrigger;
-  ScrollTrigger = importedScrollTrigger;
-})();
+// (async () => {
+//   const importedScrollTrigger = (await import("gsap/ScrollTrigger")).ScrollTrigger;
+//   ScrollTrigger = importedScrollTrigger;
+// })();
 interface Props {
   videos: VideoData[];
   title: string;
@@ -53,7 +53,7 @@ function SectionCard({
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      gsap.registerPlugin(ScrollTrigger);
+      // gsap.registerPlugin(ScrollTrigger);
 
       if (titleRef.current) {
         const reveal = gsap.fromTo(

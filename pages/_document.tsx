@@ -10,6 +10,7 @@ export default function Document() {
         <Main />
         <NextScript />
         <Script src="https://apis.google.com/js/api.js" />
+        {/* <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js" strategy="beforeInteractive" /> */}
       </body>
     </Html>
   );
