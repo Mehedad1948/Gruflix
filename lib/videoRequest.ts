@@ -1,17 +1,18 @@
 import { VideoData } from "@/models/videos";
-import { error } from "console";
 
 export async function videoRequest(address: string): Promise<VideoData[]> {
-  const { YOUTUBE_API_KEY, YOUTUBE_BASE_URL } = process.env;
+  
+  const NEXT_PUBLIC_YOUTUBE_API_KEY= process.env.NEXT_PUBLIC_YOUTUBE_API_KEY;
+  const NEXT_PUBLIC_YOUTUBE_BASE_URL= process.env.NEXT_PUBLIC_YOUTUBE_BASE_URL;
   try {
     const response = await fetch(
-      `${YOUTUBE_BASE_URL}${address}&key=${YOUTUBE_API_KEY}`,
+      `${NEXT_PUBLIC_YOUTUBE_BASE_URL}${address}&key=${NEXT_PUBLIC_YOUTUBE_API_KEY}`,
     );
     const data = await response.json();
-    // console.log({ data });
+    // console.log({ response });
 
     if (data?.error) {
-      error("YouTube Api Error", address, data?.error);
+      console.error("YouTube Api Error", address, data?.error);
       return [];
     }
 
@@ -39,7 +40,7 @@ export async function videoRequest(address: string): Promise<VideoData[]> {
 
     return videos;
   } catch (err) {
-    error("Error in getting", address, err);
+    console.error("Error in getting", address, err);
     return [];
   }
 }

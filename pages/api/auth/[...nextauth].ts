@@ -89,7 +89,7 @@ export const authOptions: NextAuthOptions = {
   // Encode and decode your JWT with the HS256 algorithm
   jwt: {
     encode: ({ secret, token }) => {
-      console.log("encode runs", token);
+      // console.log("encode runs", token);
 
       const encodedToken = jsonwebtoken.sign(token!, secret, {
         algorithm: "HS256",
@@ -108,7 +108,7 @@ export const authOptions: NextAuthOptions = {
     // https://hasura.io/docs/latest/graphql/core/auth/authentication/jwt/#the-spec
 
     async jwt({ token }) {
-      console.log("callbacks runs");
+      // console.log("callbacks runs");
 
       return {
         ...token,
@@ -123,7 +123,7 @@ export const authOptions: NextAuthOptions = {
     // Add user ID to the session
     session: async ({ session, token, user }) => {
       // console.log({ user });
-      console.log("sessions runs", session?.user, { user, token });
+      // console.log("sessions runs", session?.user, { user, token });
 
       if (session?.user) {
         session.user.id = token.sub!;

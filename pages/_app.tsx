@@ -4,7 +4,6 @@ import "@/styles/globals.css";
 import { montserrat } from "../styles/fonts";
 import Navbar from "@/components/Navbar";
 import { ReactElement, ReactNode, useEffect, useRef, useState } from "react";
-import { magic } from "@/lib/magic-client";
 import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Footer from "@/components/Footer";
@@ -30,17 +29,17 @@ export default function MyApp({
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const isUserLoggedIn = async () => {
-      const isLoggedIn = await magic.user.isLoggedIn();
-      if (isLoggedIn) {
-        // router.push("/");
-      } else {
-        setIsLoading(false);
-      }
-    };
-    isUserLoggedIn();
-  }, []);
+  // useEffect(() => {
+  //   const isUserLoggedIn = async () => {
+  //     const isLoggedIn = await magic.user.isLoggedIn();
+  //     if (isLoggedIn) {
+  //       // router.push("/");
+  //     } else {
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   isUserLoggedIn();
+  // }, []);
 
   useEffect(() => {
     const handleComplete = () => {

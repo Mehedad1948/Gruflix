@@ -4,7 +4,6 @@ import Github from "@/components/atoms/icons/github";
 import Google from "@/components/atoms/icons/google";
 import Linkedin from "@/components/atoms/icons/linkedin";
 import Input from "@/components/atoms/input";
-import { magic } from "@/lib/magic-client";
 import { Form, Formik, useField } from "formik";
 import { GetServerSidePropsContext } from "next";
 import { BuiltInProviderType } from "next-auth/providers";

@@ -6,7 +6,6 @@ import { useOutsideClick } from "@/hooks/useOutsideClick";
 import Logo from "./atoms/Logo";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { magic } from "@/lib/magic-client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 function Navbar() {

@@ -5,7 +5,6 @@ import { useOutsideClick } from "@/hooks/useOutsideClick";
 import Logo from "./atoms/Logo";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { magic } from "@/lib/magic-client";
 import { useSession } from "next-auth/react";
 function Footer() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,41 +13,7 @@ function Footer() {
 
   const { data: session, status } = useSession();
 
-  const handleLogout = async () => {
-    try {
-      const logout = await magic.user.logout();
-      setIsloading(true);
-      const isLoggedIn = await magic.user.isLoggedIn(); // => `false`
-      if (!isLoggedIn) {
-        setIsloading(false);
-        setUsername("");
-      }
-    } catch {
-      // Handle errors if required!
-      console.error("Error in getting user data");
-    }
-  };
 
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     // Assumes a user is already logged in
-  //     try {
-  //       setIsloading(true);
-  //       const userInfo = await magic.user.getInfo();
-  //       const didToken = await magic.user.getIdToken();
-  //       console.log({ didToken });
-
-  //       if (userInfo) {
-  //         setIsloading(false);
-  //         setUsername(userInfo.email);
-  //       }
-  //     } catch (err) {
-  //       setIsloading(false);
-  //       console.error("Error in getting user data", err);
-  //     }
-  //   };
-  //   getUser();
-  // }, []);
 
   const ref = useOutsideClick<HTMLDivElement>(
     () => setIsMenuOpen(false),

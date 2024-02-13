@@ -31,6 +31,7 @@ let timer: NodeJS.Timeout;
 const Banner = ({ title, subtitle, imgUrl, videos }: Props) => {
   const dummyText = `  Welcome to our coding hub! Explore a goldmine of top-notch YouTube
   programming videos.`;
+  console.log({ videos });
 
   function handleOnPlay() {}
   console.log({ videos });
@@ -155,8 +156,10 @@ const Banner = ({ title, subtitle, imgUrl, videos }: Props) => {
         </Link>
 
         <div className="flex flex-col gap-3 mt-4 relative z-20">
-          <h1 className="text-amber-800 text-2xl md:text-3xl hero-text bg-clip-text text-transparent
-          w-fit font-bold">
+          <h1
+            className="text-amber-800 text-2xl md:text-3xl hero-text bg-clip-text text-transparent
+          w-fit font-bold"
+          >
             {videos[0].title}
           </h1>
           <p

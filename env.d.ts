@@ -9,7 +9,7 @@ declare global {
       PWD: string;
       APPLE_ID: string;
       NEXT_PUBLIC_JWT_SECRET: string;
-      YOUTUBE_BASE_URL: string;
+      NEXT_PUBLIC_YOUTUBE_BASE_URL: string;
       MAILING_SERVOCE_CLIENT_ID: string;
       MAILING_SERVOCE_CLIENT_SECRET: string;
     }

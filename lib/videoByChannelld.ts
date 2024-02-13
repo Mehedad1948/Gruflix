@@ -1,6 +1,6 @@
 import { channelIds } from "./globals";
-const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
-const YOUTUBE_BASE_URL = process.env.YOUTUBE_BASE_URL;
+const NEXT_PUBLIC_YOUTUBE_API_KEY = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY;
+const NEXT_PUBLIC_YOUTUBE_BASE_URL = process.env.NEXT_PUBLIC_YOUTUBE_BASE_URL;
 
 export async function getVideosById(channelId: string) {
   // const params = {
@@ -14,9 +14,9 @@ export async function getVideosById(channelId: string) {
       channelId,
     });
     const response = await fetch(
-      `${YOUTUBE_BASE_URL}playlists?part=snippet%2CcontentDetails%2C%20player&
+      `${NEXT_PUBLIC_YOUTUBE_BASE_URL}playlists?part=snippet%2CcontentDetails%2C%20player&
 channelId=${channelId}&maxResults=10&
-key=${YOUTUBE_API_KEY}`,
+key=${NEXT_PUBLIC_YOUTUBE_API_KEY}`,
     );
     const data = await response.json();
     // console.log({ data });

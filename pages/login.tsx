@@ -5,7 +5,6 @@ import Google from "@/components/atoms/icons/google";
 import Linkedin from "@/components/atoms/icons/linkedin";
 import Input from "@/components/atoms/input";
 import { createNewUser } from "@/lib/db/hasura";
-import { magic } from "@/lib/magic-client";
 import { Form, Formik, useField } from "formik";
 import { GetServerSidePropsContext } from "next";
 import { BuiltInProviderType } from "next-auth/providers";
