@@ -58,7 +58,7 @@ export default function MyApp({
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
-    <main className={`${montserrat.variable} font-sans`}>
+    <main className={`${montserrat.className}`}>
       <QueryClientProvider client={queryClient}>
         <SessionProvider session={session}>
           <Toaster />

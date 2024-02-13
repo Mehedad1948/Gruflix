@@ -4,7 +4,7 @@ import Script from "next/script";
 
 export default function Document() {
   return (
-    <Html className={montserrat.variable} lang="en">
+    <Html  lang="en">
       <Head />
       <body>
         <Main />
