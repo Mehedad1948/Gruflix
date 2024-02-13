@@ -1,5 +1,4 @@
 import { createNewUser, isNewUser } from "@/lib/db/hasura";
-import { magicAdmin } from "@/lib/magic";
 import { sendEmail } from "@/lib/utils/sendEmail";
 import jwt from "jsonwebtoken";
 
