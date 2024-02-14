@@ -7,7 +7,7 @@ function Error({ statusCode }: any) {
         className="bg-clip-text text-transparent 
         hero-text mb-4 text-center"
       >
-        Oops, there was an error!
+        Oops, There was an error!
       </h2>
       <img className="w-1/2 max-w-xs" src="/error.png" alt="" />
       <Link
