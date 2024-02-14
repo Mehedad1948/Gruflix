@@ -273,14 +273,16 @@ const Login: NextPageWithLayout = ({
                   className="text-[35px] text-center  sm:text-[50px] bg-gradient-to-r
               from-amber-900 to-amber-600 font-bold mb-2 bg-clip-text text-transparent"
                 >
-                  <Link href="/"> Gruflix</Link>
+                  <Link href="/">
+                    <img src="/guruLogo.svg" className='w-44 sm:w-64 lg:w-fit' />
+                  </Link>
                 </h1>
-                <p
+                {/* <p
                   className="text-lg font-semibold ml-1 text-center bg-gradient-to-r
               from-amber-900 to-amber-600 bg-clip-text text-transparent"
                 >
                   Keep Learning
-                </p>
+                </p> */}
               </div>
 
               <div

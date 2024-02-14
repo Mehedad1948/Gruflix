@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
+import Link from 'next/link';
 
 interface Props {
   children: ReactNode;
@@ -27,6 +28,11 @@ const Default = ({ children, showBg = true }: Props) => {
         {/* <div className="fixed top-0 left-0 h-4 frame w-full z-50 bg-fixed"></div> */}
         {/* <div className="fixed bottom-0 left-0 h-4 frame w-full z-50 bg-fixed"></div> */}
       </div>
+      <Link href='/'>
+        <img className='fixed bottom-8 left-8 z-50
+        w-10 sm:w-12
+        ' src='/guruLogo.svg' />
+      </Link>
     </div>
   );
 };
