@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import { NextPage } from "next";
 import { Toaster } from "react-hot-toast";
 import Default from "@/components/layouts/default";
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 const queryClient = new QueryClient();
 
@@ -58,12 +59,14 @@ export default function MyApp({
 
   return (
     <main className={`${montserrat.className}`}>
+      <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <SessionProvider session={session}>
           <Toaster />
           {getLayout(<Component {...pageProps} />)}
         </SessionProvider>
       </QueryClientProvider>
+      </ErrorBoundary>
     </main>
   );
 }

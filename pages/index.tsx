@@ -756,6 +756,7 @@ const Home: NextPageWithLayout = ({
   }, [router]);
 
   useEffect(() => {
+    
     {
       async () => {
         const LocomotiveScroll = (await import("locomotive-scroll")).default;
