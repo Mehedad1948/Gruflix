@@ -2,10 +2,10 @@ import Link from "next/link";
 
 function Error({ statusCode }: any) {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center frame">
+    <div className="w-full h-full flex flex-col items-center justify-center frame p-3">
       <h2
         className="bg-clip-text text-transparent 
-        hero-text mb-4"
+        hero-text mb-4 text-center"
       >
         Oops, there was an error!
       </h2>
