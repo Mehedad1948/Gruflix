@@ -107,8 +107,18 @@ function SectionCard({
     { dependencies: [showMore], scope: sectionCard },
   );
 
+  function scrollToElement(elementId: string) {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  }
+
   return (
     <section
+      id={title}
       ref={emblaRef}
       className={
         colorClass +
@@ -175,7 +185,10 @@ function SectionCard({
             className={` relative z-20 px-4 py-1 rounded-full border border-amber-300 
             transition-colors duration-300
           text-amber-700 hover:bg-amber-50 cursor-pointer`}
-            onClick={() => setShowMore(!showMore)}
+            onClick={() => {
+              scrollToElement(title);
+              setShowMore(!showMore);
+            }}
           >
             {showMore ? "Hide Videos" : "Show Videos"}
           </button>

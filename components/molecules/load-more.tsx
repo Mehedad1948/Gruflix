@@ -499,10 +499,10 @@ const staticItems = [
       },
     ],
   },
-  {
-    title: "Websocket",
-    videos: [],
-  },
+  // {
+  //   title: "Websocket",
+  //   videos: [],
+  // },
 ];
 
 type ItemType = {

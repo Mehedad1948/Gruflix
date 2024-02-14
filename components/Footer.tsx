@@ -37,11 +37,11 @@ function Footer() {
       </div>
 
       <div className=" px-6 py-1 my-2">
-        <ul className="flex gap-4 flex-wrap text-3xl">
+        {/* <ul className="flex gap-4 flex-wrap text-3xl">
           <li>React</li>
           <li>Vue</li>
           <li>Next</li>
-        </ul>
+        </ul> */}
       </div>
       <span className="grow"></span>
       <div className="flex items-center justify-start  w-full sm:w-fit">
