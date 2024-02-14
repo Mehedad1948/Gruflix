@@ -28,7 +28,7 @@ const staticItems = [
         title: "Vue.js 3 Tutorial",
         imgUrl: "https://i.ytimg.com/vi/YrxBCBibVo0/hqdefault.jpg",
         channelId: "UCW5YeuERMmlnqo4oq8vwUpg",
-        id: '843',
+        id: 'YrxBCBibVo0',
         description: "",
         publishedAt: "2020-12-02T07:33:14Z",
         channelTitle: "Net Ninja",
@@ -75,7 +75,7 @@ const staticItems = [
         title: "Vue JS 3 Tutorial for Beginners",
         imgUrl: "https://i.ytimg.com/vi/ccsz9FRy-nk/hqdefault.jpg",
         channelId: "UC80PWRj_ZU8Zu0HSMNVwKWw",
-        id: '217',
+        id: 'ccsz9FRy-nk',
         description:
           "Vue JS is a popular javascript framework for building user interfaces. The core Vue library is focussed on doing one thing and ...",
         publishedAt: "2020-12-11T17:30:29Z",
@@ -151,23 +151,23 @@ const staticItems = [
           commentCount: 0,
         },
       },
-      {
-        title: "Vue Mastery",
-        imgUrl:
-          "https://yt3.ggpht.com/ytc/AIf8zZQFHUHzg9Q0PiolF2H3ktkKqPA8xPZT1xCnFWjI=s800-c-k-c0xffffffff-no-rj-mo",
-        channelId: "UCa1zuotKU4Weuw_fLRnPv0A",
-        id: '385',
-        description:
-          "Vue Mastery is the ultimate learning resource for Vue.js developers. We release content weekly to deliver you fresh lessons and ...",
-        publishedAt: "2017-01-11T05:47:01Z",
-        channelTitle: "Vue Mastery",
-        tags: [],
-        statistics: {
-          viewCount: 0,
-          likeCount: 0,
-          commentCount: 0,
-        },
-      },
+      // {
+      //   title: "Vue Mastery",
+      //   imgUrl:
+      //     "https://yt3.ggpht.com/ytc/AIf8zZQFHUHzg9Q0PiolF2H3ktkKqPA8xPZT1xCnFWjI=s800-c-k-c0xffffffff-no-rj-mo",
+      //   channelId: "UCa1zuotKU4Weuw_fLRnPv0A",
+      //   id: '385',
+      //   description:
+      //     "Vue Mastery is the ultimate learning resource for Vue.js developers. We release content weekly to deliver you fresh lessons and ...",
+      //   publishedAt: "2017-01-11T05:47:01Z",
+      //   channelTitle: "Vue Mastery",
+      //   tags: [],
+      //   statistics: {
+      //     viewCount: 0,
+      //     likeCount: 0,
+      //     commentCount: 0,
+      //   },
+      // },
     ],
   },
   {
@@ -341,7 +341,7 @@ const staticItems = [
         title: "Node.js Crash Course Tutorial",
         imgUrl: "https://i.ytimg.com/vi/zb3Qk8SG5Ms/hqdefault.jpg",
         channelId: "UCW5YeuERMmlnqo4oq8vwUpg",
-        id: '235',
+        id: 'zb3Qk8SG5Ms',
         description:
           "Hey gang, in this Node.js tutorial series you'll learn node from the ground up - what it is, how to use it and how to make dynamic ...",
         publishedAt: "2020-06-15T07:22:00Z",

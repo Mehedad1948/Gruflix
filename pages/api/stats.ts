@@ -15,7 +15,7 @@ const stats = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!token) {
       res
         .status(403)
-        .send({ success: false, error: "No videoId is provided", code: 403 });
+        .send({ success: false, error: "You should login first", code: 403 });
     } else {
       // let decodedToken = jwt.verify(
       //   token,
@@ -23,9 +23,11 @@ const stats = async (req: NextApiRequest, res: NextApiResponse) => {
       // ) as DecodedToken;
 
       const userId = await verifyToken(token);
-      console.log({ userId, token });
+      // console.log({ userId, token });
 
       const videoId = req.body.videoId || req.query.videoId;
+      console.log({ userId });
+
       if (!userId) {
         res.status(403).send({
           success: false,

@@ -27,7 +27,7 @@ const staticValues = {
       title: "ReactJS Course For Beginners 2023",
       imgUrl: "https://i.ytimg.com/vi/U2Wltnv-doo/hqdefault.jpg",
       channelId: "UC8S4rDRZn6Z_StJ-hh7ph8g",
-      id: 398,
+      id: 'U2Wltnv-doo',
       description:
         "In this course you will learn everything you need to know to go from a beginner react developer to an advanced one. Course ...",
       publishedAt: "2022-07-11T05:16:23Z",
@@ -140,7 +140,7 @@ const staticValues = {
       title: "ReactJS Tutorial for Beginners",
       imgUrl: "https://i.ytimg.com/vi/QFaFIcGhPoM/hqdefault.jpg",
       channelId: "UC80PWRj_ZU8Zu0HSMNVwKWw",
-      id: 534,
+      id: 'QFaFIcGhPoM',
       description:
         "React is an open source javascript library for building user interfaces. React is a project created and maintained by Facebook.",
       publishedAt: "2018-10-29T12:01:47Z",
@@ -191,7 +191,7 @@ const staticValues = {
       title: "Next.js 14 Tutorial",
       imgUrl: "https://i.ytimg.com/vi/ZjAqacIC_3c/hqdefault.jpg",
       channelId: "UC80PWRj_ZU8Zu0HSMNVwKWw",
-      id: 421,
+      id: 'ZjAqacIC_3c',
       description:
         "Welcome to a new series on mastering Next.js, the React framework that's transforming web development! Are you ready to take ...",
       publishedAt: "2023-11-06T13:38:29Z",
@@ -289,7 +289,7 @@ const staticValues = {
       title: "Next.js Tutorial for Beginners",
       imgUrl: "https://i.ytimg.com/vi/9P8mASSREYM/hqdefault.jpg",
       channelId: "UC80PWRj_ZU8Zu0HSMNVwKWw",
-      id: 67,
+      id: '9P8mASSREYM',
       description:
         "Next.js is a react framework for production. Next.js gives you the best developer experience with all the features you need for ...",
       publishedAt: "2021-06-21T12:24:53Z",
@@ -371,11 +371,11 @@ const staticValues = {
       },
     },
     {
-      title: "Three.js Tutorials",
+      title: "Three.js Tutorial For Absolute Beginners",
       imgUrl: "https://i.ytimg.com/vi/xJAfLdUgdc4/hqdefault.jpg",
       channelId: "UC1q2FdkcQ4qIxXzj3KQ1HYA",
-      id: 700,
-      description: "",
+      id: 'xJAfLdUgdc4',
+      description: "This tutorial covers the basics of the 3D library Three.js.",
       publishedAt: "2021-11-03T16:23:42Z",
       channelTitle: "Wael Yasmina",
       tags: [],
@@ -405,7 +405,7 @@ const staticValues = {
       title: "Курс по three.js",
       imgUrl: "https://i.ytimg.com/vi/UJjzYK5pRcs/hqdefault.jpg",
       channelId: "UCQNqBFzal8nbmO7Y6TdRqXQ",
-      id: 727,
+      id: 'UJjzYK5pRcs',
       description:
         "Приветствуем вас в видео-курсе по началу работы с three.js. Здесь вы получите основы для начала своего приключения с ...",
       publishedAt: "2023-05-14T18:43:31Z",
@@ -521,7 +521,7 @@ const staticValues = {
       title: "TypeScript Tutorial",
       imgUrl: "https://i.ytimg.com/vi/2pZmKW9-I_k/hqdefault.jpg",
       channelId: "UCW5YeuERMmlnqo4oq8vwUpg",
-      id: 471,
+      id: '2pZmKW9-I_k',
       description:
         "In this tutorial series we'll learn all about TypeScript - a superset of the JavaScript language.",
       publishedAt: "2020-05-07T07:08:50Z",
@@ -772,7 +772,7 @@ const Home: NextPageWithLayout = ({
       </Head>
 
       <Banner
-        videos={[reactVideos[0], nextjsVideos[0], threejsVideos[0]]}
+        videos={[reactVideos[4], nextjsVideos[0], threejsVideos[0]]}
         title="Jordan B Peterson"
         subtitle="Lecture in harvard university"
         imgUrl="https://i.ytimg.com/vi/SqcY0GlETPk/hqdefault.jpg"
