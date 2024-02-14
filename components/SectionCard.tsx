@@ -15,12 +15,14 @@ import Slider from "./Slider";
 import { SwiperSlide } from "swiper/react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import _ScrollTrigger from "gsap/ScrollTrigger";
 // import { ScrollTrigger } from "gsap/ScrollTrigger";
-let ScrollTrigger: any;
 // (async () => {
-//   const importedScrollTrigger = (await import("gsap/ScrollTrigger")).ScrollTrigger;
+//   const importedScrollTrigger = (await import("gsap/ScrollTrigger"))
+//     .ScrollTrigger;
 //   ScrollTrigger = importedScrollTrigger;
 // })();
+
 interface Props {
   videos: VideoData[];
   title: string;
@@ -37,6 +39,7 @@ function SectionCard({
   // console.log({ videos });
   const [emblaRef] = useEmblaCarousel();
   const [showMore, setShowMore] = useState(false);
+  const [scrollHolder, setScrollHolder] = useState<any>(null);
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const handleScroll: WheelEventHandler<HTMLDivElement> = (e) => {
@@ -51,9 +54,17 @@ function SectionCard({
   const sectionCard = useRef(null);
   const titleRef = useRef(null);
 
+
+
   useEffect(() => {
+    // console.log(ScrollTrigger);
+
     if (typeof window !== "undefined") {
-      // gsap.registerPlugin(ScrollTrigger);
+      const getScroll = async () => {
+        const importedScrollTrigger = (await import("gsap/ScrollTrigger"))
+        .ScrollTrigger;
+        
+        gsap.registerPlugin(importedScrollTrigger);
 
       if (titleRef.current) {
         const reveal = gsap.fromTo(
@@ -84,6 +95,8 @@ function SectionCard({
           }
         };
       }
+    };
+    getScroll()
     }
   }, []);
 
@@ -147,10 +160,12 @@ function SectionCard({
         ref={sectionCard}
         className={`${
           showMore
-            ? " sm:grid-rows-[repeat(5,_400px)] gap-4 md:grid-rows-[repeat(4,_400px)] xl:grid-rows-[repeat(3,_400px)] grid-rows-1"
-            : "-mb-6 sm:grid-rows-[repeat(6,_0px)] md:grid-rows-[repeat(4,_0px)] xl:grid-rows-[repeat(3,_0px)]"
+            ? `sm:grid-rows-[repeat(5,_400px)] gap-4 md:grid-rows-[repeat(4,_400px)] 
+                xl:grid-rows-[repeat(3,_400px)] grid-rows-1`
+            : `-mb-6 sm:grid-rows-[repeat(6,_0px)] md:grid-rows-[repeat(4,_0px)] 
+            xl:grid-rows-[repeat(3,_0px)]`
         }
-         w-full cards-container 
+         w-full cards-container  transition-all duration-300
        p-4  grid-cols-1 justify-items-center sm:grid-cols-2 
        md:grid-cols-3 xl:grid-cols-4   overflow-hidden sm:grid hidden`}
       >
