@@ -270,8 +270,7 @@ const Login: NextPageWithLayout = ({
               ></div>
               <div className="relative z-50">
                 <h1
-                  className="text-[35px] text-center  sm:text-[50px] bg-gradient-to-r
-              from-amber-900 to-amber-600 font-bold mb-2 bg-clip-text text-transparent"
+                  className="text-[35px] text-center  sm:text-[50px] font-bold mb-2 bg-clip-text text-transparent"
                 >
                   <Link href="/">
                     <img src="/guruLogo.svg" className='w-44 sm:w-64 lg:w-fit' />
