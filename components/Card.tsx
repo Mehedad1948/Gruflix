@@ -24,7 +24,7 @@ interface Props {
 }
 
 function Card({
-  video: { imgUrl, title, channelId, statistics, publishedAt, description },
+  video: { imgUrl, title, channelId, statistics, publishedAt, description, id },
   linkTo = "/",
   size = "small",
 }: Props) {
@@ -55,6 +55,7 @@ function Card({
      '
         ></div> */}
         <img
+        style={{viewTransitionName: `video-${id}`}}
           // onError={handleImageError}
           className="mx-auto -mt-[27px] object-cover   "
           src={imgSrc}

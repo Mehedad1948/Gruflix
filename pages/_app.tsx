@@ -10,7 +10,8 @@ import Footer from "@/components/Footer";
 import { NextPage } from "next";
 import { Toaster } from "react-hot-toast";
 import Default from "@/components/layouts/default";
-import ErrorBoundary from '@/components/ErrorBoundary';
+import ErrorBoundary from "@/components/ErrorBoundary";
+import { useNextRouterViewTransitions } from "use-view-transitions/next";
 
 const queryClient = new QueryClient();
 
@@ -30,17 +31,15 @@ export default function MyApp({
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const isUserLoggedIn = async () => {
-  //     const isLoggedIn = await magic.user.isLoggedIn();
-  //     if (isLoggedIn) {
-  //       // router.push("/");
-  //     } else {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   isUserLoggedIn();
-  // }, []);
+  useNextRouterViewTransitions({
+    events: router.events as any,
+  });
+
+  useEffect(() => {
+    if (window.document) {
+      const transition = document.startViewTransition(() => {});
+    }
+  }, []);
 
   useEffect(() => {
     const handleComplete = () => {
@@ -60,12 +59,12 @@ export default function MyApp({
   return (
     <main className={`${montserrat.className}`}>
       <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <SessionProvider session={session}>
-          <Toaster />
-          {getLayout(<Component {...pageProps} />)}
-        </SessionProvider>
-      </QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+          <SessionProvider session={session}>
+            <Toaster />
+            {getLayout(<Component {...pageProps} />)}
+          </SessionProvider>
+        </QueryClientProvider>
       </ErrorBoundary>
     </main>
   );

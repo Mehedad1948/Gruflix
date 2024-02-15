@@ -29,7 +29,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 }
 
 export async function getStaticPaths() {
-  const listOfVideos: string[] = [];
+  const listOfVideos: string[] = ['SqcY0GlETPk', 'U2Wltnv-doo', 'd56mG7DezGs'];
   const paths = listOfVideos.map((videoId) => ({
     params: { videoId },
   }));
@@ -138,6 +138,7 @@ const Video: NextPageWithLayout = ({ video }: { video: VideoData }) => {
         >
           <div className="relative bg-black shadow shadow-blue-400">
             <iframe
+            style={{viewTransitionName: `video-${video.id}`}}
               id="player"
               // type="text/html"
               className={`${
