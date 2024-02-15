@@ -237,7 +237,7 @@ function Login({
               {providers &&
                 Object.values(providers).map((provider) => (
                   <div
-                    className="border rounded-lg cursor-pointer aspect-square bg-gradient-to-tr
+                    className="border rounded-lg  aspect-square bg-gradient-to-tr
                 from-indigo-400 to-indigo-950 w-12 text-sm text-white flex 
                 justify-center items-center "
                     onClick={() => signIn(provider.id)}

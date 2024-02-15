@@ -11,6 +11,7 @@ import { NextPage } from "next";
 import { Toaster } from "react-hot-toast";
 import Default from "@/components/layouts/default";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import CustomCursor from "@/components/atoms/CustomCursor";
 // import { useNextRouterViewTransitions } from "use-view-transitions/next";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ export default function MyApp({
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isClient, setIsClient] = useState(false);
 
   // useNextRouterViewTransitions({
   //   events: router.events as any,
@@ -38,6 +40,7 @@ export default function MyApp({
   useEffect(() => {
     if (window.document) {
       const transition = document.startViewTransition(() => {});
+      setIsClient(true);
     }
   }, []);
 
@@ -62,6 +65,7 @@ export default function MyApp({
         <QueryClientProvider client={queryClient}>
           <SessionProvider session={session}>
             <Toaster />
+            {isClient && <CustomCursor />}
             {getLayout(<Component {...pageProps} />)}
           </SessionProvider>
         </QueryClientProvider>

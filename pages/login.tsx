@@ -378,7 +378,7 @@ const Login: NextPageWithLayout = ({
                     if (provider.name !== "Credentials") {
                       return (
                         <div
-                          className="border rounded-lg cursor-pointer  header-text justify-evenly text-sm text-white flex 
+                          className="border rounded-lg   header-text justify-evenly text-sm text-white flex 
                  py-2 items-center gap-2 grow h-12"
                           onClick={() => signIn(provider.id)}
                           key={provider.id}

@@ -136,7 +136,7 @@ function Navbar() {
               </div>
             ) : (
               <button
-                className="block z-50  rounded-full border-2 border-orange-400 bg-[#f59e0b] cursor-pointer
+                className="block z-50  rounded-full border-2 border-orange-400 bg-[#f59e0b] 
               px-4 py-1 text-center  text-amber-50 font-semibold hover:scale-105 transition-transform 
               duration-500"
                 onClick={() => signIn()}
@@ -149,7 +149,7 @@ function Navbar() {
         {isMenuOpen && (
           <button
             onClick={() => signOut()}
-            className="absolute -bottom-11 z-50 right-0 w-32 rounded  header-text cursor-pointer
+            className="absolute -bottom-11 z-50 right-0 w-32 rounded  header-text 
                        px-2 py-1 text-center  text-amber-50 font-semibold"
           >
             Sign out
