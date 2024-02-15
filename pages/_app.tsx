@@ -65,7 +65,7 @@ export default function MyApp({
         <QueryClientProvider client={queryClient}>
           <SessionProvider session={session}>
             <Toaster />
-            {isClient && <CustomCursor />}
+            {/* {isClient && <CustomCursor />} */}
             {getLayout(<Component {...pageProps} />)}
           </SessionProvider>
         </QueryClientProvider>

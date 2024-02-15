@@ -13,7 +13,7 @@
   }
   body {
     @apply min-h-screen  font-medium 
-     selection:bg-emerald-300 !cursor-none;
+     selection:bg-emerald-300;
      
   }
   /* from-[#8ca3f5] to-[#3d4353] */
