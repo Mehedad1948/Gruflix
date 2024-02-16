@@ -29,7 +29,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 }
 
 export async function getStaticPaths() {
-  const listOfVideos: string[] = ['SqcY0GlETPk', 'U2Wltnv-doo', 'd56mG7DezGs'];
+  // const listOfVideos: string[] = ['SqcY0GlETPk', 'U2Wltnv-doo', 'd56mG7DezGs'];
+  const listOfVideos: string[] = [];
   const paths = listOfVideos.map((videoId) => ({
     params: { videoId },
   }));
